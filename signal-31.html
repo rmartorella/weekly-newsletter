@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Signal</title>
+<style>
+:root{
+  --ink:#0B0838;
+  --ink-2:#2A2748;
+  --ink-3:#514D6E;
+  --ink-4:#7B7794;
+  --bg:#FFFFFF;
+  --app-bg:#F3F5F9;
+  --paper:#F7F9FC;
+  --paper-2:#EDF1F7;
+  --rule:#DEE3EC;
+  --hair:#EBEFF6;
+  --accent:#FA733C;
+  --accent-soft:#FFEEE6;
+  --accent-ink:#9E3F14;
+  --blue-900:#0E3F6B;
+  --blue-700:#1B6AAE;
+  --blue:#4AA3E3;
+  --blue-300:#95C9EE;
+  --blue-100:#D4E8F8;
+  --blue-50:#EDF5FC;
+  --nav:#0B0838;
+  --nav-2:#1A1650;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#F4F3F9; --ink-2:#D3D1E4; --ink-3:#A5A2BC; --ink-4:#7B7799;
+    --bg:#12103F; --app-bg:#0B0838; --paper:#1A1650; --paper-2:#221D5C;
+    --rule:#2E2A6B; --hair:#26215F;
+    --accent:#FF8A57; --accent-soft:#3B1F14; --accent-ink:#FFC6AB;
+    --blue-900:#B9DBF4; --blue-700:#7FBEEB; --blue:#5EB0E8;
+    --blue-300:#3A79AE; --blue-100:#1D3F63; --blue-50:#152C46;
+    --nav:#080628; --nav-2:#141046;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#F4F3F9; --ink-2:#D3D1E4; --ink-3:#A5A2BC; --ink-4:#7B7799;
+  --bg:#12103F; --app-bg:#0B0838; --paper:#1A1650; --paper-2:#221D5C;
+  --rule:#2E2A6B; --hair:#26215F;
+  --accent:#FF8A57; --accent-soft:#3B1F14; --accent-ink:#FFC6AB;
+  --blue-900:#B9DBF4; --blue-700:#7FBEEB; --blue:#5EB0E8;
+  --blue-300:#3A79AE; --blue-100:#1D3F63; --blue-50:#152C46;
+  --nav:#080628; --nav-2:#141046;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--app-bg); color:var(--ink);
+  font-family:"Libre Franklin",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-weight:400; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{margin:0;line-height:1.15;text-wrap:balance}
+p{margin:0}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+.tnum{font-variant-numeric:tabular-nums}
+
+/* ---------- app chrome ---------- */
+.appbar{position:sticky;top:0;z-index:60;background:var(--nav);color:#fff;border-bottom:1px solid rgba(255,255,255,.09)}
+.appbar .in{max-width:1200px;margin:0 auto;padding:0 26px;height:54px;display:flex;align-items:center;gap:30px}
+.logo{display:flex;flex-direction:column;gap:3px;line-height:1;flex:0 0 auto}
+.logo b{font-weight:900;font-size:16px;letter-spacing:-.02em;color:#fff}
+.logo i{display:block;width:20px;height:3px;background:var(--accent);border-radius:2px}
+.nav{display:flex;gap:2px;flex:1;min-width:0;overflow:hidden}
+.nav a{font-size:13px;font-weight:500;color:#B9B7D0;text-decoration:none;padding:7px 13px;border-radius:5px;white-space:nowrap}
+.nav a:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav a[aria-current]{background:var(--blue-700);color:#fff;font-weight:600;box-shadow:inset 0 -3px 0 var(--accent)}
+.who{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+.who .nm{font-size:12.5px;color:#B9B7D0}
+.who .av{width:28px;height:28px;border-radius:50%;background:var(--blue-700);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;letter-spacing:.02em}
+@media(max-width:760px){.who .nm{display:none}.appbar .in{gap:16px;padding:0 18px}}
+
+.crumb{background:var(--bg);border-bottom:1px solid var(--rule)}
+.crumb .in{max-width:1200px;margin:0 auto;padding:12px 26px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.crumb .p{font-size:11.5px;color:var(--ink-4)}
+.crumb .c{font-size:11.5px;color:var(--ink-3);font-weight:600}
+.crumb .sep{color:var(--ink-4);font-size:11px}
+@media(max-width:760px){.crumb .in{padding:10px 18px}}
+
+/* ---------- shell ---------- */
+.shell{max-width:1200px;margin:0 auto;padding:22px 26px 0;display:grid;grid-template-columns:230px 1fr;gap:26px;align-items:start}
+@media(max-width:960px){.shell{grid-template-columns:1fr;gap:0;padding:16px 18px 0}}
+
+/* ---------- rail ---------- */
+.rail{position:sticky;top:70px;align-self:start;max-height:calc(100vh - 86px);overflow-y:auto;
+  background:var(--bg);border:1px solid var(--rule);border-radius:8px;padding:18px 16px 16px}
+@media(max-width:960px){.rail{position:static;max-height:none;overflow:visible;margin-bottom:16px}}
+.mark{display:none}
+.railtitle{font-family:"Newsreader",Georgia,serif;font-size:23px;font-weight:500;letter-spacing:-.02em;line-height:1.05;margin-bottom:3px;color:var(--ink)}
+.railsub{font-size:11px;color:var(--ink-3);line-height:1.45;margin-bottom:18px}
+.railhead{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--ink-4);
+  padding-bottom:8px;border-bottom:1px solid var(--rule);margin-bottom:6px}
+.issues{display:flex;flex-direction:column}
+@media(max-width:960px){
+  .issues{flex-direction:row;gap:9px;overflow-x:auto;padding-bottom:10px;scrollbar-width:thin}
+  .railtitle{font-size:30px}
+}
+.iss{text-align:left;padding:12px 12px 12px 13px;border-left:2px solid transparent;border-radius:0 6px 6px 0;
+  display:flex;flex-direction:column;gap:3px;transition:background .15s,border-color .15s}
+.iss:hover{background:var(--paper)}
+.iss .n{font-size:10px;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:var(--ink-4)}
+.iss .d{font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.iss .t{font-family:"Newsreader",Georgia,serif;font-size:13px;font-style:italic;color:var(--ink-3);line-height:1.35}
+.iss[aria-current="true"]{border-left-color:var(--accent);background:var(--blue-50)}
+.iss[aria-current="true"] .n{color:var(--accent-ink)}
+.iss[aria-current="true"] .d{color:var(--ink)}
+@media(max-width:960px){
+  .iss{flex:0 0 190px;border-left:0;border-top:2px solid transparent;border-radius:0 0 6px 6px;background:var(--paper)}
+  .iss[aria-current="true"]{border-top-color:var(--accent)}
+}
+.railhead{color:var(--accent-ink)}
+
+/* ---------- main ---------- */
+main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius:8px;
+  padding:30px 38px 40px;margin-bottom:26px}
+@media(max-width:760px){main{padding:22px 20px 30px}}
+.masthead{border-bottom:2px solid var(--blue-900);padding-bottom:14px;margin-bottom:26px;position:relative;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.masthead .mh{font-family:"Newsreader",Georgia,serif;font-size:clamp(32px,4.6vw,46px);font-weight:500;color:var(--ink);letter-spacing:-.025em;line-height:1}
+.masthead .dl{font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:600;color:var(--ink-3);text-align:right;line-height:1.7}
+.masthead .dl b{color:var(--accent);font-weight:700}
+.masthead:after{content:"";position:absolute;left:0;bottom:-2px;width:96px;height:2px;background:var(--accent)}
+
+.part{margin-top:44px}
+.parthead{display:flex;align-items:baseline;gap:13px;margin-bottom:16px}
+.parthead .num{font-family:"Newsreader",Georgia,serif;font-size:13px;font-style:italic;color:var(--accent);flex:0 0 auto}
+.parthead h2{font-size:12px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--ink-2)}
+.parthead .line{flex:1;height:1px;background:var(--rule)}
+
+/* essay */
+.essay h3{font-family:"Newsreader",Georgia,serif;font-size:clamp(25px,3.4vw,34px);font-weight:500;color:var(--ink);
+  letter-spacing:-.02em;line-height:1.18;max-width:22ch;margin-bottom:16px}
+.essay p{font-family:"Newsreader",Georgia,serif;font-size:18.5px;font-weight:400;line-height:1.6;color:var(--ink-2);max-width:66ch}
+.essay p + p{margin-top:14px}
+.essay em{font-style:italic;color:var(--ink)}
+.essay strong{font-weight:600;color:var(--ink)}
+.sign{margin-top:20px;padding-top:12px;border-top:2px solid var(--accent);display:inline-block;
+  font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink-2)}
+
+/* section */
+.sect{margin-top:34px;padding-top:2px}
+.secthead{display:flex;align-items:baseline;gap:12px;margin-bottom:11px;flex-wrap:wrap}
+.secthead h3{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--blue-700);
+  display:flex;align-items:center;gap:8px}
+.secthead h3:before{content:"";width:9px;height:9px;background:var(--accent);border-radius:2px;flex:0 0 auto}
+.secthead .r{flex:1;height:1px;background:var(--blue-700);opacity:.3;min-width:20px}
+.analysis{font-family:"Newsreader",Georgia,serif;font-size:17px;font-weight:400;line-height:1.58;color:var(--ink-2);max-width:68ch}
+.analysis strong{font-weight:600;color:var(--ink)}
+
+/* exhibit */
+.ex{margin-top:18px;border:1px solid var(--rule);border-top:2px solid var(--accent);border-radius:7px;background:var(--bg);overflow:hidden}
+.exh{padding:13px 18px 12px;border-bottom:1px solid var(--hair);background:var(--paper);display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap}
+.exh h4{font-size:14.5px;font-weight:600;letter-spacing:-.008em}
+.exh h4 .nd{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-left:7px;vertical-align:middle}
+.exh .unit{font-size:10px;letter-spacing:.11em;text-transform:uppercase;font-weight:600;color:var(--ink-4);white-space:nowrap}
+.exb{padding:16px 18px 18px}
+.freq{display:inline-block;font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+  border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent-ink);
+  border-radius:3px;padding:2px 6px;margin-left:8px;vertical-align:middle}
+.sowhat{margin-top:11px;background:var(--accent-soft);border-left:3px solid var(--accent);
+  border-radius:0 6px 6px 0;padding:12px 15px;font-size:13.5px;line-height:1.55;color:var(--accent-ink)}
+.sowhat .lbl{display:block;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;
+  font-weight:800;color:var(--accent);margin-bottom:6px}
+.sowhat b{font-weight:700;color:var(--accent-ink)}
+.reads{margin-top:13px;font-size:13.5px;line-height:1.55;color:var(--ink-2);padding-left:13px;border-left:3px solid var(--blue-700);background:var(--blue-50);padding:11px 13px;border-radius:0 5px 5px 0}
+.reads b{color:var(--ink);font-weight:600}
+
+/* charts */
+.chartwrap{overflow-x:auto}
+.chartwrap svg{display:block;width:100%;min-width:460px;height:auto}
+.axl{font-size:9.5px;fill:var(--ink-4);font-weight:500;font-family:"Libre Franklin",sans-serif}
+.gl{stroke:var(--hair);stroke-width:1}
+.gz{stroke:var(--rule);stroke-width:1.4}
+.endl{font-size:10.5px;font-weight:700;font-family:"Libre Franklin",sans-serif}
+
+/* rank rows */
+.rk{display:flex;flex-direction:column}
+.rkrow{display:grid;grid-template-columns:1fr 46px;gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid var(--hair)}
+.rkrow:last-child{border-bottom:0}
+.rkrow .lab{font-size:13.5px;color:var(--ink);display:flex;align-items:center;gap:10px;min-width:0}
+.rkrow .lab span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rkrow .bar{height:8px;border-radius:2px;flex:0 0 auto}
+.rkrow .v{text-align:right;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums}
+
+/* diverging */
+.dv{display:flex;flex-direction:column;gap:2px}
+.dvh{display:grid;grid-template-columns:1fr 168px 1fr;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:var(--ink-4);margin-bottom:9px}
+.dvr{display:grid;grid-template-columns:1fr 168px 1fr;align-items:center;padding:3px 0}
+@media(max-width:640px){.dvh,.dvr{grid-template-columns:1fr 106px 1fr}}
+.dvh .l{text-align:right}.dvh .r{text-align:left;color:var(--accent)}
+.dvr .lb,.dvr .rb{height:17px;display:flex;align-items:center}
+.dvr .lb{justify-content:flex-end}
+.dvr .lb i,.dvr .rb i{display:block;height:17px;border-radius:2px}
+.dvr .nm{text-align:center;padding:0 9px;font-size:12px;color:var(--ink);line-height:1.25}
+.dvr .lb span,.dvr .rb span{font-size:10.5px;font-weight:700;padding:0 6px;font-variant-numeric:tabular-nums}
+
+/* dumbbell */
+.db{display:flex;flex-direction:column}
+.dbr{display:grid;grid-template-columns:150px 1fr 62px;gap:14px;align-items:center;padding:8px 0;border-bottom:1px solid var(--hair)}
+.dbr:last-child{border-bottom:0}
+@media(max-width:640px){.dbr{grid-template-columns:106px 1fr 54px;gap:10px}}
+.dbr .nm{font-size:13px;color:var(--ink)}
+.dbt{position:relative;height:18px}
+.dbt .bar{position:absolute;top:8px;height:2px;background:var(--rule)}
+.dbt .pt{position:absolute;top:4px;width:10px;height:10px;border-radius:50%;margin-left:-5px}
+.dbt .pt.a{background:var(--bg);border:2px solid var(--blue-300)}
+.dbt .pt.b{background:var(--accent)}
+.dbt .pt.b.dn{background:var(--blue-700)}
+.dbr .dl{text-align:right;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+
+/* stacked */
+.stk{overflow-x:auto}
+
+/* funnel */
+.fn{display:flex;flex-direction:column;gap:4px}
+.fnr{display:grid;grid-template-columns:158px 1fr;gap:14px;align-items:center}
+@media(max-width:640px){.fnr{grid-template-columns:1fr;gap:3px}}
+.fnr .l{font-size:12.5px;color:var(--ink);text-align:right;font-weight:500}
+@media(max-width:640px){.fnr .l{text-align:left}}
+.fnb{height:32px;border-radius:3px;display:flex;align-items:center;padding:0 11px;color:#fff;font-size:12px;font-weight:600;white-space:nowrap;min-width:78px}
+
+/* stat strip */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:7px;overflow:hidden}
+.st{background:var(--bg);padding:14px 15px}
+.st .n{font-size:24px;font-weight:900;letter-spacing:-.03em;line-height:1}
+.st .n.a{color:var(--accent)}
+.st .l{font-size:11.5px;color:var(--ink-3);margin-top:6px;line-height:1.4}
+
+.ask.partner{margin-top:16px;border-color:var(--accent);border-left:3px solid var(--accent);background:var(--accent-soft)}
+.ask.partner h4{color:var(--accent-ink)}
+.ask.partner .sub{color:var(--accent-ink);opacity:.92}
+.cta{margin-top:14px;background:var(--accent);color:#fff;border-radius:5px;padding:10px 18px;
+  font-size:13.5px;font-weight:600;letter-spacing:.01em}
+.cta:hover{filter:brightness(1.06)}
+
+/* vs comparison */
+.vs{display:flex;flex-direction:column;gap:11px}
+.vsr{display:grid;grid-template-columns:1fr;gap:5px;padding-bottom:11px;border-bottom:1px solid var(--hair)}
+.vsr:last-child{border-bottom:0}
+.vsr .l{font-size:13px;color:var(--ink);font-weight:500}
+.vsb{display:grid;grid-template-columns:1fr;gap:4px}
+.vsl{display:grid;grid-template-columns:118px 1fr 78px;gap:10px;align-items:center}
+@media(max-width:600px){.vsl{grid-template-columns:90px 1fr 72px;gap:8px}}
+.vsl .k{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-4);text-align:right}
+.vsl .t{height:15px;background:var(--paper-2);border-radius:3px;overflow:hidden}
+.vsl .t i{display:block;height:15px;border-radius:3px}
+.vsl .v{font-size:12px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+
+/* personal */
+.pf{display:flex;flex-direction:column;gap:18px}
+.pfr{display:grid;grid-template-columns:196px 1fr;gap:16px;align-items:center}
+@media(max-width:700px){.pfr{grid-template-columns:1fr;gap:4px}}
+.pfr .l{font-size:12.5px;color:var(--ink);font-weight:500;text-align:right}
+@media(max-width:700px){.pfr .l{text-align:left}}
+.pftrack{position:relative;height:26px;background:var(--paper-2);border-radius:3px}
+.pftrack .you{position:absolute;left:0;top:0;height:26px;border-radius:3px;background:var(--blue-700);
+  display:flex;align-items:center;padding:0 9px;color:#fff;font-size:11.5px;font-weight:700}
+.pftrack .coh{position:absolute;top:-3px;height:32px;width:2px;background:var(--accent)}
+.pftrack .coh:after{content:"median " attr(data-v);position:absolute;top:-15px;left:0;transform:translateX(-3px);
+  font-size:9px;font-weight:700;color:var(--accent-ink);white-space:nowrap;background:var(--bg);padding:0 3px}
+.pfr .cv{font-size:11.5px;color:var(--ink-3);text-align:right;font-variant-numeric:tabular-nums}
+.pfr .cv b{color:var(--ink);font-weight:700;font-size:12.5px}
+.pfkey{display:flex;gap:18px;margin-top:14px;font-size:11px;color:var(--ink-3);flex-wrap:wrap;align-items:center}
+.pfkey span{display:flex;align-items:center;gap:6px}
+.pfkey i{display:block;width:11px;height:11px;border-radius:2px}
+
+.gaps{display:flex;flex-direction:column;gap:9px}
+.gp{display:grid;grid-template-columns:20px 1fr;gap:11px;align-items:start;padding:11px 13px;
+  border:1px solid var(--rule);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;background:var(--accent-soft)}
+.gp .x{font-size:13px;font-weight:900;color:var(--accent);line-height:1.3}
+.gp .t{font-size:13.5px;color:var(--accent-ink);line-height:1.5}
+.gp .t b{font-weight:700}
+
+.ratestrip{position:relative;height:84px;margin:14px 0 6px}
+.ratestrip .band{position:absolute;top:20px;height:16px;background:var(--blue-100);border-radius:3px}
+.ratestrip .full{position:absolute;top:26px;height:4px;left:0;right:0;background:var(--paper-2);border-radius:2px}
+.ratestrip .med{position:absolute;top:14px;height:28px;width:2px;background:var(--blue-900)}
+.ratestrip .me{position:absolute;top:8px;height:40px;width:3px;background:var(--accent)}
+.ratestrip .cap{position:absolute;font-size:10px;font-weight:700;white-space:nowrap;transform:translateX(-50%)}
+.ratestrip .cap.top{top:-4px}
+.ratestrip .cap.bot{top:44px;color:var(--ink-3);font-weight:600}
+.ratestrip .cap.bot2{top:63px;color:var(--blue-900);font-weight:700}
+
+/* quotes */
+.qs{display:flex;flex-direction:column;gap:11px}
+.q{font-family:"Newsreader",Georgia,serif;font-size:15.5px;font-style:italic;line-height:1.5;color:var(--ink-2);
+  padding:12px 15px;background:var(--blue-50);border-left:3px solid var(--blue-300);border-radius:0 5px 5px 0}
+.q cite{display:block;font-family:"Libre Franklin",sans-serif;font-style:normal;font-size:9.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--accent-ink);margin-top:8px;font-weight:700}
+
+/* tip */
+.tip{background:var(--accent-soft);border-radius:7px;padding:17px 19px}
+.tip .k{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--accent-ink);margin-bottom:8px}
+.tip p{font-size:14.5px;line-height:1.55;color:var(--accent-ink)}
+
+/* bet */
+.bets{display:flex;flex-direction:column;gap:10px}
+.bet{display:grid;grid-template-columns:26px 1fr;gap:14px;padding:15px 17px;border:1px solid var(--rule);border-radius:7px}
+.bet .i{font-family:"Newsreader",Georgia,serif;font-size:19px;font-style:italic;color:var(--blue-700);line-height:1}
+.bet .c{font-size:15px;font-weight:600;line-height:1.45}
+.bet .o{font-size:13px;color:var(--ink-3);margin-top:6px;line-height:1.55}
+.grade{display:inline-block;font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;border-radius:3px;padding:2px 6px;margin-right:7px;vertical-align:middle}
+.grade.held{background:var(--accent);color:#fff}
+.grade.miss{background:var(--paper-2);color:var(--ink-3)}
+.grade.part{background:var(--blue-100);color:var(--blue-900)}
+
+/* q + next */
+.ask{border:1px solid var(--rule);border-radius:7px;padding:22px;background:var(--paper)}
+.ask h4{font-family:"Newsreader",Georgia,serif;font-size:20px;font-weight:400;line-height:1.3;max-width:36ch;margin-bottom:8px}
+.ask .sub{font-size:13.5px;color:var(--ink-3);line-height:1.55;max-width:62ch}
+.opts{display:flex;flex-direction:column;gap:7px;margin-top:15px}
+.opt{text-align:left;border:1px solid var(--rule);border-radius:4px;padding:11px 14px;font-size:13.5px;color:var(--ink-2);transition:.14s}
+.opt:hover{border-color:var(--blue-700);background:var(--blue-50)}
+.opt.on{border-color:var(--blue-700);background:var(--blue-50);color:var(--blue-900);font-weight:600}
+.thanks{margin-top:11px;font-size:12.5px;color:var(--blue-700);font-weight:600}
+
+.nextb{border:1px solid var(--accent);border-left-width:3px;background:var(--accent-soft);border-radius:7px;padding:18px 20px}
+.nextb ul{margin:10px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.nextb li{font-size:14px;color:var(--accent-ink);padding-left:16px;position:relative;line-height:1.5;font-weight:500}
+.nextb li:before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+
+/* nav */
+.pager{margin-top:48px;padding-top:18px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:14px}
+.pg{font-size:12.5px;color:var(--ink-3);display:flex;flex-direction:column;gap:2px;text-align:left}
+.pg:hover{color:var(--blue-700)}
+.pg .k{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ink-4)}
+.pg.n{text-align:right;align-items:flex-end}
+.pg[disabled]{opacity:.3;cursor:default}
+
+footer{border-top:1px solid var(--rule);margin-top:44px;padding-top:20px;font-size:12px;color:var(--ink-3);line-height:1.65;max-width:74ch}
+footer b{color:var(--ink-2);font-weight:600}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+.fade{animation:fi .28s ease}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+</style>
+</head>
+<body>
+
+<header class="appbar">
+  <div class="in">
+    <div class="logo"><b>CT</b><i></i></div>
+    <nav class="nav">
+      <a href="#">Opportunities</a>
+      <a href="#">My Work</a>
+      <a href="#">Proposals</a>
+      <a href="#">Profile</a>
+      <a href="#" aria-current="page">The Signal</a>
+    </nav>
+    <div class="who"><span class="nm">Consultant Community</span><span class="av">JM</span></div>
+  </div>
+</header>
+<div class="crumb">
+  <div class="in"><span class="p">Consultant Community</span><span class="sep">&rsaquo;</span><span class="c">The Signal</span></div>
+</div>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="mark"><b>CT</b><i></i></div>
+    <div class="railtitle">The Signal</div>
+    <div class="railsub">Weekly, for the Catalant Consultant Community</div>
+    <div class="railhead">Issues</div>
+    <div class="issues">
+<div class="iss" aria-current="true">
+       <span class="n">No. 31 &middot; Current</span>
+       <span class="d">24 Aug</span>
+       <span class="t">Quality and reliability, without the rest of it.</span>
+     </div>
+<div class="iss">
+       <span class="n">No. 30</span>
+       <span class="d">17 Aug</span>
+       <span class="t">The handoff is the deliverable now.</span>
+     </div>
+<div class="iss">
+       <span class="n">No. 29</span>
+       <span class="d">10 Aug</span>
+       <span class="t">The fastest-growing AI purchase is not building AI.</span>
+     </div>
+<div class="iss">
+       <span class="n">No. 28</span>
+       <span class="d">3 Aug</span>
+       <span class="t">Consumer stopped buying demand and started buying supply.</span>
+     </div>
+    </div>
+  </aside>
+
+  <main id="main">
+<div class="masthead">
+      <div class="mh">The Signal</div>
+      <div class="dl">No. 31<br>Monday 24 August 2026<br><b>Current issue</b></div>
+    </div><section class="part"><div class="parthead"><span class="num">One</span><h2>What we are seeing</h2><span class="line"></span></div>
+    <div class="essay"><h3>Quality and reliability, without the rest of it.</h3><p>About half the briefs we get now include a sentence that has nothing to do with the work. <em>Not a traditional big-firm advisory approach. The client does not seek recommendations or theories. This is not a role for a passive documenter. We are not seeking a team lead or a partner, low ego.</em> For a while I read those as clients turning against the big firms, and I no longer think that is right. Every one of those briefs still asks for the pedigree, and they still want the things a good firm genuinely delivers: rigour, a real answer, somebody who has done this before, and the confidence that it actually gets finished.</p><p>What they are refusing is everything that has historically come attached to it. The layers, the bill, the theatre, and the person who needs the room to know how senior they are. That is not a rejection of consulting, it is a far more specific order than we used to get, and it is a hard order for a firm to fill and a natural one for an experienced operator working on their own. The consultants doing well here are not winning because they are cheaper. They are winning because they can be trusted to deliver like a firm and behave like a colleague, and the data further down this issue says the same thing from three different directions.</p>
+    <div class="sign">Pat Petitti</div></div></section><section class="part"><div class="parthead"><span class="num">Two</span><h2>The data</h2><span class="line"></span></div><div class="sect"><div class="secthead"><h3>Demand trends</h3><span class="r"></span></div>
+      <p class="analysis">The most useful number we have on AI is not how much of it we are selling. It is the distance between how often clients raise it in the room and how often it survives into a brief. That gap has widened every year for three years running, and a gap that keeps widening is a forecast rather than a curiosity. Underneath it the wider mix is moving the same way, toward work that gets installed and away from work that gets presented.</p>
+      <div class="ex">
+    <div class="exh"><h4>Said versus bought: AI in the conversation against AI in the brief<span class="freq">Minimum monthly</span></h4><div class="unit">% mentioning AI, by year</div></div>
+    <div class="exb"><div class="chartwrap"><svg viewBox="0 0 760 310" role="img" aria-label="Said versus bought: AI in the conversation against AI in the brief"><line class="gz" x1="44" y1="268" x2="610" y2="268"/><text class="axl" x="36" y="271.5" text-anchor="end">0%</text><line class="gl" x1="44" y1="205" x2="610" y2="205"/><text class="axl" x="36" y="208.5" text-anchor="end">15%</text><line class="gl" x1="44" y1="142" x2="610" y2="142"/><text class="axl" x="36" y="145.5" text-anchor="end">30%</text><line class="gl" x1="44" y1="79" x2="610" y2="79"/><text class="axl" x="36" y="82.5" text-anchor="end">45%</text><line class="gl" x1="44" y1="16" x2="610" y2="16"/><text class="axl" x="36" y="19.5" text-anchor="end">60%</text><text class="axl" x="44" y="288" text-anchor="middle">2024</text><text class="axl" x="327" y="288" text-anchor="middle">2025</text><text class="axl" x="610" y="288" text-anchor="middle">2026 to date</text><polygon points="44,204.58 327,150.4 610,81.94000000000003 610,188.2 327,226.42 44,246.58" fill="var(--accent)" opacity="0.13"/><text class="endl" x="44" y="229.08" text-anchor="middle" fill="var(--accent-ink)" font-size="10.5">10.0 pts</text><text class="endl" x="327" y="191.91" text-anchor="middle" fill="var(--accent-ink)" font-size="10.5">18.1 pts</text><text class="endl" x="610" y="138.57" text-anchor="middle" fill="var(--accent-ink)" font-size="10.5">25.3 pts</text><polyline points="44,204.58 327,150.4 610,81.94000000000003" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="44" cy="204.58" r="3.6" fill="var(--accent)"/><circle cx="327" cy="150.4" r="3.6" fill="var(--accent)"/><circle cx="610" cy="81.94000000000003" r="3.6" fill="var(--accent)"/><polyline points="44,246.58 327,226.42 610,188.2" fill="none" stroke="var(--blue-900)" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="44" cy="246.58" r="3.6" fill="var(--blue-900)"/><circle cx="327" cy="226.42" r="3.6" fill="var(--blue-900)"/><circle cx="610" cy="188.2" r="3.6" fill="var(--blue-900)"/><text class="endl" x="621" y="85.44000000000003" fill="var(--accent)">44.3% <tspan font-weight="500" font-size="9.5">of client conversations</tspan></text><text class="endl" x="621" y="191.7" fill="var(--blue-900)">19.0% <tspan font-weight="500" font-size="9.5">of project briefs</tspan></text></svg></div><div class="reads"><b>Read it as:</b> AI now comes up in 44% of client conversations, close to triple where it was two years ago. It survives into 19% of the briefs those conversations produce. The gap has gone from ten points to twenty five, which means the talking is running well ahead of the buying and most of it has not been scoped yet. The people who get scoped into it will be the ones already in the room when it stops being a conversation. <b>Method:</b> full call transcripts, not summaries. Summaries compress and undercount this by roughly half.</div><div class="sowhat"><span class="lbl">So what</span>Get into the conversation before it becomes a brief. Ask your current clients what they are trying to do with AI, even where it is nowhere near your scope, and put one line in your profile naming the AI-adjacent work you have actually shipped. Twenty five points of demand is sitting unscoped, and it will be scoped by whoever is already in the room.</div></div>
+  </div><div class="ex">
+    <div class="exh"><h4>Project mix: what is rising, and what is going away<span class="freq">Minimum monthly</span></h4><div class="unit">Change in share of tagged briefs, 12 mo vs prior 12</div></div>
+    <div class="exb"><div class="dvh"><div class="l">Losing share</div><div></div><div class="r">Gaining share</div></div><div class="dv"><div class="dvr">
+        <div class="lb"></div>
+        <div class="nm">AI Adoption and Enablement</div>
+        <div class="rb"><i style="width:83.9%;background:var(--accent)"></i><span style="color:var(--accent)">+2.6</span></div>
+      </div><div class="dvr">
+        <div class="lb"></div>
+        <div class="nm">AI Proof of Concept</div>
+        <div class="rb"><i style="width:83.9%;background:var(--accent)"></i><span style="color:var(--accent)">+2.6</span></div>
+      </div><div class="dvr">
+        <div class="lb"></div>
+        <div class="nm">Due Diligence</div>
+        <div class="rb"><i style="width:64.5%;background:var(--accent)"></i><span style="color:var(--accent)">+2.0</span></div>
+      </div><div class="dvr">
+        <div class="lb"></div>
+        <div class="nm">Service and Support</div>
+        <div class="rb"><i style="width:61.3%;background:var(--accent)"></i><span style="color:var(--accent)">+1.9</span></div>
+      </div><div class="dvr">
+        <div class="lb"></div>
+        <div class="nm">Finance and Accounting Ops</div>
+        <div class="rb"><i style="width:41.9%;background:var(--accent)"></i><span style="color:var(--accent)">+1.3</span></div>
+      </div><div class="dvr">
+        <div class="lb"></div>
+        <div class="nm">Process Improvement</div>
+        <div class="rb"><i style="width:35.5%;background:var(--accent)"></i><span style="color:var(--accent)">+1.1</span></div>
+      </div><div class="dvr">
+        <div class="lb"></div>
+        <div class="nm">Separation and Carve-Out</div>
+        <div class="rb"><i style="width:22.6%;background:var(--accent)"></i><span style="color:var(--accent)">+0.7</span></div>
+      </div><div class="dvr">
+        <div class="lb"><span style="color:var(--ink-3)">-0.9</span><i style="width:29.0%;background:var(--blue-300)"></i></div>
+        <div class="nm">Enterprise Systems</div>
+        <div class="rb"></div>
+      </div><div class="dvr">
+        <div class="lb"><span style="color:var(--ink-3)">-1.2</span><i style="width:38.7%;background:var(--blue-300)"></i></div>
+        <div class="nm">Reporting and Analytics</div>
+        <div class="rb"></div>
+      </div><div class="dvr">
+        <div class="lb"><span style="color:var(--ink-3)">-1.2</span><i style="width:38.7%;background:var(--blue-300)"></i></div>
+        <div class="nm">Org Restructuring</div>
+        <div class="rb"></div>
+      </div><div class="dvr">
+        <div class="lb"><span style="color:var(--ink-3)">-2.0</span><i style="width:64.5%;background:var(--blue-300)"></i></div>
+        <div class="nm">Competitive Benchmarking</div>
+        <div class="rb"></div>
+      </div><div class="dvr">
+        <div class="lb"><span style="color:var(--ink-3)">-2.0</span><i style="width:64.5%;background:var(--blue-300)"></i></div>
+        <div class="nm">Market Sizing and Segmentation</div>
+        <div class="rb"></div>
+      </div><div class="dvr">
+        <div class="lb"><span style="color:var(--ink-3)">-2.6</span><i style="width:83.9%;background:var(--blue-300)"></i></div>
+        <div class="nm">Marketing Strategy</div>
+        <div class="rb"></div>
+      </div><div class="dvr">
+        <div class="lb"><span style="color:var(--ink-3)">-3.1</span><i style="width:100.0%;background:var(--blue-300)"></i></div>
+        <div class="nm">Go-to-Market Excellence</div>
+        <div class="rb"></div>
+      </div></div><div class="reads"><b>Read it as:</b> competitive benchmarking has all but disappeared as a standalone brief and go-to-market has fallen further than anything else. Due diligence is the largest single category we tag and still climbing. The pattern is that discrete analytical studies are shrinking while operating, integration and enablement work grows.</div><div class="sowhat"><span class="lbl">So what</span>Read your own profile against this chart. If the first thing it names is a falling category, reorder it so a rising one leads. Go-to-market and marketing strategy still belong on the page, just not in the first line.</div></div>
+  </div></div><div class="sect"><div class="secthead"><h3>Buyer decision trends</h3><span class="r"></span></div>
+      <p class="analysis">The most repeated rejection in our debriefs is not about capability. It is a version of I could not tell what I would actually get. Very few of the conversations we sit in on include a consultant putting an actual piece of work on the table, which makes one redacted deliverable from a comparable engagement rarer and more useful than a strong CV. The second most common loss reason is one nobody ever hears about, which is being too senior for the job the client actually needs done.</p>
+      <div class="ex">
+    <div class="exh"><h4>How buyers decide: what they said after passing<span class="freq">Minimum monthly</span></h4><div class="unit">Client debriefs, anonymized</div></div>
+    <div class="exb"><div class="qs"><div class="q">&ldquo;He talked with a lot of jargon and I could not tease out what we are going to get.&rdquo;<cite>After a first call, industrials</cite></div><div class="q">&ldquo;I just need materials produced. His seventeen steps would take three months alone.&rdquo;<cite>Chief of staff search, healthcare</cite></div><div class="q">&ldquo;Too high level. I wanted policies, procedures and playbooks inside three months.&rdquo;<cite>Six months into an org design engagement</cite></div><div class="q">&ldquo;We picked him for prior knowledge of the company. He could have brought more industry perspective.&rdquo;<cite>Selection debrief, and they were satisfied anyway</cite></div></div><div class="reads"><b>The pattern:</b> prior context with the account beats prestige, and it is not close. The ramp-time discount is worth more to a buyer than domain breadth, and they will say so out loud.</div><div class="sowhat"><span class="lbl">So what</span>Take one redacted page of real work product into your next first call. Not a CV, not a capability deck, an actual deliverable from a comparable engagement. Almost nobody does this, and it answers the exact question that is losing people the work.</div></div>
+  </div></div><div class="sect"><div class="secthead"><h3>Supply trends</h3><span class="r"></span></div>
+      <p class="analysis">This is the question we are asked more than any other, so here is the answer. Density varies more by type of work than by anything else. Diligence briefs draw a crowd because the skill reads as portable. Interim operating seats draw far fewer people, because the commitment is longer and the fit is narrower, and that is exactly why the odds there are better.</p>
+      <div class="ex">
+    <div class="exh"><h4>Competitive density: what actually happens on a listed project<span class="freq">Minimum monthly</span></h4><div class="unit">Average journey, per project, last 12 months</div></div>
+    <div class="exb"><div class="fn"><div class="fnr"><div class="l">Matched to the brief by our system</div>
+      <div class="fnb" style="width:100%;background:var(--blue-900);color:#fff">dozens</div></div><div class="fnr"><div class="l">Screened by the Catalant team</div>
+      <div class="fnb" style="width:43%;background:var(--blue-700);color:#fff">a fraction of those</div></div><div class="fnr"><div class="l">Invited to express interest</div>
+      <div class="fnb" style="width:24%;background:var(--blue);color:#fff">single figures</div></div><div class="fnr"><div class="l">Shortlisted to the client</div>
+      <div class="fnb" style="width:16%;background:var(--blue-300);color:#fff">two to three</div></div><div class="fnr"><div class="l">Interviewed</div>
+      <div class="fnb" style="width:11%;background:var(--accent-soft);color:var(--accent-ink)">fewer than one in two projects</div></div><div class="fnr"><div class="l">Won the work</div>
+      <div class="fnb" style="width:8%;background:var(--accent);color:#fff">one</div></div></div><div class="reads"><b>What the stages mean.</b> Our matching system pulls a long list of consultants against every brief. A Catalant expert lead then screens that list and approves or declines each person, which is the screening step. The ones approved are invited to express interest, and a short slate goes to the client by name. <b>Read it as:</b> the narrow point is not the client. It is the step from matched to screened, which is decided on how legible your profile is against the brief. That is also the step most within your control, and the supply section of issue 28 shows exactly what separates the people who clear it.</div><div class="sowhat"><span class="lbl">So what</span>Stop optimising for the client and start optimising for the screen. The step that removes most people is a Catalant lead reading your profile against a brief, so make sure your profile contains the words the brief will contain. That is a profile edit, not a sales effort.</div></div>
+  </div></div><div class="sect"><div class="secthead"><h3>Outcomes</h3><span class="r"></span></div>
+      <p class="analysis">Rates are what people have least visibility into and most anxiety about, so we will publish the shape of them regularly. Two notes on method. We will always talk in weekly and daily terms and never hourly, because hourly framing drags everyone toward the same commodity conversation. And the honest headline is that rates barely separate by practice area at all, which tells you rate is almost never the thing deciding an engagement.</p>
+      <div class="ex">
+    <div class="exh"><h4>What consultants actually charge: the whole market, one chart<span class="freq">Minimum monthly</span></h4><div class="unit">Share of consultants at each weekly rate</div></div>
+    <div class="exb"><div class="rk"><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:14.502369668246445px;background:var(--blue-300)"></i><span style="">$4,000</span></div>
+       <div class="v tnum" style="color:var(--ink-3)">1.7%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:9.383886255924171px;background:var(--blue-300)"></i><span style="">$5,000</span></div>
+       <div class="v tnum" style="color:var(--ink-3)">1.1%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:162.08530805687204px;background:var(--accent)"></i><span style="font-weight:600">$6,000</span></div>
+       <div class="v tnum" style="color:var(--accent)">19.0%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:11.090047393364928px;background:var(--blue-300)"></i><span style="">$7,000</span></div>
+       <div class="v tnum" style="color:var(--ink-3)">1.3%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:180px;background:var(--accent)"></i><span style="font-weight:600">$8,000</span></div>
+       <div class="v tnum" style="color:var(--accent)">21.1%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:15.355450236966824px;background:var(--blue-300)"></i><span style="">$9,000</span></div>
+       <div class="v tnum" style="color:var(--ink-3)">1.8%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:148.43601895734594px;background:var(--accent)"></i><span style="font-weight:600">$10,000</span></div>
+       <div class="v tnum" style="color:var(--accent)">17.4%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:8.530805687203792px;background:var(--blue-300)"></i><span style="">$11,000</span></div>
+       <div class="v tnum" style="color:var(--ink-3)">1.0%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:79.33649289099526px;background:var(--accent)"></i><span style="font-weight:600">$12,000</span></div>
+       <div class="v tnum" style="color:var(--accent)">9.3%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:77.6303317535545px;background:var(--accent)"></i><span style="font-weight:600">$14,000</span></div>
+       <div class="v tnum" style="color:var(--accent)">9.1%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:16.2085308056872px;background:var(--blue-300)"></i><span style="">$16,000</span></div>
+       <div class="v tnum" style="color:var(--ink-3)">1.9%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:5.118483412322274px;background:var(--blue-300)"></i><span style="">$18,000</span></div>
+       <div class="v tnum" style="color:var(--ink-3)">0.6%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:19.62085308056872px;background:var(--blue-300)"></i><span style="">$20,000</span></div>
+       <div class="v tnum" style="color:var(--ink-3)">2.3%</div></div><div class="rkrow" style="grid-template-columns:1fr 58px">
+       <div class="lab"><i class="bar" style="width:114.31279620853081px;background:var(--blue-300)"></i><span style="">Everything else, 259 other values</span></div>
+       <div class="v tnum" style="color:var(--ink-3)">13.4%</div></div></div><div class="reads"><b>This is why every median we publish is a round number.</b> Five prices account for 76% of the entire market. $6,000, $8,000, $10,000, $12,000 and $14,000. Across 17,210 consultants there are only 272 distinct rates on the platform and 91.6% are an exact multiple of $1,000. The median lands on $8,000 because that is where the market physically sits, not because we rounded it. <b>For context:</b> practice area barely moves this. Every one of the eight largest practice areas has a median between $10,000 and $12,000 on the curated bench, and the spread inside each is wider than the gap between them.</div><div class="sowhat"><span class="lbl">So what</span>Notice how empty the odd numbers are. Fewer than one in fifty consultants sits at $9,000 or $11,000, which means the gaps between the big five are nearly unoccupied. If you are at $8,000 and delivering like the people at $12,000, there is no crowd standing between you and a move, and no client is comparing you against a dense field at $9,000. Pick your number off this chart deliberately rather than inheriting the one you set when you started.</div></div>
+  </div></div></section><section class="part"><div class="parthead"><span class="num">Three</span><h2>Feedback and questions</h2><span class="line"></span></div>
+    <p class="analysis" style="margin-bottom:18px;max-width:none">We want your feedback on how we can support you and we are always looking for insights from you.</p>
+    <div class="ask"><h4>When a client cuts your proposed timeline in half, what do you actually do?</h4><p class="sub">We ask because scope compresses between the first call and the signature far more often than it expands, and we do not have a good read on how you all handle it. Answer and we will publish what the network said next Monday.</p>
+      <div class="opts"><button class="opt" data-o="0">Hold the timeline and tell them what gets cut</button><button class="opt" data-o="1">Deliver the compressed version and absorb the hours</button><button class="opt" data-o="2">Split it into a fast first phase, then the rest</button><button class="opt" data-o="3">Walk away</button></div>
+      <p class="thanks" id="thx" hidden>Thanks. We will publish what the network said next Monday.</p>
+    </div>
+    <div class="ask partner">
+      <h4>Are there accounts or clients where you have relationships and want to partner with Catalant?</h4>
+      <p class="sub">If you know someone at a company we should be talking to, tell us and we will build the approach with you rather than around you. This is how a meaningful share of our best engagements start.</p>
+      <button class="cta">Tell us about an account</button>
+    </div></section><section class="part"><div class="parthead"><span class="num">Four</span><h2>What is coming next</h2><span class="line"></span></div>
+    <div class="nextb"><p style="font-size:13px;color:var(--ink-3)">In next Monday’s issue</p>
+      <ul><li>Industry mix, and which sectors took share this quarter</li><li>Where supply and demand are furthest apart</li><li>Sales cycle on work we won, and why private-equity buyers take three times longer to sign than corporates</li></ul></div></section><footer><p><b>How to read the numbers.</b> Everything about client demand is shown as a share, a direction or a rank, never as a count, a client name or a deal value. Our clients tell us things on the condition that we do not repeat them. Supply-side figures such as rates and practice area pool sizes are our own network’s data and are shown directly.</p>
+    <p style="margin-top:9px"><b>Where it comes from.</b> The Signal is written from the project briefs submitted to Catalant and the client conversations our team records, read in full each week. Nothing in it identifies a client, a company or a transaction. AI mention rates are measured on full call transcripts rather than call summaries, which compress and undercount by roughly half. Sales cycle is measured from the brief landing to a contract being created, on closed-won projects only. A private equity brief means the buying account sits in one of our PE client communities or the brief itself names a sponsor; internal and test records are excluded from every denominator.</p></footer>
+  </main>
+</div>
+
+<script>
+/* Poll selection only. No data, no network, no connectors. */
+document.addEventListener('click', function (e) {
+  var o = e.target.closest('.opt');
+  if (!o) return;
+  o.parentElement.querySelectorAll('.opt').forEach(function (x) { x.classList.remove('on'); });
+  o.classList.add('on');
+  var t = document.getElementById('thx');
+  if (t) t.hidden = false;
+});
+</script>
+
+</body>
+</html>
