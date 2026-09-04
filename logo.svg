@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <mask id="cut">
+      <rect x="0" y="0" width="200" height="200" fill="#000"/>
+      <!-- C: outer body, rounded-square counter, narrow aperture through the right stroke -->
+      <rect x="34" y="42" width="64" height="100" rx="20" fill="#fff"/>
+      <rect x="52" y="60" width="32" height="64" rx="11" fill="#000"/>
+      <rect x="76" y="84" width="32" height="16" rx="4" fill="#000"/>
+      <!-- T: crossbar + stem -->
+      <rect x="108" y="42" width="62" height="26" rx="5" fill="#fff"/>
+      <rect x="127" y="42" width="24" height="100" rx="5" fill="#fff"/>
+    </mask>
+  </defs>
+  <rect x="0" y="0" width="200" height="200" rx="8" fill="#110C33"/>
+  <rect x="0" y="0" width="200" height="200" fill="#fff" mask="url(#cut)"/>
+  <rect x="38" y="152" width="124" height="19" rx="3" fill="#F26F3B"/>
+</svg>
