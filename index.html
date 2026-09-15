@@ -417,7 +417,37 @@ async function save(){
   return false;
 }
 
-dbInit.then(function(ok){ dbOK = ok; if(!ok) setNote(NOTE_OFFLINE, false); });
+dbInit.then(function(ok){ dbOK = ok; if(!ok) setNote(NOTE_EMAIL, false); });
+
+function emailBody(){
+  const L = [];
+  if(state.name) L.push('Name: ' + state.name);
+  ISSUE.asks.forEach(function(a,i){
+    const rec = state.answers['q'+(i+1)] || {};
+    L.push('');
+    L.push(a.q);
+    L.push('  Answer: ' + (rec.answer || '(not answered)'));
+    if(rec.comment) L.push('  Comment: ' + rec.comment);
+  });
+  if(state.lead){ L.push(''); L.push('Accounts to partner on:'); L.push(state.lead); }
+  return L.join('\n');
+}
+
+/* mailto: has a practical length ceiling in some mail clients, so cap the
+   body and tell the reader rather than silently dropping their words. */
+function submitByEmail(){
+  const MAX = 1500;
+  let body = emailBody();
+  let cut = false;
+  if(body.length > MAX){ body = body.slice(0, MAX); cut = true; }
+  if(cut) body += '\n\n[Message was too long to prefill in full — please paste the rest below.]';
+  window.location.href = 'mailto:' + EMAIL
+    + '?subject=' + encodeURIComponent('The Signal No. ' + ISSUE.no + ' \u2014 feedback')
+    + '&body=' + encodeURIComponent(body);
+  setStatus(submitSt, cut
+    ? 'Opening your email app. Your answer was long, so please check nothing was cut off before sending.'
+    : 'Opening your email app. If nothing happens, email ' + EMAIL + '.');
+}
 
 const askEls = Array.prototype.slice.call(document.querySelectorAll('.ask:not(.partner)'));
 
@@ -437,7 +467,7 @@ const submitNote= document.getElementById('submitnote');
 const NOTE_IDLE  = 'Answers are saved as you go. Press Submit when you are done so we know it is finished.';
 const NOTE_DIRTY = 'Draft saved, not submitted yet. Press Submit when you are done.';
 const NOTE_DONE  = 'Submitted. You can change your answers and submit again any time.';
-const NOTE_OFFLINE = 'Responses cannot be recorded on this site. Email ' + EMAIL + ' instead.';
+const NOTE_EMAIL = 'Submitting opens an email to ' + EMAIL + ' with your answers filled in.';
 
 function setNote(msg,dirty){
   if(!submitNote) return;
@@ -479,7 +509,7 @@ function queueDraft(){
 
 function touched(){
   setStatus(submitSt,'');
-  if(dbOK === false) setNote(NOTE_OFFLINE, false);
+  if(dbOK === false) setNote(NOTE_EMAIL, false);
   else if(!state.submitted) setNote(NOTE_DIRTY, true);
   queueDraft();
 }
@@ -509,7 +539,12 @@ submitBtn.addEventListener('click', async()=>{
   state.submittedAt = new Date().toISOString();
   submitBtn.disabled = true;
   setStatus(submitSt,'Submitting…');
-  if(!await dbInit){ setStatus(submitSt, OFFLINE, true); submitBtn.disabled = false; return; }
+  if(!await dbInit){
+    state.submitted = false; state.submittedAt = '';
+    submitBtn.disabled = false;
+    submitByEmail();
+    return;
+  }
   pending.set(submitSt, state.name
     ? 'Thanks. We have your feedback and the Catalant team may follow up with you.'
     : 'Thanks. We have your feedback and will use it to shape the next issue.');
