@@ -444,7 +444,7 @@ function submitByEmail(){
     + '&body=' + encodeURIComponent(body);
   setStatus(submitSt, cut
     ? 'Opening your email app. Your answer was long, so please check nothing was cut off before sending.'
-    : 'Opening your email app. If nothing happens, email ' + EMAIL + '.');
+    : 'Opening your email app with your answers ready to send.');
 }
 
 const askEls = Array.prototype.slice.call(document.querySelectorAll('.ask:not(.partner)'));
@@ -465,7 +465,7 @@ const submitNote= document.getElementById('submitnote');
 const NOTE_IDLE  = 'Answers are saved as you go. Press Submit when you are done so we know it is finished.';
 const NOTE_DIRTY = 'Draft saved, not submitted yet. Press Submit when you are done.';
 const NOTE_DONE  = 'Submitted. You can change your answers and submit again any time.';
-const NOTE_EMAIL = 'Submitting opens an email to ' + EMAIL + ' with your answers filled in.';
+const NOTE_EMAIL = 'Submitting opens an email to the Catalant team with your answers filled in.';
 
 function setNote(msg,dirty){
   if(!submitNote) return;
