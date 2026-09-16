@@ -45,6 +45,28 @@ main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius
 .fbbtn:hover{filter:brightness(.95)}
 #feedback{scroll-margin-top:24px}
 
+.toc{border:1px solid var(--rule);border-top:2px solid var(--blue-900);border-radius:7px;background:var(--paper);padding:15px 19px 13px}
+.toc .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--ink-2);margin-bottom:9px}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc li{border-top:1px solid var(--hair)}
+.toc li:first-child{border-top:0}
+.toc a{display:flex;gap:11px;align-items:baseline;padding:8px 0;text-decoration:none;color:inherit}
+.toc .n{font-family:"Newsreader",Georgia,serif;font-style:italic;font-size:13px;color:var(--accent);flex:0 0 14px}
+.toc .t{font-size:13.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.toc a:hover .t{color:var(--accent)}
+.toc .d{font-family:"Newsreader",Georgia,serif;font-size:14.5px;line-height:1.35;color:var(--ink-3);min-width:0}
+@media(max-width:640px){.toc a{flex-wrap:wrap}.toc .d{flex:0 0 100%;padding-left:25px;margin-top:2px}}
+#whats-new,#part-essay,.sect{scroll-margin-top:20px}
+
+.news h3{font-family:"Newsreader",Georgia,serif;font-size:clamp(21px,2.7vw,27px);font-weight:500;color:var(--ink);letter-spacing:-.018em;line-height:1.2;max-width:30ch;margin-bottom:14px}
+.news p{font-family:"Newsreader",Georgia,serif;font-size:17px;line-height:1.58;color:var(--ink-2)}
+.news p+p{margin-top:12px}
+.news p b{color:var(--ink);font-weight:600}
+.news p.sub2{margin-top:10px;padding-left:20px;border-left:2px solid var(--hair)}
+.news a{color:var(--accent-ink);font-weight:600;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:2px}
+.news a:hover{color:var(--accent)}
+.newsblock+.newsblock{margin-top:28px;padding-top:20px;border-top:1px solid var(--rule)}
+
 .part{margin-top:44px}
 .parthead{display:flex;align-items:baseline;gap:13px;margin-bottom:16px}
 .parthead .num{font-family:"Newsreader",Georgia,serif;font-size:13px;font-style:italic;color:var(--accent);flex:0 0 auto}
@@ -111,8 +133,6 @@ main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius
 .submitbar .cta{margin-top:0;padding:13px 30px;font-size:14.5px;box-shadow:0 1px 3px rgba(11,8,56,.18);flex:0 0 auto}
 .submitbar .thanks{margin-top:0}
 .subnote{font-size:12.5px;line-height:1.5;color:var(--accent-ink);font-weight:600;min-width:0}
-.subnote.dirty{display:flex;align-items:baseline;gap:7px}
-.subnote.dirty:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);flex:0 0 auto;transform:translateY(-1px)}
 .fld{font:inherit;font-size:13.5px;color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:5px;padding:9px 12px;width:100%;max-width:340px;flex:1 1 210px;min-width:0}
 .fld::placeholder{color:var(--ink-4)}
 .fld:focus{border-color:var(--blue-700);outline:none;box-shadow:0 0 0 3px var(--blue-50)}
@@ -137,29 +157,52 @@ footer b{color:var(--ink-2);font-weight:600}
 <script>
 /* ============================================================ DATA */
 const ISSUE = {
-  no:1, date:'Friday 18 September 2026', tag:'Issue one',
+  no:1, date:'Wednesday 16 September 2026', tag:'Issue one',
+  toc:[
+    {t:'What&rsquo;s new at Catalant', d:'The launch of Forward Deployed Experts, plus CoE training and events', href:'#whats-new'},
+    {t:'What we are seeing', d:'Quality and reliability, without the rest of it', href:'#part-essay'},
+    {t:'Demand trends', d:'The widening gap between AI in the conversation and AI in the project brief', href:'#sec-demand'},
+    {t:'Buyer decision trends', d:'What clients say when they decline working with us', href:'#sec-buyer'},
+    {t:'Supply trends', d:'What winning consultants list as their weekly rate, and by practice area', href:'#sec-supply'},
+    {t:'Feedback and questions', d:'Tell us what to put in the next issue', href:'#feedback'}
+  ],
+  news:{ blocks:[
+    {h:'Launch of Forward Deployed Experts (FDX)', ps:[
+      'We are very excited to announce that yesterday we launched our Forward Deployed Experts (FDX) solution. FDX is a proven approach that pairs experienced business operators with AI engineers to help organizations turn AI investments into measurable business results.',
+      'While investments in AI continue to skyrocket, many organizations are discovering that building AI tools is significantly easier than getting teams to use them effectively. To solve this disconnect, we have announced the launch of Forward Deployed Experts (FDX), a new service offering aimed directly at bridging the gap between high-level AI strategy and bottom-line business value.',
+      'The core challenge facing enterprise leaders isn&rsquo;t a lack of models or data, it&rsquo;s the execution bottleneck. AI initiatives frequently stall because technical engineers lack deep operational context, while frontline business leaders struggle to translate AI capabilities into daily workflows. Our FDX solution pairs specialized domain consultants directly with AI implementation teams and client personnel inside the organization. By embedding experts who understand specific industry operations, we help to steer implementation, ensure user adoption, and align AI output directly with key performance metrics and P&amp;L results.',
+      'Read more about FDX <a href="https://catalant.com/press-release/catalant-launches-forward-deployed-experts-to-close-the-gap-between-ai-strategy-and-business-impact/" target="_blank" rel="noopener">here</a>!'
+    ]},
+    {h:'CoE Updates', ps:[
+      '<b>Reminder to Attend for FDX Training:</b> Thank you to all of the CoE Consultants who attended our FDX training session on Monday, September 14. For anyone who was not able to make Monday&rsquo;s session, we highly encourage you to join the session on Friday Sept 18 at 12:30 PM ET. This training is extremely important for our CoE consultants to be able to effectively co-sell FDX opportunities alongside our Client Community teams.',
+      {t:'<b>Upcoming Events:</b>', sub:[
+        '<b>CoE In-person Connect: Consulting in the Age of AI:</b> Reminder to <a href="https://catalant.com/event/catalant-coe-connect-consulting-in-the-age-of-ai/" target="_blank" rel="noopener">register here</a> for our CoE Connect in Boston October 1-2 if you have not already.',
+        '<b>Save the Date:</b> PC Connect in New York, October 21st, 2026. Venue and registration page coming soon.'
+      ]}
+    ]}
+  ]},
   essay:{
     h:'Quality and reliability, without the rest of it.',
     ps:[
-      'A third of the briefs we get now include a sentence that has nothing to do with the work. <em>Not a traditional big-firm advisory approach. The client does not seek recommendations or theories. This is not a role for a passive documenter. We are not seeking a team lead or a partner, low ego.</em> For a while I read those as clients turning against the big firms, and I no longer think that is right. Every one of those briefs still asks for the pedigree, and they still want the things a good firm genuinely delivers: rigour, a real answer, somebody who has done this before, and the confidence that it actually gets finished.',
+      'A third of the project briefs we get now include a sentence that has nothing to do with the work. <em>Not a traditional big-firm advisory approach. The client does not seek recommendations or theories. This is not a role for a passive documenter. We are not seeking a team lead or a partner, low ego.</em> For a while I read those as clients turning against the big firms, and I no longer think that is right. Every one of those briefs still asks for the pedigree, and they still want the things a good firm genuinely delivers: rigour, a real answer, somebody who has done this before, and the confidence that it actually gets finished.',
       'What they are refusing is everything that has historically come attached to it. The layers, the bill, the theatre, and the person who needs the room to know how senior they are. That is not a rejection of consulting, it is a far more specific order than we used to get, and it is a hard order for a firm to fill and a natural one for an experienced operator working on their own. The consultants doing well here are not winning because they are cheaper. They are winning because they can be trusted to deliver like a firm and behave like a colleague, and the data further down this issue says the same thing from three different directions.'
     ]
   },
   sections:[
-    { k:'Demand trends',
+    { k:'Demand trends', id:'sec-demand',
       analysis:'The most useful number we have on AI is not how much of it we are selling. It is the distance between how often clients raise it in the room and how often it survives into a brief. That gap has widened every year for three years running, and a gap that keeps widening is a forecast rather than a curiosity. It is also, we think, the clearest opportunity in this issue, and it is not an opportunity for AI specialists. It is one for people who already know an industry or a function cold and are willing to learn how AI applies to it.',
       blocks:[
         {type:'gap',title:'Said versus bought: AI in the conversation against AI in the brief',
-         unit:'% mentioning AI, by year',freq:'Minimum monthly',
+         unit:'% mentioning AI, by year',
          x:['2024','2025','2026 to date'],
          said:[15.3,28.0,44.2], bought:[5.1,9.9,20.2],
          reads:'<b>Read it as:</b> AI now comes up in 44% of client conversations, close to triple where it was two years ago. It survives into 20% of the briefs those conversations produce. The gap has gone from ten points to twenty four, which means the talking is running well ahead of the buying and most of it has not been scoped yet. When AI comes up on a call and does not make the brief, it is almost never because the client decided against it. It is because nobody in the room could say what AI would concretely do inside their supply chain, their close process, their sales motion or their clinical operation. The brief that eventually gets written is for that operator, not for a data scientist. <b>Method:</b> full call transcripts, not summaries. Summaries compress and undercount this by roughly half.',
          sowhat:'This is an opportunity for subject matter experts, not for AI specialists. Do not rebrand yourself as an AI consultant. Pick the one or two places in your own field where AI is already changing how the work gets done, learn them properly, and put a concrete before-and-after example on your profile and in your first call. Write down the three questions a client in your field would ask about AI this year: if you cannot answer them today, that is your reading list for the next month. When a client raises AI, be the person who can say what it would do in their business, not what it is.'}
       ]},
-    { k:'Buyer decision trends',
-      analysis:'The most repeated rejection in our debriefs is not about capability. It is a version of I could not tell what I would actually get. Very few of the conversations we sit in on include a consultant putting an actual piece of work on the table, which makes one redacted deliverable from a comparable engagement rarer and more useful than a strong CV. The second most common loss reason is one nobody ever hears about, which is being too senior for the job the client actually needs done.',
+    { k:'Buyer decision trends', id:'sec-buyer',
+      analysis:'The most repeated rejection in our debriefs is not about capability. It is a version of &ldquo;I could not tell what I would actually get.&rdquo; Very few of the client conversations include examples or real, redacted examples of a similar client problem that was solved and that presents an opportunity to share many more examples. This might be more effective than just showing a profile or a CV.',
       blocks:[
-        {type:'quotes',title:'How buyers decide: what they said after passing',unit:'Client debriefs, anonymized',freq:'Minimum monthly',
+        {type:'quotes',title:'How buyers decide: What clients say when they decline working with us',unit:'Client debriefs, anonymized',
          qs:[['He talked with a lot of jargon and I could not tease out what we are going to get.','After a first call, industrials'],
              ['I just need materials produced. His seventeen steps would take three months alone.','Chief of staff search, healthcare'],
              ['Too high level. I wanted policies, procedures and playbooks inside three months.','Six months into an org design engagement'],
@@ -167,14 +210,14 @@ const ISSUE = {
          reads:'<b>The pattern:</b> prior context with the account beats prestige, and it is not close. The ramp-time discount is worth more to a buyer than domain breadth, and they will say so out loud.',
          sowhat:'Bring one redacted deliverable from a comparable engagement to the first call and walk the client through it. Then say plainly what they will have in hand at the end of month one. If the brief asks for materials produced, do not pitch a diagnostic. Match the altitude of the job they are actually hiring for, even if you could operate several levels above it.'}
       ]},
-    { k:'Supply trends',
+    { k:'Supply trends', id:'sec-supply',
       analysis:'Rates are what people have least visibility into and most anxiety about, so we will publish the shape of them regularly, and we will always talk in weekly and daily terms rather than hourly. This month we are showing only one group: consultants who won work on the platform in the last twelve months and have a rate on file. One honest caveat first. Engagements are priced as a total or by milestone, not as hours times a rate, so we cannot see what anyone actually earned per hour or per week on a given project. What follows is the rate these consultants report on their profile, which is the number a client sees when they are deciding. Read it as what winners ask for, not what winners were paid.',
       blocks:[
         {type:'dist',title:'What winning consultants list as their weekly rate',
          unit:'Share of consultants who won work in the last 12 months, by listed weekly rate',freq:'Monthly',
          rows:[['Under $6,000',1.5,false],['$6,000 to $8,000',12.0,false],['$8,000 to $10,000',29.2,true],['$10,000 to $12,000',23.0,true],['$12,000 to $15,000',26.7,true],['$15,000 and above',7.5,false]],
          reads:'<b>Read it as:</b> nearly eight in ten winners list between $8,000 and $15,000 a week, which at a five day week is roughly $1,600 to $3,000 a day. The median winner lists $10,000. For comparison, the median across everyone who was surfaced for work this year but did not win is $8,000, and the bottom quartile of winners starts at $8,000 where the bottom quartile of non-winners starts at $7,000. The lower end of the market is not where the work is being won. Undercutting does not appear to be a strategy that works here.',
-         sowhat:'If your listed rate is below $8,000 a week, raise it. You are pricing yourself out of the group that wins, not into it. If you are already in the $8,000 to $15,000 range, hold it and compete on clarity of deliverable rather than on price.'},
+         sowhat:'Clients rarely make decisions purely on rates. Generally, it&rsquo;s about value and impact. The more you can anchor the conversation on value and total cost the better you can defend your rates.'},
         {type:'rank',title:'Median listed weekly rate of winners, by primary practice area',unit:'Median weekly rate, winners only, practice areas with at least 10 winners',freq:'Monthly',fmt:'usd',
          rows:[['AI / ML',12000,'var(--accent)'],['PMO / Transformation',11000,'var(--blue)'],['GTM Strategy',11000,'var(--blue)'],['Operations and Process Improvement',11000,'var(--blue)'],['M and A / CDD',10000,'var(--blue-300)'],['Private Equity',10000,'var(--blue-300)'],['Marketing',9000,'var(--blue-300)'],['Supply Chain',9000,'var(--blue-300)']],
          reads:'<b>Read it as:</b> nine to twelve thousand a week across every practice area with enough winners to report. The spread inside each practice area is wider than the spread between them, so rate is almost never the thing deciding an engagement. AI / ML is the one area where winners list a visibly higher number, which is the supply side of the demand story above. <b>Caveat:</b> practice-area groups here are small, less than 50 winners each, so treat the ordering as directional rather than a league table.',
@@ -256,7 +299,7 @@ function renderBlock(b){
   else if(b.type==='dist') body=dist(b);
   const unit = b.unit ? `<div class="unit">${b.unit}</div>` : '';
   return `<div class="ex">
-    <div class="exh"><h4>${b.title}<span class="freq">${b.freq}</span></h4>${unit}</div>
+    <div class="exh"><h4>${b.title}${b.freq?`<span class="freq">${b.freq}</span>`:''}</h4>${unit}</div>
     <div class="exb">${body}${b.reads?`<div class="reads">${b.reads}</div>`:''}${b.sowhat?`<div class="sowhat"><span class="lbl">So what</span>${b.sowhat}</div>`:''}</div>
   </div>`;
 }
@@ -272,19 +315,35 @@ function renderIssue(s){
       <div class="dl">No. ${s.no}<br>${s.date}${s.tag?`<br><b>${s.tag}</b>`:''}</div>
     </div>`;
 
-  h += `<section class="part">${partHead('One','What we are seeing')}
+  if(s.toc && s.toc.length){
+    h += `<nav class="toc" aria-label="In this issue">
+      <div class="lbl">In this issue</div>
+      <ol>${s.toc.map((it,i)=>`<li><a href="${it.href}"><span class="n">${i+1}</span><span class="t">${it.t}</span><span class="d">${it.d}</span></a></li>`).join('')}</ol>
+    </nav>`;
+  }
+
+  if(s.news){
+    h += `<section class="part" id="whats-new">${partHead('One','What&rsquo;s new at Catalant')}
+      <div class="news">${s.news.blocks.map(b=>`<div class="newsblock"><h3>${b.h}</h3>
+        ${b.ps.map(p=> typeof p === 'string'
+            ? `<p>${p}</p>`
+            : `<p>${p.t}</p>${p.sub.map(x=>`<p class="sub2">${x}</p>`).join('')}`).join('')}
+      </div>`).join('')}</div></section>`;
+  }
+
+  h += `<section class="part" id="part-essay">${partHead('Two','What we are seeing: Reflections from Pat')}
     <div class="essay"><h3>${s.essay.h}</h3>${s.essay.ps.map(p=>`<p>${p}</p>`).join('')}
     <div class="sign">Pat Petitti</div></div></section>`;
 
-  h += `<section class="part">${partHead('Two','The data')}`;
+  h += `<section class="part">${partHead('Three','The data')}`;
   s.sections.forEach(sec=>{
-    h += `<div class="sect"><div class="secthead"><h3>${sec.k}</h3><span class="r"></span></div>
+    h += `<div class="sect"${sec.id?` id="${sec.id}"`:''}><div class="secthead"><h3>${sec.k}</h3><span class="r"></span></div>
       <p class="analysis">${sec.analysis}</p>
       ${sec.blocks.map(renderBlock).join('')}</div>`;
   });
   h += `</section>`;
 
-  h += `<section class="part" id="feedback">${partHead('Three','Feedback and questions')}
+  h += `<section class="part" id="feedback">${partHead('Four','Feedback and questions')}
     <p class="analysis" style="margin-bottom:18px;max-width:none">We want your feedback on how we can support you and we are always looking for insights from you. Please share your name if you&rsquo;re open to the Catalant team following up with you on your feedback. Answer whatever is useful, then press <b>Submit feedback</b> at the end.</p>
     <div class="namerow">
       <label for="fbname">Your name</label>
