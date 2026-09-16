@@ -474,7 +474,34 @@ async function save(){
   return false;
 }
 
-dbInit.then(function(ok){ dbOK = ok; if(!ok) setNote(NOTE_EMAIL, false); });
+dbInit.then(function(ok){ dbOK = ok; if(!ok) setNote(NOTE_SITE, false); });
+
+/* Google Form behind the page. Field ids come from the form's pre-filled
+   link; the reader never sees or loads Google. */
+const GFORM = 'https://docs.google.com/forms/d/e/1FAIpQLSfQ39KgltPssRl2mMlCOIFm4fhAUzrtn89D6nfW-xP2Q52UEw/formResponse';
+const GFIELD = {
+  name: 'entry.1965630767',
+  q1a:  'entry.2064747289', q1c: 'entry.1428376874',
+  q2a:  'entry.260872064',  q2c: 'entry.146335914',
+  lead: 'entry.734127064'
+};
+
+/* Google does not send CORS headers on formResponse, so this posts opaquely:
+   the row lands but the page cannot read the reply. A resolved fetch means
+   the request left the browser, not that Google accepted it. */
+function submitToForm(){
+  const a1 = state.answers['q1'] || {}, a2 = state.answers['q2'] || {};
+  const p = new URLSearchParams();
+  p.append(GFIELD.name, state.name);
+  p.append(GFIELD.q1a, a1.answer || '');
+  p.append(GFIELD.q1c, a1.comment || '');
+  p.append(GFIELD.q2a, a2.answer || '');
+  p.append(GFIELD.q2c, a2.comment || '');
+  p.append(GFIELD.lead, state.lead);
+  return fetch(GFORM, { method: 'POST', mode: 'no-cors', body: p })
+    .then(function(){ return true; })
+    .catch(function(){ return false; });
+}
 
 function emailBody(){
   const L = [];
@@ -490,8 +517,9 @@ function emailBody(){
   return L.join('\n');
 }
 
-/* mailto: has a practical length ceiling in some mail clients, so cap the
-   body and tell the reader rather than silently dropping their words. */
+/* Last resort if the POST cannot leave the browser at all. mailto: has a
+   practical length ceiling in some clients, so cap the body and say so
+   rather than silently dropping the end of a long answer. */
 function submitByEmail(){
   const MAX = 1500;
   let body = emailBody();
@@ -502,8 +530,8 @@ function submitByEmail(){
     + '?subject=' + encodeURIComponent('The Signal No. ' + ISSUE.no + ' \u2014 feedback')
     + '&body=' + encodeURIComponent(body);
   setStatus(submitSt, cut
-    ? 'Opening your email app. Your answer was long, so please check nothing was cut off before sending.'
-    : 'Opening your email app with your answers ready to send.');
+    ? 'We could not send that directly, so your email app is opening. Your answer was long, please check nothing was cut off.'
+    : 'We could not send that directly, so your email app is opening with your answers ready.');
 }
 
 const askEls = Array.prototype.slice.call(document.querySelectorAll('.ask:not(.partner)'));
@@ -524,7 +552,8 @@ const submitNote= document.getElementById('submitnote');
 const NOTE_IDLE  = 'Answers are saved as you go. Press Submit when you are done so we know it is finished.';
 const NOTE_DIRTY = 'Draft saved, not submitted yet. Press Submit when you are done.';
 const NOTE_DONE  = 'Submitted. You can change your answers and submit again any time.';
-const NOTE_EMAIL = 'Submitting opens an email to the Catalant team with your answers filled in.';
+const NOTE_SITE  = 'Press Submit when you are done.';
+const NOTE_SENT  = 'Thanks, your feedback has been sent.';
 
 function setNote(msg,dirty){
   if(!submitNote) return;
@@ -566,7 +595,7 @@ function queueDraft(){
 
 function touched(){
   setStatus(submitSt,'');
-  if(dbOK === false) setNote(NOTE_EMAIL, false);
+  if(dbOK === false) setNote(NOTE_SITE, false);
   else if(!state.submitted) setNote(NOTE_DIRTY, true);
   queueDraft();
 }
@@ -597,9 +626,18 @@ submitBtn.addEventListener('click', async()=>{
   submitBtn.disabled = true;
   setStatus(submitSt,'Submitting…');
   if(!await dbInit){
-    state.submitted = false; state.submittedAt = '';
+    setStatus(submitSt, 'Submitting\u2026');
+    const sent = await submitToForm();
     submitBtn.disabled = false;
-    submitByEmail();
+    if(sent){
+      setNote(NOTE_SENT, false);
+      setStatus(submitSt, state.name
+        ? 'Thanks. We have your feedback and the Catalant team may follow up with you.'
+        : 'Thanks. We have your feedback and will use it to shape the next issue.');
+    } else {
+      state.submitted = false; state.submittedAt = '';
+      submitByEmail();
+    }
     return;
   }
   pending.set(submitSt, state.name
