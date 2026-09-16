@@ -630,10 +630,19 @@ submitBtn.addEventListener('click', async()=>{
     const sent = await submitToForm();
     submitBtn.disabled = false;
     if(sent){
-      setNote(NOTE_SENT, false);
-      setStatus(submitSt, state.name
+      /* One confirmation, not two, and clear the form: resubmitting appends
+         another row, so leaving the answers sitting there invites duplicates. */
+      const named = !!state.name;
+      askEls.forEach(function(ask){
+        Array.prototype.forEach.call(ask.querySelectorAll('.opt'), function(x){ x.classList.remove('on'); });
+        const box = ask.querySelector('.qc'); if(box) box.value = '';
+      });
+      nameInput.value = ''; leadBox.value = '';
+      state.answers = {}; state.name = ''; state.lead = '';
+      setStatus(submitSt, '');
+      setNote(named
         ? 'Thanks. We have your feedback and the Catalant team may follow up with you.'
-        : 'Thanks. We have your feedback and will use it to shape the next issue.');
+        : 'Thanks. We have your feedback and will use it to shape the next issue.', false);
     } else {
       state.submitted = false; state.submittedAt = '';
       submitByEmail();
