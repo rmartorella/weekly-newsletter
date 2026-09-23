@@ -830,7 +830,6 @@ function bindFeedback(){
   const setStatus=(msg,err)=>{ submitSt.textContent=msg||''; submitSt.hidden=!msg; submitSt.classList.toggle('err',!!err); };
   const setNote=(msg,dirty)=>{ submitNote.textContent=msg; submitNote.classList.toggle('dirty',!!dirty); };
   const NOTE_IDLE='Press Submit when you are done.';
-  const NOTE_SENT='Thanks, your feedback has been sent.';
   const NOTE_DIRTY='Draft saved, not submitted yet. Press Submit when you are done.';
   const NOTE_DONE='Submitted. You can change your answers and submit again any time.';
 
