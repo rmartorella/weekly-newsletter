@@ -32,7 +32,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .tnum{font-variant-numeric:tabular-nums}
 
 .shell{max-width:1200px;margin:0 auto;padding:22px 26px 0;display:grid;grid-template-columns:230px 1fr;gap:26px;align-items:start}
-@media(max-width:960px){.shell{grid-template-columns:1fr;gap:0;padding:16px 18px 0}}
+@media(max-width:960px){.shell{grid-template-columns:minmax(0,1fr);gap:0;padding:16px 18px 0}}
+.shell>*{min-width:0}
 main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius:8px;padding:30px 38px 40px;margin-bottom:26px}
 @media(max-width:760px){main{padding:22px 20px 30px}}
 
@@ -58,7 +59,7 @@ main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius
 .toc .t{font-size:13.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
 .toc a:hover .t{color:var(--accent)}
 .toc .d{font-family:"Newsreader",Georgia,serif;font-size:14.5px;line-height:1.35;color:var(--ink-3);min-width:0}
-@media(max-width:640px){.toc a{flex-wrap:wrap}.toc .d{flex:0 0 100%;padding-left:25px;margin-top:2px}}
+@media(max-width:640px){.toc a{flex-wrap:wrap}.toc .t{flex:1 1 0;min-width:0}.toc .d{flex:0 0 100%;padding-left:25px;margin-top:2px}}
 #whats-new,#part-essay,.sect{scroll-margin-top:20px}
 
 .news h3{font-family:"Newsreader",Georgia,serif;font-size:clamp(21px,2.7vw,27px);font-weight:500;color:var(--ink);letter-spacing:-.018em;line-height:1.2;max-width:30ch;margin-bottom:14px}
@@ -434,7 +435,7 @@ const ISSUE1 = {
   essay:{
     h:'Quality and reliability, without the rest of it.',
     ps:[
-      'A third of the project briefs we get now include a sentence that has nothing to do with the work. <em>Not a traditional big-firm advisory approach. The client does not seek recommendations or theories. This is not a role for a passive documenter. We are not seeking a team lead or a partner, low ego.</em> For a while I read those as clients turning against the big firms, and I no longer think that is right. Every one of those briefs still asks for the pedigree, and they still want the things a good firm genuinely delivers: rigour, a real answer, somebody who has done this before, and the confidence that it actually gets finished.',
+      'A third of the project briefs we get now include a sentence that has nothing to do with the work. <em>Not a traditional big-firm advisory approach. The client does not seek recommendations or theories. This is not a role for a passive documenter. We are not seeking a team lead or a partner, low ego.</em> For a while I read those as clients turning against the big firms, and I no longer think that is right. Every one of those briefs still asks for the pedigree, and they still want the things a good firm genuinely delivers: rigor, a real answer, somebody who has done this before, and the confidence that it actually gets finished.',
       'What they are refusing is everything that has historically come attached to it. The layers, the bill, the theatre, and the person who needs the room to know how senior they are. That is not a rejection of consulting, it is a far more specific order than we used to get, and it is a hard order for a firm to fill and a natural one for an experienced operator working on their own. The consultants doing well here are not winning because they are cheaper. They are winning because they can be trusted to deliver like a firm and behave like a colleague, and the data further down this issue says the same thing from three different directions.'
     ]
   },
