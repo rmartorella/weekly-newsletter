@@ -1,0 +1,7 @@
+.DS_Store
+*.swp
+rendered/
+image.txt
+__pycache__/
+*.pyc
+.claude/

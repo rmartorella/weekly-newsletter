@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ct-signal
+  namespace: catalant-signal
+  labels:
+    app.kubernetes.io/name: ct-signal
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "signal-catalant-ip"
+    kubernetes.io/ingress.allow-http: "true"
+    networking.gke.io/v1beta1.FrontendConfig: "ct-signal"
+spec:
+  tls:
+    - hosts:
+        - signal.catalant.com
+      secretName: catalant-com-tls
+  rules:
+    - host: signal.catalant.com
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: ct-signal
+                port:
+                  name: http

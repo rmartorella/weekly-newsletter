@@ -1,0 +1,47 @@
+substitutions:
+  _AR_HOST: us-docker.pkg.dev
+  _AR_PROJECT: catalant-jenkins
+  _IMAGE_NAME: ct-signal
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  dynamicSubstitutions: true
+
+steps:
+  - id: build
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --build-arg=PROXY=${_AR_HOST}/${_AR_PROJECT}/docker-hub-proxy
+      - -t
+      - '${_IMAGE_NAME}:pr-${SHORT_SHA}'
+      - .
+
+  - id: config-test
+    name: gcr.io/cloud-builders/docker
+    args:
+      - run
+      - --rm
+      - --entrypoint=nginx
+      - '${_IMAGE_NAME}:pr-${SHORT_SHA}'
+      - -t
+    waitFor: ['build']
+
+  - id: serve-test
+    name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args: ['scripts/serve_test.sh', '${_IMAGE_NAME}:pr-${SHORT_SHA}', '8080']
+    waitFor: ['config-test']
+
+  - id: manifests
+    name: '${_AR_HOST}/${_AR_PROJECT}/docker-hub-proxy/library/python:3.13-alpine'
+    entrypoint: sh
+    args:
+      - -c
+      - |
+        set -eu
+        pip install --quiet --no-cache-dir pyyaml
+        python3 scripts/manifest_check.py k8s catalant-signal
+    waitFor: []
+
+timeout: 600s

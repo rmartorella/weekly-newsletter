@@ -1,0 +1,118 @@
+substitutions:
+  _AR_HOST: us-docker.pkg.dev
+  _AR_PROJECT: catalant-jenkins
+  _AR_REPO: catalant
+  _IMAGE_NAME: ct-signal
+  _CLUSTER: catalant-prod-cluster
+  _CLUSTER_ZONE: us-east1-d
+  _CLUSTER_PROJECT: catalant-prod
+  _NAMESPACE: catalant-signal
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  dynamicSubstitutions: true
+
+steps:
+  - id: build
+    name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --build-arg=PROXY=${_AR_HOST}/${_AR_PROJECT}/docker-hub-proxy
+      - -t
+      - '${_AR_HOST}/${_AR_PROJECT}/${_AR_REPO}/${_IMAGE_NAME}:${SHORT_SHA}'
+      - -t
+      - '${_AR_HOST}/${_AR_PROJECT}/${_AR_REPO}/${_IMAGE_NAME}:latest'
+      - .
+
+  - id: config-test
+    name: gcr.io/cloud-builders/docker
+    args:
+      - run
+      - --rm
+      - --entrypoint=nginx
+      - '${_AR_HOST}/${_AR_PROJECT}/${_AR_REPO}/${_IMAGE_NAME}:${SHORT_SHA}'
+      - -t
+    waitFor: ['build']
+
+  - id: serve-test
+    name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - 'scripts/serve_test.sh'
+      - '${_AR_HOST}/${_AR_PROJECT}/${_AR_REPO}/${_IMAGE_NAME}:${SHORT_SHA}'
+      - '8080'
+    waitFor: ['config-test']
+
+  - id: push
+    name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - --all-tags
+      - '${_AR_HOST}/${_AR_PROJECT}/${_AR_REPO}/${_IMAGE_NAME}'
+    waitFor: ['serve-test']
+
+  - id: render
+    name: gcr.io/cloud-builders/gcloud
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        DIGEST=$$(gcloud artifacts docker images describe \
+          "${_AR_HOST}/${_AR_PROJECT}/${_AR_REPO}/${_IMAGE_NAME}:${SHORT_SHA}" \
+          --format='value(image_summary.digest)')
+        IMAGE="${_AR_HOST}/${_AR_PROJECT}/${_AR_REPO}/${_IMAGE_NAME}@$${DIGEST}"
+        echo "deploying $${IMAGE}"
+        mkdir -p /workspace/rendered
+        cp k8s/*.yaml /workspace/rendered/
+        sed -i "s|__IMAGE__|$${IMAGE}|g" /workspace/rendered/deployment.yaml
+        if grep -q '__IMAGE__' /workspace/rendered/*.yaml; then
+          echo "unsubstituted __IMAGE__ placeholder remains" >&2
+          exit 1
+        fi
+        grep -n 'image:' /workspace/rendered/deployment.yaml
+    waitFor: ['push']
+
+  - id: verify-rendered
+    name: '${_AR_HOST}/${_AR_PROJECT}/docker-hub-proxy/library/python:3.13-alpine'
+    entrypoint: sh
+    env:
+      - REQUIRE_SUBSTITUTED=1
+    args:
+      - -c
+      - |
+        set -eu
+        pip install --quiet --no-cache-dir pyyaml
+        python3 scripts/manifest_check.py /workspace/rendered ${_NAMESPACE}
+    waitFor: ['render']
+
+  - id: deploy
+    name: gcr.io/cloud-builders/kubectl
+    env:
+      - CLOUDSDK_CORE_PROJECT=${_CLUSTER_PROJECT}
+      - CLOUDSDK_COMPUTE_ZONE=${_CLUSTER_ZONE}
+      - CLOUDSDK_CONTAINER_CLUSTER=${_CLUSTER}
+      - KUBECONFIG=/workspace/.kube/config
+    args:
+      - apply
+      - -f
+      - /workspace/rendered/
+    waitFor: ['verify-rendered']
+
+  - id: rollout
+    name: gcr.io/cloud-builders/kubectl
+    env:
+      - CLOUDSDK_CORE_PROJECT=${_CLUSTER_PROJECT}
+      - CLOUDSDK_COMPUTE_ZONE=${_CLUSTER_ZONE}
+      - CLOUDSDK_CONTAINER_CLUSTER=${_CLUSTER}
+      - KUBECONFIG=/workspace/.kube/config
+    args:
+      - rollout
+      - status
+      - deployment/ct-signal
+      - -n
+      - ${_NAMESPACE}
+      - --timeout=5m
+    waitFor: ['deploy']
+
+timeout: 900s
