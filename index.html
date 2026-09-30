@@ -910,20 +910,23 @@ const EMAIL = 'aewing@gocatalant.com';
    come from the form's pre-filled link; the reader never loads Google.
    Google sends no CORS headers on formResponse, so the post is opaque: a
    resolved fetch means the request left the browser, not that Google took it. */
-const GFORM = 'https://docs.google.com/forms/d/e/1FAIpQLSdrPdi5jalWdQhF_9-0bHFRgbubGdnxXcHEQ4U5PB0i5HcE5A/formResponse';
+const GFORM = 'https://docs.google.com/forms/d/e/1FAIpQLSfDVWEJ675835enxRkFG1kTRBe08cUCHaoRfxFg5kGctUhpkQ/formResponse';
 const GFIELD = {
-  name: 'entry.1336297382',
-  q1a:  'entry.1892784339', q1c: 'entry.994278215',
-  q2a:  'entry.1875937243', q2c: 'entry.283640038',
-  q3c:  'entry.771702245',
-  lead: 'entry.944085083'
+  issue: 'entry.610923624',
+  name:  'entry.1177990708',
+  q1a:   'entry.450196176',  q1c: 'entry.1445643810',
+  q2a:   'entry.968022456',  q2c: 'entry.1530362658',
+  q3c:   'entry.303172100',
+  lead:  'entry.745872495'
 };
 
-/* Issue 1 asks two questions and issue 2 asks three, so q3 is simply empty
-   when the reader is on the older issue. */
+/* Every issue posts to the same sheet, so each row carries its issue number;
+   the answer text alone can't tell them apart. Issue 1 asks two questions and
+   issues 2 and 3 ask three, so q3 is simply empty on the older issue. */
 function postToForm(state){
   const a = n => state.answers['q' + n] || {};
   const p = new URLSearchParams();
+  p.append(GFIELD.issue, String(state.issue));
   p.append(GFIELD.name, state.name);
   p.append(GFIELD.q1a, a(1).answer  || '');
   p.append(GFIELD.q1c, a(1).comment || '');
