@@ -950,6 +950,11 @@ const dbInit = (async()=>{
   }catch(_){ return false; }
 })();
 
+/* Whether an artifact store is actually available, so the UI can stop
+   promising a draft was kept when there is nowhere to keep it. */
+let dbOK = null;
+dbInit.then(function(ok){ dbOK = ok; });
+
 let fb = null; // state for the issue currently shown
 
 function bindFeedback(){
@@ -1006,7 +1011,10 @@ function bindFeedback(){
     return lines.join('\n');
   }
   function queueDraft(){ clearTimeout(timer); timer=setTimeout(async()=>{ collect(); if(!hasContent()) return; if(!await dbInit||!docRef) return; if(await save()&&!state.submitted) setNote(NOTE_DIRTY,true); },1200); }
-  function touched(){ setStatus(''); if(!state.submitted) setNote(NOTE_DIRTY,true); queueDraft(); }
+  function touched(){ setStatus('');
+    if(dbOK === false) setNote(NOTE_IDLE,false);
+    else if(!state.submitted) setNote(NOTE_DIRTY,true);
+    queueDraft(); }
 
   const root=$('#feedback');
   root.addEventListener('click', e=>{ const o=e.target.closest('.opt'); if(!o) return; o.closest('.ask').querySelectorAll('.opt').forEach(x=>x.classList.remove('on')); o.classList.add('on'); touched(); });
@@ -1043,9 +1051,15 @@ function bindFeedback(){
         : 'Thanks. We have your feedback and will use it to shape the next issue.', false);
       return;
     }
-    const href='mailto:'+EMAIL+'?subject='+encodeURIComponent('The Signal No. '+issue.no+' feedback')+'&body='+encodeURIComponent(mailtoBody());
+    const MAX=1500;
+    let body=mailtoBody(), cut=false;
+    if(body.length>MAX){ body=body.slice(0,MAX); cut=true;
+      body+='\n\n[Too long to prefill in full \u2014 please paste the rest below.]'; }
+    const href='mailto:'+EMAIL+'?subject='+encodeURIComponent('The Signal No. '+issue.no+' feedback')+'&body='+encodeURIComponent(body);
     window.location.href=href;
-    setStatus('We could not send that directly, so your email app is opening with your answers ready.');
+    setStatus(cut
+      ? 'We could not send that directly, so your email app is opening. Your answer was long, please check nothing was cut off before sending.'
+      : 'We could not send that directly, so your email app is opening with your answers ready.');
     setNote(NOTE_IDLE,false);
   });
 }
