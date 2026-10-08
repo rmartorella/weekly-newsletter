@@ -1247,11 +1247,22 @@ function bindFeedback(){
         : 'Thanks. We have your feedback and will use it to shape the next issue.', false);
       return;
     }
-    const MAX=1500;
+    /* The ceiling is on the finished URL, not the text: percent-encoding
+       expands spaces to %20 and a curly quote to 9 bytes, so capping the
+       decoded body lets real prose sail past 2,048. Trim until the encoded
+       href fits, notice included. */
+    const URLMAX=1900;
+    const NOTICE='\n\n[Too long to prefill in full \u2014 please paste the rest below.]';
+    const mkHref=t=>'mailto:'+EMAIL+'?subject='+encodeURIComponent('The Signal No. '+issue.no+' feedback')+'&body='+encodeURIComponent(t);
     let body=mailtoBody(), cut=false;
-    if(body.length>MAX){ body=body.slice(0,MAX); cut=true;
-      body+='\n\n[Too long to prefill in full \u2014 please paste the rest below.]'; }
-    const href='mailto:'+EMAIL+'?subject='+encodeURIComponent('The Signal No. '+issue.no+' feedback')+'&body='+encodeURIComponent(body);
+    if(mkHref(body).length>URLMAX){
+      cut=true;
+      let lo=0, hi=body.length;
+      while(lo<hi){ const mid=Math.ceil((lo+hi)/2);
+        if(mkHref(body.slice(0,mid)+NOTICE).length<=URLMAX) lo=mid; else hi=mid-1; }
+      body=body.slice(0,lo)+NOTICE;
+    }
+    const href=mkHref(body);
     window.location.href=href;
     setStatus(cut
       ? 'We could not send that directly, so your email app is opening. Your answer was long, please check nothing was cut off before sending.'
