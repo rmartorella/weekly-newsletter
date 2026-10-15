@@ -1,24 +1,38 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>The Signal</title><link rel="icon" type="image/png" sizes="180x180" href="/favicon.png"><link rel="apple-touch-icon" href="/favicon.png"></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>The Signal</title><link rel="icon" type="image/png" sizes="180x180" href="/favicon.png"><link rel="apple-touch-icon" href="/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap"></head><body>
+
 <style>
 :root{
-  --ink:#0B0838; --ink-2:#2A2748; --ink-3:#514D6E; --ink-4:#7B7794;
-  --bg:#FFFFFF; --app-bg:#F3F5F9; --paper:#F7F9FC; --paper-2:#EDF1F7;
-  --rule:#DEE3EC; --hair:#EBEFF6;
-  --accent:#FA733C; --accent-soft:#FFEEE6; --accent-ink:#9E3F14;
-  --blue-900:#0E3F6B; --blue-700:#1B6AAE; --blue:#4AA3E3; --blue-300:#95C9EE; --blue-100:#D4E8F8; --blue-50:#EDF5FC;
+  --ink:#23211F; --ink-2:#3F3D39; --ink-3:#5C5954; --ink-4:#7A7771;
+  --bg:#FFFFFF; --app-bg:#F6F3EB; --paper:#FCFBF8;
+  --rule:#EAE6DE; --hair:#EAE6DE;
+  --accent:#ff4d2d; --accent-ink:#db2e20; --on-accent:#FFFFFF;
+  --mulberry-900:#400F1D; --mulberry-700:#65182E; --mulberry-300:#A98694;
+  --apricot:#E7A270; --glacier:#CDD6FC;
+  --chart-ink:#181D30; --on-strong:#FFFFFF;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --ink:#F4F3F9; --ink-2:#D3D1E4; --ink-3:#A5A2BC; --ink-4:#7B7799;
-    --bg:#12103F; --app-bg:#0B0838; --paper:#1A1650; --paper-2:#221D5C;
-    --rule:#2E2A6B; --hair:#26215F;
-    --accent:#FF8A57; --accent-soft:#3B1F14; --accent-ink:#FFC6AB;
-    --blue-900:#B9DBF4; --blue-700:#7FBEEB; --blue:#5EB0E8;
-    --blue-300:#3A79AE; --blue-100:#1D3F63; --blue-50:#152C46;
+    --ink:#F6F3EC; --ink-2:#E0D9CF; --ink-3:#B8AEA4; --ink-4:#968C83;
+    --bg:#1E1014; --app-bg:#150A0E; --paper:#26151B;
+    --rule:#3E2B32; --hair:#33232A;
+    --accent:#FF6A4D; --accent-ink:#FF9E8B; --on-accent:#1E1014;
+    --mulberry-900:#EFD9E0; --mulberry-700:#DDAEBF; --mulberry-300:#B0788C;
+    --apricot:#E7A270; --glacier:#CDD6FC;
+    --chart-ink:#F6F3EC; --on-strong:#1E1014;
+    color-scheme:dark;
   }
 }
 *{box-sizing:border-box}
-:root[data-theme="dark"]{--ink:#F4F3F9; --ink-2:#D3D1E4; --ink-3:#A5A2BC; --ink-4:#7B7799;--bg:#12103F; --app-bg:#0B0838; --paper:#1A1650; --paper-2:#221D5C;--rule:#2E2A6B; --hair:#26215F;--accent:#FF8A57; --accent-soft:#3B1F14; --accent-ink:#FFC6AB;--blue-900:#B9DBF4; --blue-700:#7FBEEB; --blue:#5EB0E8;--blue-300:#3A79AE; --blue-100:#1D3F63; --blue-50:#152C46}
+:root[data-theme="dark"]{
+    --ink:#F6F3EC; --ink-2:#E0D9CF; --ink-3:#B8AEA4; --ink-4:#968C83;
+    --bg:#1E1014; --app-bg:#150A0E; --paper:#26151B;
+    --rule:#3E2B32; --hair:#33232A;
+    --accent:#FF6A4D; --accent-ink:#FF9E8B; --on-accent:#1E1014;
+    --mulberry-900:#EFD9E0; --mulberry-700:#DDAEBF; --mulberry-300:#B0788C;
+    --apricot:#E7A270; --glacier:#CDD6FC;
+    --chart-ink:#F6F3EC; --on-strong:#1E1014;
+    color-scheme:dark;
+  }
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 html{scroll-behavior:smooth}
@@ -37,7 +51,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius:8px;padding:30px 38px 40px;margin-bottom:26px}
 @media(max-width:760px){main{padding:22px 20px 30px}}
 
-.masthead{position:relative;border-bottom:2px solid var(--blue-900);padding-bottom:14px;margin-bottom:26px;
+.masthead{position:relative;border-bottom:2px solid var(--mulberry-900);padding-bottom:14px;margin-bottom:26px;
   display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
 .masthead .mh{font-family:"Newsreader",Georgia,serif;font-size:clamp(32px,4.6vw,46px);font-weight:500;color:var(--ink);letter-spacing:-.025em;line-height:1}
 .masthead .dl{font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:600;color:var(--ink-3);text-align:right;line-height:1.7;margin-top:44px}
@@ -49,7 +63,7 @@ main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius
 .fbbtn:hover{filter:brightness(.95)}
 #feedback{scroll-margin-top:24px}
 
-.toc{border:1px solid var(--rule);border-top:2px solid var(--blue-900);border-radius:7px;background:var(--paper);padding:15px 19px 13px}
+.toc{border:1px solid var(--rule);border-top:2px solid var(--mulberry-900);border-radius:7px;background:var(--paper);padding:15px 19px 13px}
 .toc .lbl{font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--ink-2);margin-bottom:9px}
 .toc ol{list-style:none;margin:0;padding:0}
 .toc li{border-top:1px solid var(--hair)}
@@ -85,9 +99,9 @@ main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius
 
 .sect{margin-top:34px;padding-top:2px}
 .secthead{display:flex;align-items:baseline;gap:12px;margin-bottom:11px;flex-wrap:wrap}
-.secthead h3{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--blue-700);display:flex;align-items:center;gap:8px}
+.secthead h3{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--mulberry-700);display:flex;align-items:center;gap:8px}
 .secthead h3:before{content:"";width:9px;height:9px;background:var(--accent);border-radius:2px;flex:0 0 auto}
-.secthead .r{flex:1;height:1px;background:var(--blue-700);opacity:.3;min-width:20px}
+.secthead .r{flex:1;height:1px;background:var(--mulberry-700);opacity:.3;min-width:20px}
 .analysis{font-family:"Newsreader",Georgia,serif;font-size:17px;line-height:1.58;color:var(--ink-2);max-width:none}
 
 .ex{margin-top:18px;border:1px solid var(--rule);border-top:2px solid var(--accent);border-radius:7px;background:var(--bg);overflow:hidden}
@@ -95,10 +109,10 @@ main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius
 .exh h4{font-size:14.5px;font-weight:600;letter-spacing:-.008em}
 .exh .unit{font-size:10px;letter-spacing:.11em;text-transform:uppercase;font-weight:600;color:var(--ink-4)}
 .exb{padding:16px 18px 18px}
-.freq{display:inline-block;font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;border:1px solid var(--accent);background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;padding:2px 6px;margin-left:8px;vertical-align:middle}
-.reads{margin-top:13px;font-size:13.5px;line-height:1.55;color:var(--ink-2);border-left:3px solid var(--blue-700);background:var(--blue-50);padding:11px 13px;border-radius:0 5px 5px 0}
+.freq{display:inline-block;font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;border:1px solid var(--accent);background:var(--app-bg);color:var(--accent-ink);border-radius:3px;padding:2px 6px;margin-left:8px;vertical-align:middle}
+.reads{margin-top:13px;font-size:13.5px;line-height:1.55;color:var(--ink-2);border-left:3px solid var(--mulberry-700);background:var(--app-bg);padding:11px 13px;border-radius:0 5px 5px 0}
 .reads b{color:var(--ink);font-weight:600}
-.sowhat{margin-top:11px;background:var(--accent-soft);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:12px 15px;font-size:13.5px;line-height:1.55;color:var(--accent-ink)}
+.sowhat{margin-top:11px;background:var(--app-bg);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;padding:12px 15px;font-size:13.5px;line-height:1.55;color:var(--accent-ink)}
 .sowhat .lbl{display:block;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;font-weight:800;color:var(--accent);margin-bottom:6px}
 
 .chartwrap{overflow-x:auto}
@@ -117,7 +131,7 @@ main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius
 .rkrow .v{text-align:right;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums}
 
 .qs{display:flex;flex-direction:column;gap:11px}
-.q{font-family:"Newsreader",Georgia,serif;font-size:15.5px;font-style:italic;line-height:1.5;color:var(--ink-2);padding:12px 15px;background:var(--blue-50);border-left:3px solid var(--blue-300);border-radius:0 5px 5px 0}
+.q{font-family:"Newsreader",Georgia,serif;font-size:15.5px;font-style:italic;line-height:1.5;color:var(--ink-2);padding:12px 15px;background:var(--app-bg);border-left:3px solid var(--mulberry-300);border-radius:0 5px 5px 0}
 .q cite{display:block;font-family:"Libre Franklin",sans-serif;font-style:normal;font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent-ink);margin-top:8px;font-weight:700}
 
 .ask{border:1px solid var(--rule);border-radius:7px;padding:22px;background:var(--paper)}
@@ -125,24 +139,24 @@ main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius
 .ask .sub{font-size:13.5px;color:var(--ink-3);line-height:1.55;max-width:62ch}
 .opts{display:flex;flex-direction:column;gap:7px;margin-top:15px}
 .opt{text-align:left;border:1px solid var(--rule);border-radius:4px;padding:11px 14px;font-size:13.5px;color:var(--ink-2);transition:.14s}
-.opt:hover{border-color:var(--blue-700);background:var(--blue-50)}
-.opt.on{border-color:var(--blue-700);background:var(--blue-50);color:var(--blue-900);font-weight:600}
-.thanks{margin-top:11px;font-size:12.5px;color:var(--blue-700);font-weight:600}
+.opt:hover{border-color:var(--mulberry-700);background:var(--app-bg)}
+.opt.on{border-color:var(--mulberry-700);background:var(--app-bg);color:var(--mulberry-900);font-weight:600}
+.thanks{margin-top:11px;font-size:12.5px;color:var(--mulberry-700);font-weight:600}
 .thanks.err{color:var(--accent-ink)}
 .namerow{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin:0 0 20px}
 .namerow label{font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:700;color:var(--ink-3);flex:0 0 auto}
 .namerow .thanks{margin-top:0}
 .submitbar{margin-top:24px;padding:19px 21px;border:1px solid var(--accent);border-left:3px solid var(--accent);border-radius:7px;
-  background:var(--accent-soft);display:flex;align-items:center;gap:17px;flex-wrap:wrap}
+  background:var(--app-bg);display:flex;align-items:center;gap:17px;flex-wrap:wrap}
 .submitbar .cta{margin-top:0;padding:13px 30px;font-size:14.5px;box-shadow:0 1px 3px rgba(11,8,56,.18);flex:0 0 auto}
 .submitbar .thanks{margin-top:0}
 .subnote{font-size:12.5px;line-height:1.5;color:var(--accent-ink);font-weight:600;min-width:0}
 .fld{font:inherit;font-size:13.5px;color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:5px;padding:9px 12px;width:100%;max-width:340px;flex:1 1 210px;min-width:0}
 .fld::placeholder{color:var(--ink-4)}
-.fld:focus{border-color:var(--blue-700);outline:none;box-shadow:0 0 0 3px var(--blue-50)}
+.fld:focus{border-color:var(--mulberry-700);outline:none;box-shadow:0 0 0 3px var(--app-bg)}
 textarea.fld{display:block;max-width:none;min-height:78px;resize:vertical;line-height:1.5;margin-top:15px}
 .cta[disabled]{opacity:.55;cursor:default}
-.ask.partner{margin-top:16px;border-color:var(--accent);border-left:3px solid var(--accent);background:var(--accent-soft)}
+.ask.partner{margin-top:16px;border-color:var(--accent);border-left:3px solid var(--accent);background:var(--app-bg)}
 .ask.partner h4{color:var(--accent-ink)}
 .ask.partner .sub{color:var(--accent-ink);opacity:.92}
 .cta{margin-top:14px;background:var(--accent);color:#fff;border-radius:5px;padding:10px 18px;font-size:13.5px;font-weight:600}
@@ -170,7 +184,7 @@ footer b{color:var(--ink-2);font-weight:600}
 .iss .n{font-size:10px;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:var(--ink-4)}
 .iss .d{font-size:12.5px;font-weight:600;color:var(--ink-2)}
 .iss .t{font-family:"Newsreader",Georgia,serif;font-size:13px;font-style:italic;color:var(--ink-3);line-height:1.35}
-.iss[aria-current="true"]{border-left-color:var(--accent);background:var(--blue-50)}
+.iss[aria-current="true"]{border-left-color:var(--accent);background:var(--app-bg)}
 .iss[aria-current="true"] .n{color:var(--accent-ink)}
 .iss[aria-current="true"] .d{color:var(--ink)}
 @media(max-width:960px){.iss{flex:0 0 200px;border-left:0;border-top:2px solid transparent;border-radius:0 0 6px 6px;background:var(--paper)}.iss[aria-current="true"]{border-top-color:var(--accent)}}
@@ -180,7 +194,7 @@ footer b{color:var(--ink-2);font-weight:600}
 /* ---------- pager ---------- */
 .pager{margin-top:48px;padding-top:18px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:14px}
 .pg{font-size:12.5px;color:var(--ink-3);display:flex;flex-direction:column;gap:2px;text-align:left}
-.pg:hover{color:var(--blue-700)}
+.pg:hover{color:var(--mulberry-700)}
 .pg .k{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ink-4)}
 .pg.n{text-align:right;align-items:flex-end}
 
@@ -188,7 +202,7 @@ footer b{color:var(--ink-2);font-weight:600}
 .stack{display:flex;flex-direction:column;gap:12px}
 .strow{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center}
 .strow .lab{font-size:12px;font-weight:600;color:var(--ink-2)}
-.stbar{display:flex;height:26px;border-radius:4px;overflow:hidden;background:var(--paper-2)}
+.stbar{display:flex;height:26px;border-radius:4px;overflow:hidden;background:var(--app-bg)}
 .stbar i{font-style:normal;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:11.5px;color:var(--ink-3)}
 .legend span:before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;background:var(--c)}
@@ -200,7 +214,7 @@ table.mom td{padding:9px 8px;border-bottom:1px solid var(--hair);text-align:righ
 table.mom tr:last-child td{border-bottom:0}
 table.mom td.name{font-weight:600;color:var(--ink)}
 table.mom td.who{font-size:11.5px;color:var(--ink-3);text-align:left}
-.up{color:var(--accent);font-weight:700}.dn{color:var(--blue-700);font-weight:700}.fl{color:var(--ink-4)}
+.up{color:var(--accent);font-weight:700}.dn{color:var(--mulberry-700);font-weight:700}.fl{color:var(--ink-4)}
 .momwrap{overflow-x:auto}
 table.mom{min-width:680px}
 table.mom th{white-space:nowrap}
@@ -217,10 +231,10 @@ table.mom td.who{min-width:150px}
 .stg .hd b{font-size:13.5px;color:var(--ink)}
 .stg .hd span{font-size:12px;color:var(--ink-3)}
 .stg .hd span b{font-size:15px;color:var(--accent)}
-.track{display:flex;height:34px;border-radius:5px;overflow:hidden;background:var(--paper-2);position:relative}
+.track{display:flex;height:34px;border-radius:5px;overflow:hidden;background:var(--app-bg);position:relative}
 .track i{display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;line-height:1.15;color:#fff;font-weight:700;border-right:1px solid rgba(255,255,255,.35);overflow:hidden;white-space:nowrap}
 .track i small{font-weight:500;opacity:.9;font-size:9px}
-.track .rest{color:var(--ink-3);background:repeating-linear-gradient(135deg,var(--paper-2) 0 6px,var(--hair) 6px 12px);border-right:0}
+.track .rest{color:var(--ink-3);background:repeating-linear-gradient(135deg,var(--app-bg) 0 6px,var(--hair) 6px 12px);border-right:0}
 .stgnote{font-size:11.5px;color:var(--ink-3);margin-top:6px;font-style:italic}
 .stgnote b{font-style:normal;color:var(--accent-ink)}
 .stgkey{display:flex;gap:14px;flex-wrap:wrap;margin-top:6px;font-size:11px;color:var(--ink-3)}
@@ -231,7 +245,7 @@ table.mom td.who{min-width:150px}
 .dbox{border:1px solid var(--rule);border-radius:6px;padding:14px 15px;background:var(--paper)}
 .dbox h5{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--ink-3);margin-bottom:10px}
 .drow{display:grid;grid-template-columns:1fr 44px;gap:8px;align-items:center;padding:5px 0;font-size:12.5px;color:var(--ink-2)}
-.drow .bar{height:7px;border-radius:2px;background:var(--blue-300)}
+.drow .bar{height:7px;border-radius:2px;background:var(--mulberry-300)}
 .drow .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
 .drow.hot .bar{background:var(--accent)}.drow.hot .v{color:var(--accent)}
 
@@ -239,18 +253,18 @@ table.mom td.who{min-width:150px}
 .frow{display:grid;grid-template-columns:150px 1fr 70px;gap:12px;align-items:center}
 @media(max-width:560px){.frow{grid-template-columns:110px 1fr 60px}}
 .frow .lab{font-size:12.5px;font-weight:600;color:var(--ink-2)}
-.frow .fb{height:22px;border-radius:3px;background:var(--blue-300)}
+.frow .fb{height:22px;border-radius:3px;background:var(--mulberry-300)}
 .frow.hot .fb{background:var(--accent)}
 .frow .v{font-size:13px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
 .frow.hot .v{color:var(--accent)}
 .frow .sub{display:block;font-size:10.5px;color:var(--ink-4);font-weight:500}
 
-.nextb{border:1px solid var(--accent);border-left-width:3px;background:var(--accent-soft);border-radius:7px;padding:18px 20px}
+.nextb{border:1px solid var(--accent);border-left-width:3px;background:var(--app-bg);border-radius:7px;padding:18px 20px}
 .nextb ul{margin:10px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:7px}
 .nextb li{font-size:14px;color:var(--accent-ink);padding-left:16px;position:relative;line-height:1.5;font-weight:500}
 .nextb li:before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
-.coach{margin-top:14px;border:1px solid var(--blue-300);border-radius:7px;overflow:hidden}
-.coach .ch{background:var(--blue-900);color:#fff;padding:10px 16px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.coach{margin-top:14px;border:1px solid var(--mulberry-300);border-radius:7px;overflow:hidden}
+.coach .ch{background:var(--mulberry-900);color:#fff;padding:10px 16px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
 :root[data-theme="dark"] .coach .ch{color:var(--ink)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .coach .ch{color:var(--ink)}}
 .coach ol{margin:0;padding:14px 18px 14px 36px;display:flex;flex-direction:column;gap:9px;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
@@ -266,13 +280,13 @@ table.mom td.who{min-width:150px}
 .cmpcell{display:flex;flex-direction:column;gap:4px}
 .cmpcell .v{font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink-3)}
 .cmpcell.win .v{color:var(--accent)}
-.cmpcell .bar{height:7px;border-radius:2px;background:var(--blue-300)}
+.cmpcell .bar{height:7px;border-radius:2px;background:var(--mulberry-300)}
 .cmpcell.win .bar{background:var(--accent)}
 @media(max-width:560px){.cmprow{grid-template-columns:minmax(0,1fr) 84px 84px;gap:10px}}
 .steps{list-style:none;margin:0;padding:0;position:relative}
-.steps:before{content:"";position:absolute;left:61px;top:8px;bottom:8px;width:2px;background:var(--blue-100)}
+.steps:before{content:"";position:absolute;left:61px;top:8px;bottom:8px;width:2px;background:var(--glacier)}
 .steps li{display:grid;grid-template-columns:52px 1fr;gap:22px;padding:8px 0;position:relative}
-.steps li:after{content:"";position:absolute;left:56px;top:15px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--blue-700)}
+.steps li:after{content:"";position:absolute;left:56px;top:15px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--mulberry-700)}
 .steps li.hot:after{background:var(--accent);border-color:var(--accent)}
 .steps .sday{font-size:11px;font-weight:700;letter-spacing:.04em;color:var(--ink-3);text-align:right;padding-top:5px;font-variant-numeric:tabular-nums;line-height:1.3}
 .steps li.hot .sday{color:var(--accent)}
@@ -285,6 +299,54 @@ table.mom td.who{min-width:150px}
 .totop:hover{filter:brightness(.93)}
 .totop svg{width:20px;height:20px;display:block}
 @media print{.totop{display:none}}
+
+/* ---------- brand: Geist, mulberry, ignite ---------- */
+body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+.axl,.endl{font-family:'Geist',sans-serif;fill:var(--chart-ink)}
+.masthead .dl,.toc .lbl,.parthead h2,.secthead h3,.exh .unit,.freq,.sowhat .lbl,.q cite,.namerow label,.railhead,.iss .n,.pg .k,.sign,.coach .ch,.cmprow.hd,table.mom th,.two h5,.dbox h5,.intro .lbl{
+  font-family:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500}
+.coach .ch{color:var(--on-strong)}
+.iss[aria-current="true"]{background-color:var(--app-bg)}
+.ex{border-radius:0 0 7px 7px}
+.reads,.sowhat{background-color:var(--app-bg);color:var(--ink)}
+.sowhat .lbl{color:var(--accent-ink)}
+.q{background-color:var(--paper)}
+.opt,.cta,.fbbtn,.totop{border-radius:200px}
+.opt{padding:11px 18px}
+.cta,.fbbtn,.totop{color:var(--on-accent)}
+.ask.partner{border:0;background-color:var(--mulberry-700)}
+.ask.partner h4,.ask.partner .sub{color:var(--on-strong);opacity:1}
+.submitbar{margin-top:0;border:0;background:transparent;padding:26px 0 8px;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:12px}
+.submitbar .subnote:empty{display:none}
+
+/* ---------- what is the signal ---------- */
+.intro{margin:0 0 22px;padding:16px 20px 18px;background:var(--paper);border:1px solid var(--rule);border-radius:7px}
+.intro .lbl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:8px}
+.intro p{font-family:'Newsreader',Georgia,serif;font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+.intro p+p{margin-top:8px}
+.intro b{color:var(--ink);font-weight:600}
+
+/* ---------- bar rows: labels sit outside the bars ---------- */
+.hbl{display:flex;flex-direction:column}
+.hb{display:grid;grid-template-columns:minmax(0,210px) minmax(0,1fr);gap:6px 18px;align-items:center;padding:10px 0;border-bottom:1px solid var(--hair)}
+.hb:last-child{border-bottom:0}
+.hb .lab{font-size:13.5px;color:var(--chart-ink);line-height:1.3;min-width:0}
+.hb .lab b{display:block;font-weight:600}
+.hb .lab small{display:block;font-size:11.5px;color:var(--ink-3);margin-top:2px;line-height:1.35}
+.hb .bars{display:flex;flex-direction:column;gap:6px;min-width:0}
+.hb .br{display:flex;align-items:center;gap:9px;min-width:0}
+.hb .br i{display:block;height:13px;border-radius:2px;background:var(--mulberry-300);flex:0 0 auto}
+.hb .br.hot i{background:var(--accent)}
+.hb .br.soft i{background:var(--glacier)}
+.hb .br.tint i{opacity:.45}
+.hb .br span{font-size:12.5px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--chart-ink);white-space:nowrap}
+.hb .br em{font-style:normal;font-weight:400;color:var(--ink-3);font-size:11.5px}
+@media(max-width:640px){.hb{grid-template-columns:minmax(0,1fr)}.hb .br span{white-space:normal}}
+.stvals{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:6px;font-size:11.5px;font-weight:600;color:var(--chart-ink);font-variant-numeric:tabular-nums}
+.stvals span:before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;background:var(--c)}
+.legend{color:var(--chart-ink)}
+.defs{font-size:13px;line-height:1.55;color:var(--ink-2);margin:0 0 12px;padding:11px 13px;background:var(--paper);border:1px solid var(--rule);border-radius:5px}
+.defs b{color:var(--ink);font-weight:600}
 </style>
 
 <div class="shell">
@@ -293,7 +355,7 @@ table.mom td.who{min-width:150px}
     <div class="railsub">Weekly insights for the Catalant Consultant Community</div>
     <div class="railhead">Issues</div>
     <div class="issues" id="issues"></div>
-    <div class="raillegend">Every issue is written from Catalant production data: project briefs, platform activity and recorded client conversations, read in full. Past issues stay here so you can go back to them.</div>
+    <div class="raillegend">Past issues stay here so you can go back to them.</div>
   </aside>
   <main id="main"></main>
 </div>
@@ -309,6 +371,111 @@ table.mom td.who{min-width:150px}
 </script>
 
 <script>
+const ISSUE5 = {
+  no:5, roundPct:true, date:'Wednesday 14 October 2026', tag:'Issue five', essayLabel:'What we&rsquo;re seeing: Reflections from Pat',
+  short:'Let the client do the talking', hook:'How first calls end, why projects get canceled, and where project demand runs ahead',
+  intro:{ label:'What&rsquo;s The Signal?', ps:[
+    'The Signal is a new weekly set of insights for our Practice Community. We&rsquo;ve been testing it with a small group of consultants and we&rsquo;re excited to roll it out to you! Each week we look across our client and consultant data and share insights on what our clients are looking for, what consultants are doing to win work, and how you can best position your independent consulting practice. You can find past issues in the left-hand panel.',
+    'We&rsquo;re always looking for feedback, and at the end of each issue you&rsquo;ll find a chance to share it and tell us what you&rsquo;d like to see in future issues. Let us know what you think!'
+  ]},
+  toc:[
+    {t:'Catalant news and updates', d:'Digital Twin reminder, Catalant Business Suite coming soon, and PC Connect in NYC', href:'#whats-new'},
+    {t:'What we&rsquo;re seeing: Reflections from Pat', d:'Let the client do most of the talking', href:'#part-essay'},
+    {t:'Buyer decision trends', d:'How first calls end, and five questions to try in yours', href:'#sec-buyer'},
+    {t:'Outcomes', d:'Why projects get canceled, and what good discovery catches early', href:'#sec-outcomes'},
+    {t:'Supply trends', d:'Where project demand runs ahead of consultants', href:'#sec-supply'},
+    {t:'Feedback and questions', d:'Three questions, and the accounts you want to pursue with us', href:'#feedback'}
+  ],
+  news:{ label:'Catalant news and updates', blocks:[
+    {h:'Reminder: It&rsquo;s time to transition to your Digital Twin', ps:[
+      'As you saw in our recent Practice Community Town Hall (you can find the recap in the prior issue), we&rsquo;re moving away from the open marketplace to a much better experience for consultants, where we proactively come to you with relevant opportunities. That means <b>it&rsquo;s time to move to your Digital Twin</b>, which you&rsquo;ll need in order to see opportunities once we fully make this change. It&rsquo;s your AI-built profile, it&rsquo;s always on, and it lets you keep your information current so we can find you quickly for great opportunities. If you haven&rsquo;t finished building yours, you can connect your LinkedIn, upload files and recordings, or ask it to interview you about your experience. It&rsquo;ll replace the old profile entirely.',
+      'Please also <b>download the Catalant app</b>, live on iOS and Android and still pending in the EU, on the <a href="https://apps.apple.com/us/app/catalant/id6796448720" target="_blank" rel="noopener">App Store</a> or <a href="https://play.google.com/store/search?q=catalant&amp;c=apps&amp;hl=en_US" target="_blank" rel="noopener">Google Play</a> to get notified the second new opportunities go live! For us to pull you directly into conversations we need you to respond quickly, whether you&rsquo;re available or not, and the app lets you respond in real time. What matters most is a quick response, even if it isn&rsquo;t the right opportunity or you don&rsquo;t have the time right now. Both help us partner with you more effectively, and we&rsquo;ll be closely looking at speed of response so we can balance the need to use your time effectively with our need to get back to clients quickly.'
+    ]},
+    {h:'Coming Soon: Catalant Business Suite', ps:[
+      'We&rsquo;re partnering with Lettuce to launch Catalant Business Suite - a new subscription offering that takes back-office work (banking, benefits, compliance, and more) off your plate so you can focus on client work. PC members will get an exclusive discount once it&rsquo;s live. We&rsquo;re finalizing the experience now, so look out for more details and your invite in the coming weeks via your Digital Twin.',
+      'Questions in the meantime? Reach out to <a href="mailto:eps@gocatalant.com">eps@gocatalant.com</a>.'
+    ]},
+    {h:'Reminder: use your Zoom background on every client call', ps:[
+      'Along with our new brand identity, we&rsquo;ve created personalized Zoom backgrounds for everyone. If you haven&rsquo;t yet, open the folder, find your .png file, and download your custom background to your device. Then update your Zoom background, and please use it on all calls with clients so you show up on-brand every time. <a href="https://drive.google.com/drive/folders/1xJUfzeCJVFhqlYgw67htYNrkYIxe2wVC?usp=sharing" target="_blank" rel="noopener">Get your background here</a>. Reach out to the Practice Community team at <a href="mailto:practicecommunity@gocatalant.com">practicecommunity@gocatalant.com</a> if you have any questions.'
+    ]},
+    {h:'Code of Conduct updates', ps:[
+      'We&rsquo;ve updated the <a href="https://docs.google.com/document/d/1JPFRn84ncZLBWS0yj8r8oMoc4IhR2JmtNE3UlOm1Wjw/edit?usp=sharing" target="_blank" rel="noopener">Practice Community Code of Conduct</a>, so please take a moment to look at the changes. To see an overview of the changes, see <a href="https://docs.google.com/document/d/1h-JWG4gXDp6fpvBPAShjifXp7vwM-zP4kbK6laFQP_8/edit?usp=sharing" target="_blank" rel="noopener">here</a>. If you have questions, let us know at <a href="mailto:practicecommunity@gocatalant.com">practicecommunity@gocatalant.com</a>. Our goal is to make it easier for you to understand what we need to partner together effectively.'
+    ]},
+    {h:'Reminder: take our NPS survey', ps:[
+      'It takes only a few minutes, and your feedback will directly shape how we support and grow Catalant&rsquo;s Practice Community moving forward. As a thank you for your time, we&rsquo;ll randomly select three people who complete the survey to win a $50 gift card! <a href="https://form.typeform.com/to/cYMmjQFL" target="_blank" rel="noopener">Take the survey here</a>!'
+    ]},
+    {h:'PC Connect in New York, October 21', ps:[
+      'If you&rsquo;re in the New York metropolitan area, join us for an evening of networking on <b>Wednesday, October 21st, 5:00 to 7:00 PM ET</b> in the Manhattan financial district. We are also offering an opportunity earlier in the day to meet with our CEO, Pat Petitti, to talk about &ldquo;One-Team&rdquo;, an initiative that Catalant has launched to partner more closely with consultants and embed PC consultants into our way of working. The One Team session is currently full, but let us know if you would like to be added to the waitlist in case of any cancellations. <a href="https://catalant.com/event/new-york-practice-community-connect/" target="_blank" rel="noopener">Register here</a>.'
+    ]}
+  ]},
+  essay:{
+    h:'Let the client do most of the talking.',
+    ps:[
+      'At a recent consultant event we spent some time talking about the importance of good discovery. An experienced consultant once put it to me like this: <em>&ldquo;There are two places consultants can spend their time, Discovery Island and Solution Island. The two are connected by a bridge, but it&rsquo;s one way. Once you leave Discovery Island and go to Solution Island, you can&rsquo;t go back. That means you need to always spend more time than you think on Discovery Island, and only cross that bridge when you&rsquo;re convinced you understand the problem and can best design the solution.&rdquo;</em>',
+      'This really resonates with me. We know our clients only feel comfortable moving forward when they know we&rsquo;ve taken the time to truly understand their problems, and that means asking good questions and getting beyond the symptoms to the core issues. We looked at client conversations where one of our Catalant Client Team members, a client and a consultant were all on the line. When the client did most of the talking, the consultant went on to win the work 49% of the time. When the consultant did most of the talking, it was 34%. Both groups made the shortlist about equally often, but once on the shortlist, consultants from client-led conversations closed 91% of the time, against 68%.',
+      'Some of that is surely clients who are already leaning yes talking more, so I wouldn&rsquo;t treat it as a rule about airtime. But it fits what the best consultants do: ask good questions, let the client hear their own problem out loud, and play it back before offering anything. Below you&rsquo;ll find how the numbers break down, five questions to try in your next first call, and why getting clear early matters when a project is later canceled.'
+    ]
+  },
+  sections:[
+    { k:'Buyer decision trends', id:'sec-buyer',
+      analysis:'Discovery is where a buyer decides whether you understand the problem. To see what good discovery looks like, we measured who did the talking in our recorded client conversations with a consultant on the line, from January 2024 through October 11, 2026, and followed what happened next on the client&rsquo;s project. Getting shortlisted looks about the same however the call went. What changes is how often the work gets won, and the consultants who let the client talk and kept asking questions won the most.',
+      blocks:[
+        {type:'duo',title:'Who talks most decides how it ends',unit:'Conversations we could follow to a project. Client-led means the client spoke at least half of the client and consultant talk time.',
+         names:['Client-led','Consultant-led'],
+         rows:[['Reached shortlist or beyond',53.5,49.5],['Won',48.8,33.7],['Won, of those that reached the shortlist',91.3,68.0]],
+         reads:'<b>Read it as:</b> being shortlisted barely depends on how the conversation went, at 54% against 50%, but winning does. 49% of client-led conversations ended in a win, against 34% of consultant-led ones. Among consultants who reached the shortlist, 91% of client-led conversations closed and 68% of consultant-led ones did. <b>One thing to know:</b> we can only follow conversations we can tie to a project, so treat the direction as solid and the exact percentages as approximate. Some of the effect is clients who are already leaning yes talking more, so it doesn&rsquo;t prove that talking less would change your result.',
+         sowhat:'Plan to finish the first call having listened more than you talked. If you notice you&rsquo;ve been talking for a few minutes, stop and ask what the client would add. Your profile and your Digital Twin help get you the conversation. How you run it is what turns a shortlist into a win.'},
+        {type:'ladder',title:'Four first-call styles',unit:'% of conversations we could follow to a project, by who talked more and how many questions the consultant asked',
+         defs:'<b>How we sort a conversation.</b> <b>Who talks more:</b> we compare the client&rsquo;s talk time with the consultant&rsquo;s, leaving out the Catalant team. If the client spoke at least half of that combined time, the conversation is <b>client-led</b>. Otherwise it&rsquo;s <b>consultant-led</b>. <b>How many questions:</b> we count the consultant&rsquo;s own questions across the whole conversation and express them per ten minutes. 8 or more per ten minutes is &ldquo;many&rdquo; (for example, 40 or more in a 50-minute conversation).',
+         names:['Client-led','Consultant-led'],
+         rows:[
+           ['Interviewer','Client-led, and the consultant asks 8 or more questions per ten minutes',55.6,60.0,'','client'],
+           ['Spectator','Client-led, and the consultant asks fewer than 8 questions per ten minutes',41.5,46.3,'','client'],
+           ['Lecturer','Consultant-led, and the consultant asks 8 or more questions per ten minutes',35.3,54.4,'','consultant'],
+           ['Monologuer','Consultant-led, and the consultant asks fewer than 8 questions per ten minutes',30.3,39.4,'','consultant']],
+         reads:'<b>Read it as:</b> in each pair of bars, the first is how often the consultant won the work and the second is how often they reached the shortlist or beyond. The questions counted are the consultant&rsquo;s, not the client&rsquo;s. Interviewers won 56% of the time, Spectators 42%, Lecturers 35% and Monologuers 30%. <b>One thing to know:</b> we count question marks in the consultant&rsquo;s speech, which includes confirmations like &ldquo;right?&rdquo;. Without those, Interviewers and Spectators land close together, at 50% and 47%. So who does the talking matters more than the question count, and the consultant&rsquo;s questions look like a good way to get the client talking. Each style rests on a modest number of conversations we could follow to a project, so treat the order as a direction, not a ranking.',
+         sowhat:'Aim for the Interviewer pattern. Ask a question, let the client answer at length, and follow what they say. If you catch yourself explaining for more than a minute or two, end with a question.'},
+        {type:'coach',title:'Five questions to try in your next first call',unit:'From conversations where the consultant went on to win the work, lightly edited and anonymized',
+         h:'Questions that came up in winning first calls',
+         items:[
+           '<b>Find out who decides.</b> &ldquo;Who&rsquo;s making that decision?&rdquo; Name the decision-maker, and anyone else who needs to agree, while you&rsquo;re still on the first call.',
+           '<b>Ask what comes first.</b> &ldquo;Is there any sense of priorities within this list?&rdquo; Clients arrive with a long list. Helping them rank it is how a list becomes a scope.',
+           '<b>Use their words, then ask what they mean.</b> &ldquo;When you say value-based pricing, what does that look like for your customers?&rdquo; The word that sounds obvious usually isn&rsquo;t.',
+           '<b>Ask where they are today.</b> &ldquo;Where would you say you are on that?&rdquo; A clear current state is what makes a first step believable.',
+           '<b>Play it back.</b> &ldquo;Does that sound like what you&rsquo;re looking for?&rdquo; Say the problem back and check it. It gives the client a chance to correct you and makes the next step easy to agree. And every proposal should start with you clarifying what you&rsquo;ve heard, in the client&rsquo;s words.']}
+      ]},
+    { k:'Outcomes', id:'sec-outcomes',
+      analysis:'We also looked at why projects get canceled. Of the projects created in 2026 that weren&rsquo;t posted publicly and were later canceled with a reason, about one in four (24%) ended because of something good discovery tends to catch early: stakeholders who weren&rsquo;t aligned, a process that wasn&rsquo;t agreed, a budget that wasn&rsquo;t approved, or a price that didn&rsquo;t match the value. These are the reasons recorded when a project was closed, so they describe how it ended, not every conversation along the way.',
+      blocks:[
+        {type:'dist',title:'Why projects get canceled',unit:'% of canceled projects created in 2026 that weren&rsquo;t posted publicly, by recorded reason',
+         rows:[['Candidate strength or availability',26.0,false],['Other',22.1,false],['Lack of stakeholder alignment',16.8,true],['Found an internal resource',13.7,false],['Work not being done by anyone',10.7,false],['Budget not approved',3.1,true],['Value versus price',3.1,true],['Brand strength versus traditional options',2.3,false],['Lack of process alignment',1.5,true],['Legal or contracting issues',0.8,false]],
+         reads:'<b>Read it as:</b> the reasons highlighted in orange usually trace back to the first conversations: who needs to agree, what the process is, whether there&rsquo;s money and whether the value is clear. Together they account for 24% of canceled projects (the rounded rows may add to a point more). Candidate strength or availability is the most common reason overall. <b>One thing to know:</b> the sample is modest, so a point or two either way isn&rsquo;t meaningful, and &ldquo;Other&rdquo; is a large category we can&rsquo;t break down further.',
+         sowhat:'Use the first call to bring the alignment questions into the open: who decides, what the process is, and whether there&rsquo;s budget. And keep your availability current. When a Client Team member reaches out, a quick answer, even a no, helps us bring you the next one, and the Catalant app makes that easy.'}
+      ]},
+    { k:'Supply trends', id:'sec-supply',
+      analysis:'How much client demand there is for your practice area shapes your odds of being brought in. Demand is running ahead of the number of consultants in Tech &amp; Digital Transformation and Transformation &amp; M&amp;A, where each makes up a bigger share of this year&rsquo;s invited projects than of consultants. It&rsquo;s running behind in Industry Expert and Org. Design &amp; HR, though these are early patterns. What it means for you: if demand in your practice area is running ahead, keeping your Digital Twin current puts you in front of it. If it&rsquo;s running behind, being specific about the problems you&rsquo;ve solved helps a Client Partner think of you first.',
+      blocks:[
+        {type:'duo',title:'Where project demand runs ahead of consultants, by primary area of expertise',unit:'Share of this year&rsquo;s invited projects that brought in a consultant from each practice area, against each practice area&rsquo;s share of Practice Community consultants',
+         names:['Share of projects','Share of consultants'], max:25,
+         rows:[['Tech &amp; Digital Transformation',22.8,17.8],['Transformation &amp; M&amp;A',19.8,17.8],['Operational Excellence',17.3,15.7],['Commercial Excellence',16.3,17.2],['Industry Expert',14.4,19.2],['Office of the CFO',5.4,5.8],['Org. Design &amp; HR',4.0,6.5]],
+         reads:'<b>Read it as:</b> each practice area has two bars. The orange bar is its share of this year&rsquo;s invited projects where we brought in one of its consultants. The gray bar is its share of all approved Practice Community consultants. When orange is longer than gray, there are more invited projects than its share of consultants would suggest, so demand is running ahead. When gray is longer, there are more consultants than projects. A project that brought in consultants from two practice areas counts once for each. <b>One thing to know:</b> this is demand we&rsquo;ve filled from each practice area, not every request a client makes, and a point or two is only a few projects. Industry Expert is organized by industry rather than function, so its projects overlap with the other practice areas.',
+         sowhat:'Find your practice area in the chart. If the orange bar is longer than the gray bar, demand is running ahead of the number of consultants, and a current Digital Twin puts you in front of more projects. If the gray bar is longer, specificity helps: say which problem you&rsquo;ve solved, in which kind of company, so a Client Partner thinks of you first.'}
+      ]}
+  ],
+  asks:[
+    {q:'Which section of this issue was most useful to you?',
+     sub:'Pick one and, if you have a minute, tell us why. It shapes the next issue.',
+     opts:['What we&rsquo;re seeing, the opening essay','Buyer decision trends, how first calls end','Outcomes, why projects get canceled','Supply trends, where project demand runs ahead of consultants']},
+    {q:'What would be most useful in the next issue?',
+     sub:'Here&rsquo;s what we have ready, or nearly ready. Pick one, or tell us something else.',
+     opts:['Rates by years of experience and engagement type','How repeat work with the same client happens, and what leads to it','Why engagements end early, and how to avoid it','Your own numbers benchmarked against the platform']},
+    {q:'What can Catalant do to better help you with discovery in your client conversations?',
+     sub:'Prep, tools, call support, anything. No names or client details needed.',
+     opts:[]}
+  ],
+  footer:'<p><b>How to read the numbers.</b> Conversation and project figures are shown as shares, and we flag where a sample is small so you can judge how much weight to give them. Everything here is pooled across many conversations and consultants. Nothing is scored or reported for any individual, and nothing in this issue identifies a client, a company or a person. Our clients tell us things on the condition that we don&rsquo;t repeat them.</p><p style="margin-top:9px"><b>Data &amp; Confidentiality.</b> Insights in this publication are generated from aggregated and anonymized platform data and communication analytics. Unless a specific time period is indicated, the insights are based on data captured between January 2024 and October 2026. No individual client, consultant, or proprietary information is identified or disclosed.</p>'
+};
+
 const ISSUE4 = {
   no:4, date:'Wednesday 7 October 2026', tag:'Issue four', essayLabel:'What we&rsquo;re seeing: Reflections from Pat', nextLabel:'What&rsquo;s coming next',
   short:'Win it in the conversation', hook:'What winning proposals have in common, and how invited work gets filled',
@@ -404,7 +571,7 @@ const ISSUE4 = {
            ['Day 8.6','Both sides signed','The middle half of engagements land somewhere between 2.9 and 20.2 days.',true]],
          reads:'<b>Read it as:</b> once the brief exists, the platform part of an invitation-only engagement takes a median of 8.6 days from brief to both signatures, and the proposal is the step you control. <b>One thing to know:</b> these are medians for each step measured on its own, across new engagements with extensions and internal accounts taken out. The signing figure covers only the engagements where both signatures were recorded on the platform. They don&rsquo;t add up neatly, and the platform can&rsquo;t see the conversation before the brief, which is where the real decision gets made.'},
         {type:'stack',title:'Who gets invited: the winner&rsquo;s track record before the invitation',unit:'% of new invitation-only wins, briefs created July 2025 to August 2026',
-         cats:[['Had already delivered for that same client','var(--accent)'],['Had delivered for a different Catalant client','var(--blue-700)'],['First win on Catalant','var(--blue-300)']],
+         cats:[['Had already delivered for that same client','var(--accent)'],['Had delivered for a different Catalant client','var(--mulberry-700)'],['First win on Catalant','var(--mulberry-300)']],
          rows:[['Invited wins',[48.3,28.9,22.8]]],
          reads:'<b>Read it as:</b> 48.3% of invitation-only wins went to a consultant who&rsquo;d already delivered work for that same client through Catalant, on a separate earlier brief, not an extension. Another 28.9% went to someone who&rsquo;d delivered for a different Catalant client. And 22.8%, more than one in five, went to a consultant winning on Catalant for the first time. <b>One thing to know:</b> &ldquo;same client&rdquo; means the same client account on our platform, and prior work counts any earlier engagement that was won, active or completed. Internal and catch-all accounts are excluded.',
          sowhat:'Repeat business is the biggest single way into invited work, which brings us back to Issue 3: how the client feels about this engagement decides who gets the next one. If you haven&rsquo;t won here yet, more than one in five invited wins went to someone in exactly your position. The best way to be next is in the news above: a complete Digital Twin so AI Search can find you, and same-day replies when a Client Team reaches out, because response time affects how you rank.'}
@@ -455,7 +622,7 @@ const ISSUE3 = {
       'We are excited to continue rolling out Digital Twins across our Practice Community. You will be hearing more from our Product team during this week&rsquo;s Town Hall about the Digital Twins and how our platform takes the information you submit and analyzes it to create new business and targeted opportunities. <b>If you have not done so already, please make sure to build out your Digital Twin in the platform this week.</b>'
     ]},
     {h:'PC Connect in NYC Oct. 21', ps:[
-      'For all of our CoE members in the New York metropolitan area we&rsquo;re excited to invite you to join us for an evening of networking from 6-8pm ET on October 21st in the Manhattan financial district. If you can join us, please <a href="https://catalant.com/event/new-york-practice-community-connect/" target="_blank" rel="noopener"><b>register here</b></a>.'
+      'For all of our PC members in the New York metropolitan area we&rsquo;re excited to invite you to join us for an evening of networking from 6-8pm ET on October 21st in the Manhattan financial district. If you can join us, please <a href="https://catalant.com/event/new-york-practice-community-connect/" target="_blank" rel="noopener"><b>register here</b></a>.'
     ]}
   ]},
   essay:{
@@ -525,7 +692,7 @@ const ISSUE3 = {
          reads:'<b>Read it as:</b> extensions have gone from roughly one engagement in four to one in three, and the level has held for two years running. To check that this is not just older cohorts having had more time, we also measured extensions created within 90 days of the engagement starting: 13.7% for 2023, 15.5% for 2024 and 15.5% for 2025. Same picture, like for like. <b>One thing to know:</b> 2026 starts are deliberately excluded. They currently read 20.1%, but that is censoring, not a decline. Most of those engagements have not reached the point where an extension would be created yet, and publishing that number would be a straightforward error.',
          sowhat:'A third of the engagements you take will be extended, and you cannot tell in advance which third. Behave on every engagement as though it is the one, because the client decides much earlier than you think.'},
         {type:'rank',title:'What an extension is worth',unit:'Median values across all extended engagements',fmt:'usd',
-         rows:[['Median original engagement',38500,'var(--blue-300)'],['Median first extension',21000,'var(--blue)'],['Median of all extensions combined',33750,'var(--accent)']],
+         rows:[['Median original engagement',38500,'var(--mulberry-300)'],['Median first extension',21000,'var(--mulberry-300)'],['Median of all extensions combined',33750,'var(--accent)']],
          reads:'<b>Read it as:</b> the first extension is worth about 0.62 times the original engagement, which sounds modest until you notice that 39.0% of extended engagements get extended more than once. Add all the extensions on a given engagement together and the median comes to $33,750 against a median original of $38,500. That is a ratio of 1.00. When an engagement extends, it tends to double. <b>One thing to know:</b> these are medians of separate distributions rather than a paired ratio, so treat 1.00 as a striking coincidence rather than a law of nature. The direction is not in doubt.',
          sowhat:'Roughly half the money available to you on an extended engagement is not in the contract you signed. It is in the relationship you build while delivering it. If you have been optimizing the initial negotiation and coasting on delivery, you have the effort allocated backwards.'}
       ]},
@@ -533,7 +700,7 @@ const ISSUE3 = {
       analysis:'You asked how experienced the people you work alongside on the platform are. The network is younger than most of you would guess: more than half of approved consultants have under fifteen years of experience. The people winning work are not. Every band of experience wins more work relative to its size than the band below it, and the most senior band wins at well over twice its share of the network. Experience does not guarantee the work, but it is the clearest single dividing line we can see between who is on the platform and who is delivering on it.',
       blocks:[
         {type:'stack',title:'Who is on the platform, and who is winning the work, by years of experience',unit:'% of consultants in each experience band',
-         cats:[['Under 10 years','var(--blue-300)'],['10 to 15 years','var(--blue)'],['15 to 20 years','var(--blue-700)'],['20 to 25 years','var(--blue-900)'],['25 years and above','var(--accent)']],
+         cats:[['Under 10 years','var(--mulberry-300)'],['10 to 15 years','var(--mulberry-300)'],['15 to 20 years','var(--mulberry-700)'],['20 to 25 years','var(--mulberry-900)'],['25 years and above','var(--accent)']],
          rows:[['On the platform',[28.7,27.1,19.3,11.9,12.9]],['Won work',[9.4,19.3,21.9,18.9,30.5]]],
          reads:'<b>Read it as:</b> of the roughly fifty thousand approved consultants on the platform, 28.7% have under ten years of experience, 27.1% have ten to fifteen, 19.3% fifteen to twenty, 11.9% twenty to twenty five, and 12.9% twenty five or more. Among the consultants who won work in the last twelve months the picture flips. Under ten years falls to 9.4%, ten to fifteen to 19.3%, while fifteen to twenty rises to 21.9%, twenty to twenty five to 18.9%, and twenty five and above to 30.5%. The median approved consultant has 13 years of experience. The median winner has 19. <b>One thing to know:</b> experience is measured from the start of the earliest role listed on each profile, so it counts early-career roles and undercounts anyone who has trimmed their history. Winners are consultants on engaged or completed work created in the last twelve months.',
          sowhat:'Years help, but they are not the whole story. Nearly three in ten winners have under fifteen years of experience, and everything earlier in this issue says clients decide on how it feels to work with you. If you are earlier in your career, the path in is depth in one area and prior context with an account rather than breadth. If you are more senior, do not let your years do the talking. Show what you did with them, with a concrete, comparable example.'}
@@ -556,18 +723,14 @@ const ISSUE2 = {
   no:2, date:'Wednesday 23 September 2026', tag:'Issue two', essayLabel:'What we&rsquo;re seeing: Reflections from Pat', nextLabel:'What&rsquo;s coming next',
   short:'The invitation, not the auction', hook:'Who is buying, one consultant or many, and what slows a deal down',
   toc:[
-    {t:'Catalant news and updates', d:'The One Team tools, the Q3 Town Hall preview, a new article, and upcoming events', href:'#whats-new'},
+    {t:'Catalant news and updates', d:'The Q3 Town Hall preview and a new article', href:'#whats-new'},
     {t:'What we&rsquo;re seeing: Reflections from Pat', d:'We&rsquo;re getting out of the business of making you compete', href:'#part-essay'},
     {t:'Demand trends', d:'Which functions, levels and industries are buying right now, and what each of them buys', href:'#sec-demand'},
     {t:'Buyer decision trends', d:'One consultant or many, how long it takes to win, and what slows it down', href:'#sec-buyer'},
     {t:'Supply trends', d:'How many people you&rsquo;re competing with, and how fast that&rsquo;s changing', href:'#sec-supply'},
-    {t:'Feedback and questions', d:'Three questions, and the accounts you want to pursue with us', href:'#feedback'},
-    {t:'What&rsquo;s coming next', d:'Our Q4 bets, and rates by experience and engagement type', href:'#next'}
+    {t:'Feedback and questions', d:'Three questions, and the accounts you want to pursue with us', href:'#feedback'}
   ],
   news:{ label:'Catalant news and updates', blocks:[
-    {h:'The One Team tools are ready', ps:[
-      'Two of the four tools we promised at Session 1 are now available to every CoE consultant: <a href="https://docs.google.com/document/d/1ttdz2mzFUjy0EUInABe54yI_TOGckl0p637WBVZBuj0/edit?usp=sharing" target="_blank" rel="noopener">One Team Roles by Sales Stage</a>, which spells out who owns what at Discovery, Proposal, Close and Delivery, and the <a href="https://docs.google.com/document/d/155RZ4eEVctCmn95GU5if0hGO6XYS1-B3xT8AwoXZfek/edit?tab=t.0" target="_blank" rel="noopener">One Team Joint Planning Template</a>, a one-page plan you complete with your Client Partner before working an opportunity together. Let us know if you have feedback!'
-    ]},
     {h:'Sneak peek: the Q3 Practice Community Town Hall is October 1st!', ps:[
       {t:'Our Q3 Town Hall is upcoming on Thursday, October 1st. We&rsquo;re so excited to see everyone! Here&rsquo;s a sneak preview of what we will be covering in this quarter&rsquo;s session:',
        sub:[
@@ -579,18 +742,13 @@ const ISSUE2 = {
     ]},
     {h:'New article: The Pilot-Proof Paradox: How Manufacturing AI Pilots Can Succeed but Still Fail', ps:[
       'When AI pilots are constrained to siloed tasks or processes, they prove technical feasibility without moving the needle on P&amp;L. In a recent Catalant article, consultant Byron Winn breaks down how shifting your focus from isolated task automation to complete, end-to-end operational workflows unlocks measurable business value and protects profit margins. Read more <a href="https://catalant.com/digital-and-ai/the-pilot-proof-paradox-how-manufacturing-ai-pilots-can-succeed-but-still-fail/" target="_blank" rel="noopener">here</a>!'
-    ]},
-    {h:'Upcoming events', ps:[
-      {t:'<b>CoE in-person Connect is next week: October 1 and 2.</b> If you have not registered for CoE Connect: Consulting in the Age of AI, please <a href="https://catalant.com/event/catalant-coe-connect-consulting-in-the-age-of-ai/" target="_blank" rel="noopener">do so here</a>! Day One will focus on deepening relationships with the Catalant team and across the CoEs, and Day Two will focus on industry disruption in the age of AI, including a panel on why AI impact is so hard to prove and how to fix it, project spotlights on AI-driven transformation in practice, and an AI roundtable discussion.',
-       sub:['Session 3 of the One Team series, <b>Gaining Client Commitment</b>, is in-person only during the CoE Connect. It builds directly on the selling and delivery sessions from the last month.']},
-      '<b>Save the date! PC Connect in New York, October 21st, 2026.</b> Venue and registration details are coming shortly.'
     ]}
   ]},
   essay:{
     h:'We&rsquo;re getting out of the business of making you compete.',
     ps:[
       'Two years ago, roughly one in three engagements on Catalant started with us bringing a single consultant to a client. So far this quarter it&rsquo;s two in three. Nobody announced that shift. It happened one Client Partner at a time, because it just works better for everyone involved. The client gets one person who has clearly been chosen for them, that person gets a real conversation instead of a pitch, and the whole thing closes in days rather than weeks. The auction was how we got started. The invitation is how we&rsquo;re going to grow.',
-      'That puts a different question in front of you, and honestly in front of us too. On a posted brief, the job was to stand out among a crowd, and the crowd has only gotten bigger. On an invited brief, the job is to be the person a Client Partner thinks of first for a specific kind of problem, and then to help them win it as one team. Those are different skills, and the second one is more learnable than it looks. Plenty of you already have it. The One Team sessions this month were the start of teaching it. The data below shows you why we&rsquo;re so sure this is the right bet, and where the time goes when a deal drags.'
+      'That puts a different question in front of you, and honestly in front of us too. On a posted brief, the job was to stand out among a crowd, and the crowd has only gotten bigger. On an invited brief, the job is to be the person a Client Partner thinks of first for a specific kind of problem, and then to help them win it as one team. Those are different skills, and the second one is more learnable than it looks. Plenty of you already have it. The data below shows you why we&rsquo;re so sure this is the right bet, and where the time goes when a deal drags.'
     ]
   },
   sections:[
@@ -612,7 +770,7 @@ const ISSUE2 = {
          reads:'<b>Read it as:</b> the buyer has moved from the center to the edges of the organization. In 2024 the two classic consulting buyers, corporate strategy and the C-suite, owned more than one in five briefs between them. This year it&rsquo;s about one in six, while portfolio operations teams at private equity firms have gone from one in eight briefs to more than one in five, and line functions, operations, supply chain and HR, have all grown. There&rsquo;s also a conversion story here, and it matters more than the mix. Briefs owned by someone with the operating problem, in marketing, HR, operations or an internal consulting team, become engagements at two to three times the rate of briefs owned by a portfolio operations or deal team sourcing on behalf of a company they don&rsquo;t run. <b>One thing to know:</b> we can only see function for about three in ten briefs, the ones where the brief owner is a contact we have on record. So read these as the shape of the market, not a census.',
          sowhat:'Your buyer is increasingly the person who has to live with the result, not the person whose job is to buy consulting. Write your profile and run your first call for an operator: what changed, how fast, and what it took from their team. When the buyer is a portfolio operations or deal team, expect a longer road and a second buyer inside the company, and ask early who that is.'},
         {type:'stack',title:'How senior is the buyer: the level of the person who owns the brief',unit:'% of briefs where the buyer&rsquo;s title is known, by period',
-         cats:[['C-suite, president or MD','var(--blue-900)'],['Investor: partner, principal, associate','var(--accent)'],['VP, SVP or EVP','var(--blue-700)'],['Director or head of','var(--blue)'],['Manager and other','var(--blue-300)']],
+         cats:[['C-suite, president or MD','var(--mulberry-900)'],['Investor: partner, principal, associate','var(--accent)'],['VP, SVP or EVP','var(--mulberry-700)'],['Director or head of','var(--mulberry-300)'],['Manager and other','var(--mulberry-300)']],
          rows:[['2024',[10.8,19.4,21.9,27.7,20.1]],['2025',[16.9,19.0,18.4,25.8,19.9]],['2026 to date',[17.4,22.1,17.9,21.8,20.8]],['Last 90 days',[17.0,24.8,13.1,24.8,20.2]]],
          reads:'<b>Read it as:</b> the C-suite share of briefs has risen from roughly one in nine in 2024 to one in six this year, and investors, partners, principals and associates at PE firms, are now the single largest level, a quarter of briefs in the last 90 days. The middle, VPs and SVPs, is where the share has come out. A brief owned by a director or a manager converts to an engagement at roughly twice the rate of one owned by a C-suite executive or an investor, because the director already has a mandate and a budget line, while the executive is often still deciding whether to do the work at all.',
          sowhat:'Match your altitude to the buyer&rsquo;s. With a C-suite or investor buyer, the first conversation is discovery, not a pitch: help them decide what the work is, and expect to be introduced to the person who will own it. With a director-level buyer, the decision is largely made; be concrete about the plan for month one and let them see you&rsquo;re easy to work with.'},
@@ -638,7 +796,7 @@ const ISSUE2 = {
       analysis:'The most requested insights were how long it takes to win and what slows it down. The honest answer starts with how clients are choosing. Two years ago most engagements were won out of a shortlist of four or more consultants; now most are won by a consultant handpicked by our team to meet with the client. Where deals still drag, the time isn&rsquo;t spent in the steps you can see. It&rsquo;s spent while the client decides and while the proposal is being iterated on. That&rsquo;s the part you can change, and it&rsquo;s exactly what One Team is designed to fix.',
       blocks:[
         {type:'stack',title:'One or many: how many consultants the client compared before choosing',unit:'% of engagements won, by the number of consultants shown to the client, by half-year of close',
-         cats:[['One consultant','var(--accent)'],['Two or three','var(--blue-700)'],['Four or more','var(--blue-300)']],
+         cats:[['One consultant','var(--accent)'],['Two or three','var(--mulberry-700)'],['Four or more','var(--mulberry-300)']],
          rows:[['2024 H1',[33.5,5.7,60.9]],['2024 H2',[30.4,15.1,54.6]],['2025 H1',[36.9,20.0,43.1]],['2025 H2',[50.6,16.3,33.1]],['2026 to date',[53.7,20.0,26.3]]],
          reads:'<b>Read it as:</b> two years ago, three in five engagements were won after the client compared four or more consultants. So far in 2026 it&rsquo;s one in four, and more than half of what we win now goes to a consultant the client met on their own, with nobody else in the frame. The average number of consultants shown per won engagement has fallen from 4.2 to 2.6. Across all closed-won work the median from brief to contract is 12.6 days this year, down from 14.0 in each of the last two years, and the step we own, approval to signed contract, has fallen from 4.2 days in 2024 to 1.0 as more accounts contract directly with Catalant. <b>One thing to know:</b> when we bring a consultant in before the brief is written, the platform only sees the tail end of the conversation, so the one-consultant share is a floor, not a ceiling.',
          sowhat:'The competitive pitch is becoming the exception. That changes what winning means. It&rsquo;s less about standing out in a shortlist and more about being the person a Client Partner brings to a specific problem, then helping them get to one proposal that lands. The next chart shows where the time goes when it doesn&rsquo;t.'},
@@ -649,15 +807,15 @@ const ISSUE2 = {
            {h:'Client meetings logged on the brief',rows:[['One meeting',15.3,false],['Two or three',21.1,false],['Four or more',31.0,true]]}],
          reads:'<b>Read it as:</b> this is about your own proposal, not anyone else&rsquo;s. In about three in four wins the consultant who won was the only one who submitted a proposal at all. When that consultant got it right the first time, the work went from brief to contract in a median of 11.3 days, and with no revisions after sending, 7.2. A second proposal from the same consultant pushed the median to 21.0 days, and three or more rounds of revisions to 29.0. Meetings tell the same story: four or more client meetings before a contract usually means the problem was never fully diagnosed. It&rsquo;s not a sign of diligence. Enterprise briefs run slowest, and are the most likely to need a second pass.',
          sowhat:'Second proposals are almost never about price. They happen when the first one answered a question the client didn&rsquo;t ask: the wrong scope, the wrong altitude, a workplan before the problem was agreed. The fix is upstream, in discovery, and it&rsquo;s a shared job. The One Team model puts the substance of the diagnosis and the scope on you, and the process, the relationship and the commercial conversation on your Client Partner. When both halves are done before anyone starts writing, you get one proposal.'},
-        {type:'coach',title:'How to partner with Catalant to close faster: the One Team version',unit:'From the One Team sessions, applied to this data',
+        {type:'coach',title:'How to partner with Catalant to close faster: the One Team version',unit:'Catalant&rsquo;s new One Team approach, our initiative to partner more closely with consultants throughout the sales process, applied to the data',
          h:'Five things that shorten the clock',
          items:[
-           '<b>Get in before the proposal, not after it.</b> The rule of thumb from Session 1 was simple: when in doubt, the consultant comes in earlier. The data agrees. The deals that close on one proposal are the ones where the person doing the work was in the discovery conversation.',
+           '<b>Get in before the proposal, not after it.</b> The rule of thumb is simple: when in doubt, the consultant comes in to the discussion earlier. The data agrees. The deals that close on one proposal are the ones where the person doing the work was in the discovery conversation.',
            '<b>Prep together before every client call.</b> Fifteen to twenty minutes with your Client Partner on who we&rsquo;re walking in with, what we&rsquo;re walking into and how we want the conversation to go. It&rsquo;s the single cheapest thing on this list and it&rsquo;s why an invited engagement rarely needs a second meeting.',
            '<b>Own the diagnosis and the scope; let your Client Partner own the price.</b> You define what is in, what is out, and the end products. They read the relationship and decide when the client is ready to see a number. One client-facing price, no build-up, no hours shown.',
            '<b>Lead the proposal with their situation, not your credentials.</b> Context before capabilities, and outcome-forward proof: quantified results from comparable work, not activity lists. That&rsquo;s what turns a first proposal into the only proposal.',
            '<b>Flag risks, assumptions and added resourcing early.</b> Every revision that shows up in the numbers above is something that could have been said out loud a week earlier. Say it in the prep call.'],
-         sowhat:'If you&rsquo;ve a live opportunity with a Client Partner right now, open the Joint Planning Template with them this week and agree who owns what at the stage you&rsquo;re actually in. That&rsquo;s the whole method. It really is that simple.'}
+         sowhat:'If you have a live opportunity with a Client Partner right now, work with them this week to agree who owns what at the stage you&rsquo;re actually in. That&rsquo;s the whole method. It really is that simple.'}
       ]},
     { k:'Supply trends', id:'sec-supply',
       analysis:'We heard from you that you&rsquo;d like to know how many people are competing on a typical project. The short answer is that on an openly posted brief it is a crowded room, and it has gotten more crowded as the network has grown, up to over 25 consultants on a project posted to the marketplace. The better answer is that it matters less every quarter. That&rsquo;s precisely why we&rsquo;re moving away from posting as the default and toward pulling the right consultant in early, as a partner rather than a bidder. And you can see in the numbers that we&rsquo;ve tipped the scale toward this new model. It&rsquo;s already how most of the work we win gets done.',
@@ -673,7 +831,7 @@ const ISSUE2 = {
          wins:[35.8,36.0,45.0,52.4,60.9,56.6,64.4,73.6,67.5,77.6,84.1],
          briefsLabel:'of briefs worked', winsLabel:'of engagements won', ymax:90,
          reads:'<b>Read it as:</b> in early 2024, fewer than one in three briefs the team worked put a handpicked shortlist of three or fewer consultants in front of the client; the rest ran as an open field of four or more. So far this quarter it&rsquo;s nearly three in four, and 84.1% of what we&rsquo;ve won came that way. Within the handpicked group the single-consultant invitation is the fastest-growing piece, now 40.9% of worked briefs and 66.4% of wins, up from roughly one in five and one in three. The average number of consultants the client sees before choosing has fallen from 4.4 to 2.0. <b>One thing to know:</b> the quarter isn&rsquo;t over and open-field briefs take longer to resolve, so the Q3 numbers will settle a bit lower. The direction won&rsquo;t change.',
-         sowhat:'Getting handpicked is about relationships, not an algorithm. Client Partners bring in people they have worked with, prepped with, and seen deliver. The One Team sessions, the Connect events and the joint planning work are how you become that person for two or three Client Partners in your area. If you&rsquo;re not yet working with one, tell us in the feedback section below which industries and buyer types you want to be pulled into, and we&rsquo;ll make the introduction.'}
+         sowhat:'Getting handpicked is about relationships, not an algorithm. Client Partners bring in people they have worked with, prepped with, and seen deliver. Trainings, PC Connects, and joint planning work are how you become that person for two or three Client Partners in your area. We encourage you to attend any opportunity you have to meet more of the Catalant team and make those connections.'}
       ]}
   ],
   asks:[
@@ -686,18 +844,13 @@ const ISSUE2 = {
     {q:'How could Catalant support delivery of the work that you do, both on Catalant projects and with non-Catalant clients?',
      sub:'We&rsquo;re asking this on purpose as broadly as we can. Tools, templates, people, AI, contracting, anything.',
      opts:[]}
-  ],
-  next:[
-    'Our first quarterly bets: three things we expect to happen in Q4 based on what we&rsquo;re seeing, so you can hold us to them.',
-    'Rates cut by years of experience and engagement type, the most requested follow-up to Issue 1.',
-    'A preview of CoE Connect, and what to bring to the Gaining Client Commitment session.'
   ]
 };
 
 const ISSUE1 = {
   no:1, date:'Wednesday 16 September 2026', tag:'Issue one',
   toc:[
-    {t:'What&rsquo;s new at Catalant', d:'The launch of Forward Deployed Experts, plus CoE training and events', href:'#whats-new'},
+    {t:'What&rsquo;s new at Catalant', d:'The launch of Forward Deployed Experts', href:'#whats-new'},
     {t:'What we are seeing', d:'Quality and reliability, without the rest of it', href:'#part-essay'},
     {t:'Demand trends', d:'The widening gap between AI in the conversation and AI in the project brief', href:'#sec-demand'},
     {t:'Buyer decision trends', d:'What clients say when they decline working with us', href:'#sec-buyer'},
@@ -710,13 +863,6 @@ const ISSUE1 = {
       'While investments in AI continue to skyrocket, many organizations are discovering that building AI tools is significantly easier than getting teams to use them effectively. To solve this disconnect, we have announced the launch of Forward Deployed Experts (FDX), a new service offering aimed directly at bridging the gap between high-level AI strategy and bottom-line business value.',
       'The core challenge facing enterprise leaders isn&rsquo;t a lack of models or data, it&rsquo;s the execution bottleneck. AI initiatives frequently stall because technical engineers lack deep operational context, while frontline business leaders struggle to translate AI capabilities into daily workflows. Our FDX solution pairs specialized domain consultants directly with AI implementation teams and client personnel inside the organization. By embedding experts who understand specific industry operations, we help to steer implementation, ensure user adoption, and align AI output directly with key performance metrics and P&amp;L results.',
       'Read more about FDX <a href="https://catalant.com/press-release/catalant-launches-forward-deployed-experts-to-close-the-gap-between-ai-strategy-and-business-impact/" target="_blank" rel="noopener">here</a>!'
-    ]},
-    {h:'CoE Updates', ps:[
-      '<b>Reminder to Attend for FDX Training:</b> Thank you to all of the CoE Consultants who attended our FDX training session on Monday, September 14. For anyone who was not able to make Monday&rsquo;s session, we highly encourage you to join the session on Friday Sept 18 at 12:30 PM ET. This training is extremely important for our CoE consultants to be able to effectively co-sell FDX opportunities alongside our Client Community teams.',
-      {t:'<b>Upcoming Events:</b>', sub:[
-        '<b>CoE In-person Connect: Consulting in the Age of AI:</b> Reminder to <a href="https://catalant.com/event/catalant-coe-connect-consulting-in-the-age-of-ai/" target="_blank" rel="noopener">register here</a> for our CoE Connect in Boston October 1-2 if you have not already.',
-        '<b>Save the Date:</b> PC Connect in New York, October 21st, 2026. Venue and registration page coming soon.'
-      ]}
     ]}
   ]},
   essay:{
@@ -757,7 +903,7 @@ const ISSUE1 = {
          reads:'<b>Read it as:</b> nearly eight in ten winners list between $8,000 and $15,000 a week, which at a five day week is roughly $1,600 to $3,000 a day. The median winner lists $10,000. For comparison, the median across everyone who was surfaced for work this year but did not win is $8,000, and the bottom quartile of winners starts at $8,000 where the bottom quartile of non-winners starts at $7,000. The lower end of the market is not where the work is being won. Undercutting does not appear to be a strategy that works here.',
          sowhat:'Clients rarely make decisions purely on rates. Generally, it&rsquo;s about value and impact. The more you can anchor the conversation on value and total cost the better you can defend your rates.'},
         {type:'rank',title:'Median listed weekly rate of winners, by primary practice area',unit:'Median weekly rate, winners only, practice areas with at least 10 winners',freq:'Monthly',fmt:'usd',
-         rows:[['AI / ML',12000,'var(--accent)'],['PMO / Transformation',11000,'var(--blue)'],['GTM Strategy',11000,'var(--blue)'],['Operations and Process Improvement',11000,'var(--blue)'],['M and A / CDD',10000,'var(--blue-300)'],['Private Equity',10000,'var(--blue-300)'],['Marketing',9000,'var(--blue-300)'],['Supply Chain',9000,'var(--blue-300)']],
+         rows:[['AI / ML',12000,'var(--accent)'],['PMO / Transformation',11000,'var(--mulberry-300)'],['GTM Strategy',11000,'var(--mulberry-300)'],['Operations and Process Improvement',11000,'var(--mulberry-300)'],['M and A / CDD',10000,'var(--mulberry-300)'],['Private Equity',10000,'var(--mulberry-300)'],['Marketing',9000,'var(--mulberry-300)'],['Supply Chain',9000,'var(--mulberry-300)']],
          reads:'<b>Read it as:</b> nine to twelve thousand a week across every practice area with enough winners to report. The spread inside each practice area is wider than the spread between them, so rate is almost never the thing deciding an engagement. AI / ML is the one area where winners list a visibly higher number, which is the supply side of the demand story above. <b>Caveat:</b> practice-area groups here are small, less than 50 winners each, so treat the ordering as directional rather than a league table.',
          sowhat:'Do not adjust your rate because of your practice area. The market does not. If you are a subject matter expert who can credibly speak to AI in your field, you have a case for the top of your range, which is the one place the data shows a premium.'}
       ]}
@@ -774,13 +920,14 @@ const ISSUE1 = {
 
 
 
-const ISSUES = [ISSUE4, ISSUE3, ISSUE2, ISSUE1];
+const ISSUES = [ISSUE5, ISSUE4, ISSUE3, ISSUE2, ISSUE1];
 ISSUE1.short = 'Quality and reliability, without the rest of it';
 ISSUE1.hook = 'The AI gap, why clients pass, and what winners charge';
 
 /* ============================================================ RENDER */
 const $ = s => document.querySelector(s);
-const pct = v => Number(v).toFixed(1);
+let PCT_DIGITS=1;
+const pct = v => Number(v).toFixed(PCT_DIGITS);
 const usd = v => '$' + Number(v).toLocaleString('en-US');
 const num = v => (typeof v==='number' ? v.toLocaleString('en-US') : v);
 
@@ -808,9 +955,9 @@ function svgGap(b){
     return o;
   };
   g+=line(b.said,'var(--accent)',2.6);
-  g+=line(b.bought,'var(--blue-900)',2.6);
+  g+=line(b.bought,'var(--mulberry-900)',2.6);
   g+=`<text class="endl" x="${W-R+11}" y="${y(b.said[n-1])+3.5}" fill="var(--accent)">${pct(b.said[n-1])}% <tspan font-weight="500" font-size="9.5">of client conversations</tspan></text>`;
-  g+=`<text class="endl" x="${W-R+11}" y="${y(b.bought[n-1])+3.5}" fill="var(--blue-900)">${pct(b.bought[n-1])}% <tspan font-weight="500" font-size="9.5">of project briefs</tspan></text>`;
+  g+=`<text class="endl" x="${W-R+11}" y="${y(b.bought[n-1])+3.5}" fill="var(--mulberry-900)">${pct(b.bought[n-1])}% <tspan font-weight="500" font-size="9.5">of project briefs</tspan></text>`;
   return `<div class="chartwrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${b.title}">${g}</svg></div>`;
 }
 
@@ -852,10 +999,10 @@ function svgShift(b){
     d.forEach((v,i)=>{ o+=`<circle cx="${x(i)}" cy="${y(v)}" r="3.4" fill="${c}"/>`; });
     return o;
   };
-  g+=line(b.briefs,'var(--blue-900)',2.4);
+  g+=line(b.briefs,'var(--mulberry-900)',2.4);
   g+=line(b.wins,'var(--accent)',2.6);
   g+=`<text class="endl" x="${W-R+11}" y="${y(b.wins[n-1])+3.5}" fill="var(--accent)">${pct(b.wins[n-1])}% <tspan font-weight="500" font-size="9.5">${b.winsLabel||'of engagements won'}</tspan></text>`;
-  g+=`<text class="endl" x="${W-R+11}" y="${y(b.briefs[n-1])+3.5}" fill="var(--blue-900)">${pct(b.briefs[n-1])}% <tspan font-weight="500" font-size="9.5">${b.briefsLabel||'of new briefs'}</tspan></text>`;
+  g+=`<text class="endl" x="${W-R+11}" y="${y(b.briefs[n-1])+3.5}" fill="var(--mulberry-900)">${pct(b.briefs[n-1])}% <tspan font-weight="500" font-size="9.5">${b.briefsLabel||'of new briefs'}</tspan></text>`;
   return `<div class="chartwrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${b.title}">${g}</svg></div>`;
 }
 
@@ -863,7 +1010,7 @@ function dist(b){
   const mx=Math.max(...b.rows.map(r=>r[1]));
   return `<div class="rk">`+b.rows.map(([lab,v,hot])=>
     `<div class="rkrow" style="grid-template-columns:1fr 58px">
-       <div class="lab"><i class="bar" style="width:${Math.max(4,v/mx*180)}px;background:${hot?'var(--accent)':'var(--blue-300)'}"></i><span style="${hot?'font-weight:600':''}">${lab}</span></div>
+       <div class="lab"><i class="bar" style="width:${Math.max(4,v/mx*180)}px;background:${hot?'var(--accent)':'var(--mulberry-300)'}"></i><span style="${hot?'font-weight:600':''}">${lab}</span></div>
        <div class="v tnum" style="color:${hot?'var(--accent)':'var(--ink-3)'}">${pct(v)}%</div></div>`).join('')+`</div>`;
 }
 
@@ -880,11 +1027,45 @@ function quotes(b){
   return `<div class="qs">`+b.qs.map(([t,c])=>`<div class="q">&ldquo;${t}&rdquo;<cite>${c}</cite></div>`).join('')+`</div>`;
 }
 
+const barw = (v,mx,top) => Math.max(1.2, v/mx*(top||72)).toFixed(1);
+
 function stack(b){
   return `<div class="stack">`+b.rows.map(([lab,vals])=>
-    `<div class="strow"><div class="lab">${lab}</div><div class="stbar">`+
-    vals.map((v,i)=>`<i style="width:${v}%;background:${b.cats[i][1]}" title="${b.cats[i][0]}: ${pct(v)}%">${v>=9?pct(v)+'%':''}</i>`).join('')+
-    `</div></div>`).join('')+`</div><div class="legend">`+b.cats.map(([n,c])=>`<span style="--c:${c}">${n}</span>`).join('')+`</div>`;
+    `<div class="strow"><div class="lab">${lab}</div><div><div class="stbar">`+
+    vals.map((v,i)=>`<i style="width:${v}%;background:${b.cats[i][1]}" title="${b.cats[i][0]}: ${pct(v)}%"></i>`).join('')+
+    `</div><div class="stvals">`+vals.map((v,i)=>`<span style="--c:${b.cats[i][1]}">${pct(v)}%</span>`).join('')+`</div></div></div>`).join('')+
+    `</div><div class="legend">`+b.cats.map(([n,c])=>`<span style="--c:${c}">${n}</span>`).join('')+`</div>`;
+}
+
+function duo(b){
+  const mx=b.max||100;
+  return `<div class="hbl">`+b.rows.map(([lab,a,c])=>
+    `<div class="hb"><div class="lab">${lab}</div><div class="bars">
+       <div class="br hot"><i style="width:${barw(a,mx)}%"></i><span>${pct(a)}%</span></div>
+       <div class="br"><i style="width:${barw(c,mx)}%"></i><span>${pct(c)}%</span></div></div></div>`).join('')+
+    `</div><div class="legend">`+b.names.map((n,i)=>`<span style="--c:${i===0?'var(--accent)':'var(--mulberry-300)'}">${n}</span>`).join('')+`</div>`;
+}
+
+function ladder(b){
+  return (b.defs?`<p class="defs">${b.defs}</p>`:'')+`<div class="hbl">`+b.rows.map(([name,def,won,short,counts,led],i)=>{
+    const wc = led ? (led==='client' ? ' hot' : '') : (i===0 ? ' hot' : '');
+    const sc = led ? (led==='client' ? ' tint hot' : ' tint') : ' soft';
+    return `<div class="hb"><div class="lab"><b>${name}</b><small>${def}</small><small>${counts}</small></div><div class="bars">
+       <div class="br${wc}"><i style="width:${barw(won,100)}%"></i><span>${pct(won)}% <em>won</em></span></div>
+       <div class="br${sc}"><i style="width:${barw(short,100)}%"></i><span>${pct(short)}% <em>shortlist or beyond</em></span></div></div></div>`;
+  }).join('')+`</div>`+(b.names ? `<div class="legend">`+b.names.map((n,i)=>`<span style="--c:${i===0?'var(--accent)':'var(--mulberry-300)'}">${n}</span>`).join('')+`</div>` : '');
+}
+
+function fn2(b){
+  const mx=b.rows[0][1];
+  return `<div class="hbl">`+b.rows.map(([lab,v,txt,hot])=>
+    `<div class="hb"><div class="lab">${lab}</div><div class="bars"><div class="br${hot?' hot':''}"><i style="width:${barw(v,mx)}%"></i><span>${txt}</span></div></div></div>`).join('')+`</div>`;
+}
+
+function comm(b){
+  const mx=Math.max(...b.rows.map(r=>r[1]));
+  return `<div class="hbl">`+b.rows.map(([name,share,withCall,pool,three],i)=>
+    `<div class="hb"><div class="lab"><b>${name}</b>${withCall!==undefined?`<small>${withCall} of ${pool} consultants &middot; ${three} on three or more</small>`:''}</div><div class="bars"><div class="br${i===0?' hot':''}"><i style="width:${barw(share,mx)}%"></i><span>${pct(share)}%</span></div></div></div>`).join('')+`</div>`;
 }
 
 function mom(b){
@@ -897,7 +1078,7 @@ function mom(b){
 function two(b){
   const col=(c,hot)=>{ const mx=Math.max(...c.rows.map(r=>r[1]));
     return `<div><h5>${c.h}</h5><div class="rk">`+c.rows.map(([n,v])=>`<div class="rkrow" style="grid-template-columns:1fr 50px"><div class="lab"><i class="bar" style="width:${Math.max(6,v/mx*110)}px;background:${hot}"></i><span>${n}</span></div><div class="v tnum">${pct(v)}%</div></div>`).join('')+`</div></div>`; };
-  return `<div class="two">${col(b.left,'var(--accent)')}${col(b.right,'var(--blue-900)')}</div>`;
+  return `<div class="two">${col(b.left,'var(--accent)')}${col(b.right,'var(--mulberry-900)')}</div>`;
 }
 
 function stages(b){
@@ -957,6 +1138,10 @@ function renderBlock(b){
   else if(b.type==='dot3') body=dot3(b);
   else if(b.type==='funnel') body=funnel(b);
   else if(b.type==='coach') body=coach(b);
+  else if(b.type==='duo') body=duo(b);
+  else if(b.type==='ladder') body=ladder(b);
+  else if(b.type==='fn2') body=fn2(b);
+  else if(b.type==='comm') body=comm(b);
   const unit = b.unit ? `<div class="unit">${b.unit}</div>` : '';
   return `<div class="ex">
     <div class="exh"><h4>${b.title}</h4>${unit}</div>
@@ -972,12 +1157,15 @@ const WORDS=['One','Two','Three','Four','Five'];
 
 function renderIssue(idx){
   const s=ISSUES[idx];
+  PCT_DIGITS = s.roundPct ? 0 : 1;
   let p=0;
   let h = `<div class="masthead">
       <a class="fbbtn" href="#feedback">Feedback</a>
       <div class="mh">The Signal</div>
       <div class="dl">No. ${s.no}<br>${s.date}${s.tag?`<br><b>${s.tag}</b>`:''}</div>
     </div>`;
+
+  if(s.intro){ h += `<div class="intro"><div class="lbl">${s.intro.label}</div>${s.intro.ps.map(x=>`<p>${x}</p>`).join('')}</div>`; }
 
   if(s.toc && s.toc.length){
     h += `<nav class="toc" aria-label="In this issue">
@@ -1011,20 +1199,20 @@ function renderIssue(idx){
     <p class="analysis" style="margin-bottom:18px;max-width:none">We want your feedback on how we can support you, and we&rsquo;re always looking for insights from you. Share your name if you&rsquo;re open to someone from the Catalant team following up. Answer whatever is useful, then hit <b>Submit feedback</b> at the end.</p>
     <div class="namerow">
       <label for="fbname">Your name</label>
-      <input class="fld" id="fbname" type="text" autocomplete="name" placeholder="Optional, only if you are open to a follow-up">
+      <input class="fld" id="fbname" type="text" autocomplete="name" placeholder="Optional, only if you&rsquo;re open to a follow-up">
     </div>
     ${s.asks.map((a,ai)=>`<div class="ask" style="${ai>0?'margin-top:16px':''}"><h4>${a.q}</h4><p class="sub">${a.sub}</p>
       ${a.opts&&a.opts.length?`<div class="opts">${a.opts.map((o,n)=>`<button class="opt" data-o="${n}">${o}</button>`).join('')}</div>`:''}
       <textarea class="fld qc" id="qc${ai}" data-q="${ai}" rows="3" placeholder="${a.opts&&a.opts.length?'In your own words &mdash; anything you want to add':'Your answer, in your own words'}"></textarea>
     </div>`).join('')}
     <div class="ask partner">
-      <h4>Are there accounts or clients where you have relationships and want to partner with Catalant?</h4>
-      <p class="sub">If you know someone at a company we should be talking to, tell us and we will build the approach with you rather than around you. This is how a meaningful share of our best engagements start, and it is exactly the invited path described above.</p>
+      <h4>Which clients do you have relationships with and would like to work on in partnership with Catalant?</h4>
+      <p class="sub">If you know someone at a company we should be talking to, tell us and we&rsquo;ll build the approach with you rather than around you. This is how a meaningful share of our best engagements start, and it is exactly the invited path described above.</p>
       <textarea class="fld" id="leadbox" rows="3" placeholder="The company or account, and anything useful about the relationship"></textarea>
     </div>
     <div class="submitbar">
       <button class="cta" id="submitall">Submit feedback</button>
-      <p class="subnote" id="submitnote">Press Submit when you are done.</p>
+      <p class="subnote" id="submitnote"></p>
       <p class="thanks" id="submitstatus" hidden></p>
     </div></section>`;
 
@@ -1040,8 +1228,10 @@ function renderIssue(idx){
     ${newer?`<button class="pg n" data-go="${idx-1}"><span class="k">Next issue</span>No. ${newer.no} &middot; ${newer.short}</button>`:'<span></span>'}
   </div>`;
 
+  if(s.footer){ h += `<footer>${s.footer}</footer>`; } else {
   h += `<footer><p><b>How to read the numbers.</b> Everything about client demand is shown as a share, a direction or a rank, never as a count, a client name or a deal value. Our clients tell us things on the condition that we do not repeat them. Supply-side figures such as rates and practice area pool sizes are our own network&rsquo;s data and are shown directly.</p>
-    <p style="margin-top:9px"><b>Where it comes from.</b> The Signal is written from the project briefs submitted to Catalant, the activity on the platform around them, and the client conversations our team records, read in full. Nothing in it identifies a client, a company or a transaction. Sales cycle is measured from the brief being created to a contract being created, on closed-won work only, and compared across the period in which the work closed. A private equity brief means the buying account sits in one of our PE client communities. Industry and project type are classified on briefs that progressed to a conversation. Internal and test records are excluded from every denominator.</p></footer>`;
+    <p style="margin-top:9px"><b>Data &amp; Confidentiality.</b> Insights in this publication are generated from aggregated and anonymized platform data and communication analytics. Unless a specific time period is indicated, the insights are based on data captured between January 2024 and October 2026. No individual client, consultant, or proprietary information is identified or disclosed.</p></footer>`;
+  }
 
   return h;
 }
@@ -1081,7 +1271,9 @@ const EMAIL = 'aewing@gocatalant.com';
    in that issue's own sheet. Off claude.ai there is no artifact store, so
    Submit posts here. Field ids come from each form's pre-filled link; the
    reader never loads Google. A form only lists the fields it has: issue 1's
-   form has no q3, and issue 4's form also has an issue column.
+   form has no q3, and issues 4 and 5 also have an issue column.
+   Issue 5's form was copied from issue 4's, so the two share their entry ids
+   and only the URL below tells them apart.
    Google sends no CORS headers on formResponse, so the post is opaque: a
    resolved fetch means the request left the browser, not that Google took it. */
 const GFORMS = {
@@ -1108,11 +1300,18 @@ const GFORMS = {
                  q1a:   'entry.627512676',  q1c: 'entry.19888420',
                  q2a:   'entry.513025668',  q2c: 'entry.1819362405',
                  q3c:   'entry.516265689',
+                 lead:  'entry.1481621610' } },
+  5: { url: 'https://docs.google.com/forms/d/e/1FAIpQLScgtXpcF-sUp74jww0Z_PtOZ6vuostM2zXVMVsT3cTdN9xMvw/formResponse',
+       fields: { issue: 'entry.425341275',
+                 name:  'entry.1209004045',
+                 q1a:   'entry.627512676',  q1c: 'entry.19888420',
+                 q2a:   'entry.513025668',  q2c: 'entry.1819362405',
+                 q3c:   'entry.516265689',
                  lead:  'entry.1481621610' } }
 };
 /* A new issue needs its own form added above; until then it posts to the
    newest one. */
-const GFORM_LATEST = 4;
+const GFORM_LATEST = 5;
 
 function postToForm(state){
   const form = GFORMS[state.issue] || GFORMS[GFORM_LATEST];
@@ -1163,8 +1362,8 @@ function bindFeedback(){
 
   const setStatus=(msg,err)=>{ submitSt.textContent=msg||''; submitSt.hidden=!msg; submitSt.classList.toggle('err',!!err); };
   const setNote=(msg,dirty)=>{ submitNote.textContent=msg; submitNote.classList.toggle('dirty',!!dirty); };
-  const NOTE_IDLE='Press Submit when you are done.';
-  const NOTE_DIRTY='Draft saved, not submitted yet. Press Submit when you are done.';
+  const NOTE_IDLE='';
+  const NOTE_DIRTY='Draft saved, not submitted yet. Press Submit when you\u2019re done.';
   const NOTE_DONE='Submitted. You can change your answers and submit again any time.';
 
   function slot(qi){ const k='q'+(qi+1); if(!state.answers[k]) state.answers[k]={question:issue.asks[qi]?issue.asks[qi].q:'',answer:'',comment:''}; return state.answers[k]; }
@@ -1265,8 +1464,8 @@ function bindFeedback(){
     const href=mkHref(body);
     window.location.href=href;
     setStatus(cut
-      ? 'We could not send that directly, so your email app is opening. Your answer was long, please check nothing was cut off before sending.'
-      : 'We could not send that directly, so your email app is opening with your answers ready.');
+      ? 'We couldn\u2019t send that directly, so your email app is opening. Your answer was long, please check nothing was cut off before sending.'
+      : 'We couldn\u2019t send that directly, so your email app is opening with your answers ready.');
     setNote(NOTE_IDLE,false);
   });
 }
