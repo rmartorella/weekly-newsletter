@@ -79,7 +79,7 @@ main{min-width:0;background:var(--bg);border:1px solid var(--rule);border-radius
 .toc li:first-child{border-top:0}
 .toc a{display:flex;gap:11px;align-items:baseline;padding:8px 0;text-decoration:none;color:inherit}
 .toc .n{font-family:"Newsreader",Georgia,serif;font-style:italic;font-size:13px;color:var(--accent);flex:0 0 14px}
-.toc .t{font-size:13.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.toc .t{font-size:13.5px;font-weight:600;color:var(--ink);flex:0 0 300px}
 .toc a:hover .t{color:var(--accent)}
 .toc .d{font-family:"Newsreader",Georgia,serif;font-size:14.5px;line-height:1.35;color:var(--ink-3);min-width:0}
 @media(max-width:640px){.toc a{flex-wrap:wrap}.toc .t{flex:1 1 0;min-width:0}.toc .d{flex:0 0 100%;padding-left:25px;margin-top:2px}}
@@ -356,6 +356,19 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,A
 .legend{color:var(--chart-ink)}
 .defs{font-size:13px;line-height:1.55;color:var(--ink-2);margin:0 0 12px;padding:11px 13px;background:var(--paper);border:1px solid var(--rule);border-radius:5px}
 .defs b{color:var(--ink);font-weight:600}
+/* ---------- issue 6: table exhibit + rate survey ---------- */
+table.mom.tbl{min-width:560px}
+table.mom.tbl td.name{min-width:150px}
+.sv .ask{margin-top:0}
+.sv label{display:block;font-family:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:500;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:0 0 6px;line-height:1.35}
+.sv .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.sv .eng{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:12px}
+@media(max-width:640px){.sv .row,.sv .eng{grid-template-columns:minmax(0,1fr)}}
+.sv .fld{max-width:none;width:100%;flex:none}
+.sv select.fld{appearance:auto}
+.sv .req{color:var(--accent-ink)}
+.svnote{font-size:12.5px;line-height:1.55;color:var(--ink-3);margin-top:16px;max-width:64ch}
+.svnote b{color:var(--ink-2);font-weight:600}
 </style>
 
 <div class="shell">
@@ -380,6 +393,119 @@ body{font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,A
 </script>
 
 <script>
+const ISSUE6 = {
+  no:6, date:'Wednesday 21 October 2026', tag:'Issue six', essayLabel:'What we&rsquo;re seeing: Reflections from Pat',
+  short:'Sell the result, not the time', hook:'How invited work is priced, what it pays, and what clients say when price comes up',
+  intro:{ label:'What&rsquo;s The Signal?', ps:[
+    'The Signal is our weekly look across Catalant&rsquo;s client and consultant data at what clients want, what&rsquo;s winning work and how to position your practice. It&rsquo;s a newsletter, separate from the Signal Checks you may see in the platform. Past issues are in the left-hand panel, and there&rsquo;s a place for your feedback at the end.'
+  ]},
+  toc:[
+    {t:'Catalant news and updates', d:'Catalant Business Suite and the S Corp 101 webinar, Digital Twin office hours, two new articles, and the NPS survey reminder', href:'#whats-new'},
+    {t:'What we&rsquo;re seeing: Reflections from Pat', d:'Sell the result, not the time', href:'#part-essay'},
+    {t:'Outcomes: price, shape and value', d:'How invited work is priced, what it pays, how much of your week it takes, and what you actually earn', href:'#sec-pricing'},
+    {t:'Outcomes: impact', d:'How often outcomes come with a number, and what one looks like', href:'#sec-impact'},
+    {t:'Buyer decision trends', d:'What clients say when price comes up', href:'#sec-buyer'},
+    {t:'Feedback and questions', d:'Two questions, and the accounts you want to pursue with us', href:'#feedback'}
+  ],
+  news:{ label:'Catalant news and updates', blocks:[
+    {h:'Introducing Catalant Business Suite', ps:[
+      'We&rsquo;ve partnered with Lettuce to launch Catalant Business Suite, a new subscription that takes back-office work (banking, benefits, compliance, and more) off your plate so you can focus on client work. PC members get an exclusive 10% discount, available through your Digital Twin&rsquo;s Inbox.',
+      'Catalant Business Suite is built for consultants operating as an S Corp. Don&rsquo;t have one yet, or not sure it&rsquo;s right for you? Join us <b>October 29 at 1:00 PM ET</b> for S Corp 101, where we&rsquo;ll cover how S Corps work and where Catalant Business Suite fits in. <a href="https://gocatalant.zoom.us/webinar/register/WN_BvT8icjxRRmaD25xDumIeQ#/registration" target="_blank" rel="noopener">Register for the webinar here</a>.',
+      'Questions in the meantime? Reach out to <a href="mailto:eps@gocatalant.com">eps@gocatalant.com</a>.'
+    ]},
+    {h:'Digital Twin Office Hours continue', ps:[
+      'Our Digital Twin office hours last week were well attended and we got great feedback, so we&rsquo;re going to keep them going once a week for a while longer. This week&rsquo;s session is <b>Thursday, October 22, from 2:00 to 2:30 PM ET</b>. Check the Slack channel for the Zoom link and the latest details.'
+    ]},
+    {h:'Two new articles from the Practice Community', ps:[
+      '<b>Jon Edwards</b> wrote an article in which he explains that AI only helps a go-to-market engine once the basics are in place: segmentation built on customer behavior as well as firmographics, clean CRM data, and sales and marketing working from one definition of the customer. Without that foundation, AI just scales the existing problems faster. <a href="https://catalant.com/sales-and-marketing/how-to-build-an-ai-ready-gtm-engine/" target="_blank" rel="noopener">Read the article</a> and <a href="https://www.linkedin.com/feed/update/urn:li:activity:7515763486648442880/" target="_blank" rel="noopener">share it on LinkedIn</a>.',
+      '<b>Sofia Serra</b> wrote an article in which she shows how AI can widen the gaps between teams that each optimize their own piece of the customer journey, such as a campaign that wins customers who never renew. She lays out how to fix it with a shared definition of success, one view of the customer, and a journey owner with the authority to settle trade-offs. <a href="https://catalant.com/sales-and-marketing/how-ai-amplifies-a-broken-customer-journey-and-how-to-fix-it/" target="_blank" rel="noopener">Read the article</a> and <a href="https://www.linkedin.com/feed/update/urn:li:activity:7516492989691592704/" target="_blank" rel="noopener">share it on LinkedIn</a>.'
+    ]},
+    {h:'Reminder: take our NPS survey', ps:[
+      'The survey closes on <b>October 23</b>. It takes only a few minutes, and your feedback will directly shape how we support and grow the Practice Community. <a href="https://form.typeform.com/to/cYMmjQFL" target="_blank" rel="noopener">Take the survey here</a>.'
+    ]}
+  ]},
+  essay:{
+    h:'Sell the result, not the time.',
+    ps:[
+      'When we looked at the work we staffed directly this year, more than half of it wasn&rsquo;t priced by time. Of the directly staffed new engagements, 57.7% were a fixed fee or a monthly fee, and 42.3% were priced by the week or day. Most of the fixed-fee work is paid out in steps: 86.6% is split into more than one payment, usually about three, each tied to something the client has in hand.',
+      'A note on what we counted: every number in this issue comes from work Catalant staffed directly, through an invitation or a handpicked match. We left out projects posted openly to many consultants, because that&rsquo;s the old marketplace and it isn&rsquo;t how we&rsquo;re working going forward. If you took on posted work in the past, your own mix may look different.',
+      'That changes what you&rsquo;re selling, and it allows you to base your price on the value the customer will get. If a client is buying a result in steps, the price conversation is really a scope conversation: what&rsquo;s in, what&rsquo;s out, and what they&rsquo;ll have at each milestone. It changes how you prove it, too. The proof a client can take to their boss is a starting point, an end point and how it was measured. The consultants our clients find most effective, and build the strongest trust with, are those who put a plan in the scope for how impact will be measured at the end of the engagement. Below you&rsquo;ll find how the work is priced, what it pays and how much of your week it takes, a short survey on what you actually earn, and what clients say when price comes up. Please contribute to the survey &ndash; those who do will get the aggregated results.'
+    ]
+  },
+  sections:[
+    { k:'Outcomes: price, shape and value', id:'sec-pricing',
+      analysis:'You asked us for rates, and the first thing to know is how the work is priced, because that decides what a rate even means. We reviewed the new engagements we staffed directly this year, with extensions left out. That means work where we brought in one or a few consultants by invitation, not projects posted openly to many, which is the model we&rsquo;re moving away from. Fixed fee and time-based pricing are about equally common, and a monthly fee is rarer but is the largest in total payout. Time-based work isn&rsquo;t mostly full time either: at the median it&rsquo;s planned at 3.7 days a week. Two things to keep in mind as you read: the amounts below are totals the consultant is set to take home after Catalant&rsquo;s fee, not rates, and the daily figure at the end covers day-priced work only.',
+      blocks:[
+        {type:'stack',title:'How the work is priced',unit:'% of directly staffed new engagements, started in 2026, extensions excluded',
+         cats:[['Fixed fee','var(--accent)'],['By the week or day','var(--mulberry-700)'],['Monthly fee','var(--mulberry-300)']],
+         rows:[['New engagements',[42.8,42.3,14.9]]],
+         reads:'<b>Read it as:</b> 42.8% of new engagements are a fixed fee, 42.3% are priced by the week or day and 14.9% are a monthly fee, so 57.7% aren&rsquo;t priced by time. Of the fixed-fee work, 86.6% is split into more than one payment tied to milestones, with a median of three. <b>One thing to know:</b> in Issue 4 we counted winning proposals that described ongoing work in any way, including days a week or a fractional role, so that 25.4% and the 14.9% monthly fees here measure different things.',
+         sowhat:'Decide before the scoping call whether you&rsquo;re pricing time or a result. For a defined outcome, a fixed fee is how 42.8% of these were priced, and most are paid in about three milestones, each tied to something the client can see. For open-ended work, a monthly fee gives both sides a simple frame.'},
+        {type:'tbl',title:'What a typical engagement pays in total',unit:'Total take-home per engagement, directly staffed new engagements, started in 2026, extensions excluded',
+         cols:['Pricing','Median total payout','Middle half of engagements'],
+         rows:[
+           ['Fixed fee','$30,000','$14,000 to $82,500'],
+           ['Monthly fee','$90,750','$45,000 to $130,500'],
+           ['All new engagements','$40,000','$15,000 to $100,000']],
+         reads:'<b>Read it as:</b> a typical new engagement is set to pay the consultant $40,000 in total. A monthly fee is the largest, at $90,750. The middle half is wide in every row, so use these as a range to check against, not a price to quote. <b>One thing to know:</b> payout is the total the consultant is set to take home under the contract, after Catalant&rsquo;s fee. It&rsquo;s a total, not a rate, and it doesn&rsquo;t show the hours or days worked, so please don&rsquo;t divide it by the planned days further down, which describe a different group of engagements. The overall median is close to the $38,500 median original engagement in Issue 3.',
+         sowhat:'Use this to sanity-check your proposals. If a fixed-fee proposal sits well outside the middle half, be ready to say why: a bigger scope, a faster start, a rarer skill.'},
+        {type:'dist',title:'How much of your week time-based work takes',unit:'% of time-based new engagements, by planned days per week',
+         rows:[['Under 1 day a week',8.8,false],['1 to 2 days',16.9,false],['2 to 3 days',16.9,false],['3 to 4 days',11.5,false],['4 or more days',45.9,true]],
+         reads:'<b>Read it as:</b> the median time-based engagement is planned at 3.7 days a week. 45.9% are planned at four or more days and 42.6% at under three. The median time-based engagement plans for 20 days of work in all, with the middle half between 10 and 55. <b>One thing to know:</b> this shows what clients expect, not days or hours worked. Effort is shown in days, and fixed-fee and monthly work don&rsquo;t record effort, so this covers time-based engagements only.',
+         sowhat:'If you only have a few days a week, say so up front. More than four in ten time-based engagements are planned at under three days a week.'},
+        {type:'rank',title:'What a day pays on day-priced work only',unit:'Take-home per day after Catalant&rsquo;s fee, engagements priced by the day, started in 2026',fmt:'usd',
+         rows:[['Lower end of the middle half',1600,'var(--mulberry-300)'],['Median',2000,'var(--accent)'],['Upper end of the middle half',2400,'var(--mulberry-300)']],
+         reads:'<b>Read it as:</b> on engagements priced by the day, the median take-home is $2,000 a day, with the middle half between $1,600 and $2,400. For a five-day week that&rsquo;s $8,000 to $12,000, in the same range as the weekly rates most winners listed in Issue 1 ($8,000 to $15,000). <b>One thing to know:</b> this covers day-priced engagements only, which are a minority of time-based work. Work priced on other time bases contracts for less per day, so don&rsquo;t read this as the rate for all time-based work. It&rsquo;s also what&rsquo;s contracted per day after Catalant&rsquo;s fee, while Issue 1 showed the rate consultants listed on their profile, so the two are different measures and shouldn&rsquo;t be read as a match.',
+         sowhat:'Use this as a check on your own day rate, not as a target. If a client wants to think in weeks, five days is the simple conversion.'}
+      ],
+      survey:{
+        h:'Help us help you - tell us how you price! We&rsquo;ll share aggregated results with those who respond.',
+        ps:[
+          'That&rsquo;s what our data says. Now we&rsquo;d like to hear from you, starting with what you&rsquo;re actually earning. You asked for rates by experience, and the platform can only show part of the picture: we can see what&rsquo;s contracted on Catalant work, but not what you earn per hour across all your engagements, with us or anyone else. We ask for an hourly figure because it&rsquo;s the simplest way to compare engagements priced in different ways, but we&rsquo;ll publish the results only as daily and weekly equivalents. It takes about two minutes.',
+          '<b>Effective hourly rate</b> is what you were paid in total, divided by the hours you actually worked, however the engagement was priced. Include work for any client, not only Catalant. Enter up to your last three engagements.'
+        ],
+        note:'<b>How we&rsquo;ll use it.</b> We&rsquo;ll send the survey results to everyone who responds. To take part, add your name, years of experience, area of expertise and the effective hourly rate on your last few engagements. Results are reported as ranges by years of experience and area of expertise, shown as daily and weekly equivalents, and only for groups with at least 10 responses. If a group is too small, we&rsquo;ll combine it with a neighboring one. Nobody&rsquo;s answer is shown on its own.'
+      }
+    },
+    { k:'Outcomes: impact', id:'sec-impact',
+      analysis:'Clients buy results, and the proposals that get signed talk about them. The proof comes later, and that&rsquo;s where it thins out. Talking about outcomes is common in proposals, and pricing tied to them is rare. Below is how often proposals mention outcomes, and what a result with a number in it looks like when it&rsquo;s reported at the end of a project.',
+      blocks:[
+        {type:'dist',title:'How outcomes show up in proposals',unit:'% of proposals on directly staffed new engagements, started in 2026',
+         rows:[['Mention outcomes, KPIs, ROI or measuring results',32.5,true],['Mention KPIs, ROI or measuring results',21.5,false],['Mention outcomes',15.2,false],['Tie the price to performance',2.1,false]],
+         reads:'<b>Read it as:</b> about one in three proposals (32.5%) talks about outcomes, KPIs, ROI or measuring results. Only 2.1% tie the price to performance, with terms like success fee or value-based, and none of these contracts records a variable payment. <b>One thing to know:</b> these are keyword matches on the proposal text, so treat the levels as a floor.',
+         sowhat:'Say what the client will be able to measure, even when the price doesn&rsquo;t depend on it. It gives you a number to report against later. It&rsquo;s best practice to include a way to measure value as a concluding part of the project, and it gives you an opportunity to help your client look good internally and to build a strong case study.'},
+        {type:'quotes',title:'What a result with a number looks like',unit:'Results as reported by consultants after a project, edited for length and anonymized',
+         qs:[['We reviewed more than 70 suppliers and 300 parts and identified more than $30,000,000 in recoverable costs. 65% is now under agreement, and more than 30% has already been collected in cash.','Supplier cost recovery'],
+             ['On-time delivery at the plant rose from 43% to 77% on the client&rsquo;s own measure. On the stricter measure, against the original promise date the customer agreed to, it rose from 28% to 65%.','Operations transformation'],
+             ['The integration finished at 120% of the synergy target, with the initiatives delivered on time.','Post-merger integration']],
+         reads:'<b>The pattern:</b> each pairs a result with a baseline or a target, and the second gives two measures, including the stricter one. That&rsquo;s what lets a client defend the spend to someone else. Figures are as consultants reported them, and we haven&rsquo;t verified them.',
+         sowhat:'Before you start, agree with the client how success will be measured and what the starting number is. At the end, write the end number into your summary. One before-and-after figure does more than a paragraph of description.'}
+      ]},
+    { k:'Buyer decision trends', id:'sec-buyer',
+      analysis:'We read what clients said about price, budget and scope in recorded conversations with a consultant on the line this year. What comes up is less the rate itself than the shape of the number: a unit they can compare, one price for a simple scope, a rough figure early, and effort that fits their budget.',
+      blocks:[
+        {type:'quotes',title:'What clients say when price comes up',unit:'Client comments from recorded conversations, edited for length and anonymized',
+         qs:[['If it&rsquo;s going to take two months, we&rsquo;d probably want to see a weekly rate, just so we&rsquo;re not nickel-and-diming day by day.','Client conversation'],
+             ['Don&rsquo;t feel the need to give us anything super fancy. It can just be: of the buckets we talked about, here&rsquo;s the one we&rsquo;d focus on, here&rsquo;s the price we&rsquo;d think about, and here&rsquo;s the team.','Client conversation'],
+             ['The people we&rsquo;ve used historically are about $10,000 a month for one day a week, and it scales from there. A full-time diagnostic would be more. It would just be helpful to understand rough pricing.','Client conversation'],
+             ['From a budget perspective, you landed right around where we were looking to spend. We went over your process and the timeline you proposed.','After a proposal'],
+             ['The budget is so small. I don&rsquo;t want them to treat this like it&rsquo;s a multimillion-dollar project.','Client conversation']],
+         reads:'<b>The pattern:</b> most of these are about shape and fit, not the size of the rate. The fourth is the good version, where the price lands where the client was already looking to spend. <b>One thing to know:</b> these are individual comments from conversations this year, not a count of how often clients say them.',
+         sowhat:'Agree with your Client Partner before the scoping conversation on a rough number and what it buys, in a unit the client can compare, and offer a weekly figure for anything over a month or two. Keep the first scope to one focus, one price and who&rsquo;s on the team, sized to the budget they tell you. In general, consultants who price to deliverables and outcomes make much higher effective rates, in part because they are viewed as providing consulting, not as a staffing solution.'}
+      ]}
+  ],
+  asks:[
+    {q:'Which section of this issue was most useful to you?',
+     sub:'Pick one and, if you have a minute, tell us why. It shapes the next issue.',
+     opts:['What we&rsquo;re seeing, the opening essay','Outcomes, how invited work is priced and what it pays','Outcomes, how often outcomes come with a number','Buyer decision trends, what clients say when price comes up']},
+    {q:'What would be most useful in the next issue?',
+     sub:'Here&rsquo;s what we have ready, or nearly ready. Pick one, or tell us something else.',
+     opts:['How repeat work with the same client happens, and what leads to it','Why engagements end early, and how to avoid it','Closed price against the client&rsquo;s original budget','What clients say in the first two weeks of an engagement']}
+  ],
+  leadSub:'If you know someone at a company we should be talking to, tell us and we&rsquo;ll build the approach with you rather than around you. This is how a meaningful share of our best engagements start.',
+  footer:'<p><b>How to read the numbers.</b> Engagement figures are shown as shares, medians and ranges, and we flag where a sample is small so you can judge how much weight to give it. They cover directly staffed new engagements that started in 2026, with extensions left out, as of October 19, 2026. Everything here is pooled across many engagements and consultants. Nothing is scored or reported for any individual, and nothing in this issue identifies a client, a company or a person. Our clients tell us things on the condition that we don&rsquo;t repeat them.</p><p style="margin-top:9px"><b>Data &amp; Confidentiality.</b> Insights in this publication are generated from aggregated and anonymized platform data and communication analytics. Unless a specific time period is indicated, the insights are based on data captured between January 2024 and October 2026. Survey responses are reported only in aggregate. No individual client, consultant, or proprietary information is identified or disclosed.</p>'
+};
+
 const ISSUE5 = {
   no:5, roundPct:true, date:'Wednesday 14 October 2026', tag:'Issue five', essayLabel:'What we&rsquo;re seeing: Reflections from Pat',
   short:'Let the client do the talking', hook:'How first calls end, why projects get canceled, and where project demand runs ahead',
@@ -929,7 +1055,7 @@ const ISSUE1 = {
 
 
 
-const ISSUES = [ISSUE5, ISSUE4, ISSUE3, ISSUE2, ISSUE1];
+const ISSUES = [ISSUE6, ISSUE5, ISSUE4, ISSUE3, ISSUE2, ISSUE1];
 ISSUE1.short = 'Quality and reliability, without the rest of it';
 ISSUE1.hook = 'The AI gap, why clients pass, and what winners charge';
 
@@ -1129,6 +1255,12 @@ function steps(b){
     `<li class="${hot?'hot':''}"><div class="sday">${day}</div><div class="sbody"><b>${lab}</b>${txt?`<p>${txt}</p>`:''}</div></li>`).join('')+`</ol>`;
 }
 
+function tbl(b){
+  return `<div class="momwrap"><table class="mom tbl"><thead><tr>${b.cols.map((c,i)=>`<th${i?'':' style="text-align:left"'}>${c}</th>`).join('')}</tr></thead><tbody>`+
+    b.rows.map(r=>`<tr>${r.map((c,i)=>i===0?`<td class="name">${c}</td>`:`<td>${c}</td>`).join('')}</tr>`).join('')+
+    `</tbody></table></div>`;
+}
+
 function renderBlock(b){
   let body='';
   if(b.type==='cmp') body=cmp(b);
@@ -1151,6 +1283,7 @@ function renderBlock(b){
   else if(b.type==='ladder') body=ladder(b);
   else if(b.type==='fn2') body=fn2(b);
   else if(b.type==='comm') body=comm(b);
+  else if(b.type==='tbl') body=tbl(b);
   const unit = b.unit ? `<div class="unit">${b.unit}</div>` : '';
   return `<div class="ex">
     <div class="exh"><h4>${b.title}</h4>${unit}</div>
@@ -1200,9 +1333,27 @@ function renderIssue(idx){
   s.sections.forEach(sec=>{
     h += `<div class="sect"${sec.id?` id="${sec.id}"`:''}><div class="secthead"><h3>${sec.k}</h3><span class="r"></span></div>
       <p class="analysis">${sec.analysis}</p>
-      ${sec.blocks.map(renderBlock).join('')}</div>`;
+      ${sec.blocks.map(renderBlock).join('')}${sec.survey?surveyHtml(sec.survey):''}</div>`;
   });
   h += `</section>`;
+
+  function surveyHtml(sv){
+    const AREAS=['Tech &amp; Digital Transformation','Transformation &amp; M&amp;A','Operational Excellence','Commercial Excellence','Industry Expert','Office of the CFO','Org. Design &amp; HR','Other'];
+    const PRICED=['Hourly','Daily','Fixed fee','Monthly fee','Other'];
+    return `<div class="sv" id="survey"><div class="ask svform" style="margin-top:26px">
+      <h4>${sv.h}</h4>
+      ${sv.ps.map(x=>`<p class="sub" style="margin-top:8px">${x}</p>`).join('')}
+      <div class="row">
+        <div><label for="sv-name">Your name <span class="req">*</span></label><input class="fld" id="sv-name" type="text" autocomplete="name"></div>
+        <div><label for="sv-years">Years of experience <span class="req">*</span></label><input class="fld" id="sv-years" type="number" min="0" max="60" inputmode="numeric"></div>
+        <div><label for="sv-area">Area of expertise <span class="req">*</span></label><select class="fld" id="sv-area"><option value="">Choose one</option>${AREAS.map(a=>`<option>${a}</option>`).join('')}</select></div>
+      </div>
+      ${[1,2,3].map(n=>`<div class="eng"><div><label for="sv-r${n}">Engagement ${n}${n===1?' (most recent)':''}: effective hourly rate${n===1?' <span class="req">*</span>':''}</label><input class="fld" id="sv-r${n}" type="number" min="0" inputmode="decimal" placeholder="Dollars per hour"></div><div><label for="sv-t${n}">How it was priced</label><select class="fld" id="sv-t${n}"><option value="">Choose one</option>${PRICED.map(a=>`<option>${a}</option>`).join('')}</select></div></div>`).join('')}
+      <div style="margin-top:14px"><label for="sv-notes">How do you price your work and prove its value today, and what has worked? (optional)</label><textarea class="fld" id="sv-notes" rows="3" placeholder="Fixed fee, day rate, monthly fee, outcomes, anything. No names or client details needed."></textarea></div>
+      <p class="svnote">${sv.note}</p>
+      <div class="submitbar"><button class="cta" id="sv-submit" type="button">Send my rates</button><p class="thanks" id="sv-status" hidden></p></div>
+    </div></div>`;
+  }
 
   h += `<section class="part" id="feedback">${partHead(WORDS[p++],'Feedback and questions')}
     <p class="analysis" style="margin-bottom:18px;max-width:none">We want your feedback on how we can support you, and we&rsquo;re always looking for insights from you. Share your name if you&rsquo;re open to someone from the Catalant team following up. Answer whatever is useful, then hit <b>Submit feedback</b> at the end.</p>
@@ -1216,8 +1367,10 @@ function renderIssue(idx){
     </div>`).join('')}
     <div class="ask partner">
       <h4>Which clients do you have relationships with and would like to work on in partnership with Catalant?</h4>
-      <p class="sub">If you know someone at a company we should be talking to, tell us and we&rsquo;ll build the approach with you rather than around you. This is how a meaningful share of our best engagements start, and it is exactly the invited path described above.</p>
+      <p class="sub">${s.leadSub||'If you know someone at a company we should be talking to, tell us and we&rsquo;ll build the approach with you rather than around you. This is how a meaningful share of our best engagements start, and it is exactly the invited path described above.'}</p>
       <textarea class="fld" id="leadbox" rows="3" placeholder="The company or account, and anything useful about the relationship"></textarea>
+      <input class="fld" id="leadname" type="text" autocomplete="name" aria-label="Your name for a follow-up" placeholder="Your name, so we can follow up with you about this" style="margin-top:12px;max-width:none">
+      <p class="sub" style="margin-top:8px">Add your name if you&rsquo;d like someone from the Catalant team to follow up with you about these accounts.</p>
     </div>
     <div class="submitbar">
       <button class="cta" id="submitall">Submit feedback</button>
@@ -1264,6 +1417,7 @@ function show(i){
   try{ history.replaceState(null,'','#issue-'+ISSUES[i].no); }catch(_){}
   window.scrollTo({top:0,behavior:'auto'});
   bindFeedback();
+  bindSurvey();
 }
 
 document.addEventListener('click', e=>{
@@ -1280,9 +1434,9 @@ const EMAIL = 'aewing@gocatalant.com';
    in that issue's own sheet. Off claude.ai there is no artifact store, so
    Submit posts here. Field ids come from each form's pre-filled link; the
    reader never loads Google. A form only lists the fields it has: issue 1's
-   form has no q3, and issues 4 and 5 also have an issue column.
-   Issue 5's form was copied from issue 4's, so the two share their entry ids
-   and only the URL below tells them apart.
+   form has no q3, and issues 4, 5 and 6 also have an issue column.
+   Each of those three forms was copied from the one before, so all three
+   share their entry ids and only the URL below tells them apart.
    Google sends no CORS headers on formResponse, so the post is opaque: a
    resolved fetch means the request left the browser, not that Google took it. */
 const GFORMS = {
@@ -1316,11 +1470,18 @@ const GFORMS = {
                  q1a:   'entry.627512676',  q1c: 'entry.19888420',
                  q2a:   'entry.513025668',  q2c: 'entry.1819362405',
                  q3c:   'entry.516265689',
+                 lead:  'entry.1481621610' } },
+  6: { url: 'https://docs.google.com/forms/d/e/1FAIpQLSeOEXfuPbsUU8ptwF6omT8jh9xvx9EimjA59Py8HrT6j04AJw/formResponse',
+       fields: { issue: 'entry.425341275',
+                 name:  'entry.1209004045',
+                 q1a:   'entry.627512676',  q1c: 'entry.19888420',
+                 q2a:   'entry.513025668',  q2c: 'entry.1819362405',
+                 q3c:   'entry.516265689',
                  lead:  'entry.1481621610' } }
 };
 /* A new issue needs its own form added above; until then it posts to the
    newest one. */
-const GFORM_LATEST = 5;
+const GFORM_LATEST = 6;
 
 function postToForm(state){
   const form = GFORMS[state.issue] || GFORMS[GFORM_LATEST];
@@ -1365,7 +1526,7 @@ function bindFeedback(){
   const issue = ISSUES[cur];
   const state = { issue: issue.no, answers:{}, name:'', lead:'', submitted:false, submittedAt:'' };
   fb = state;
-  const askEls = Array.prototype.slice.call(document.querySelectorAll('.ask:not(.partner)'));
+  const askEls = Array.prototype.slice.call(document.querySelectorAll('.ask:not(.partner):not(.svform)'));
   const nameInput = $('#fbname'), leadBox = $('#leadbox'), submitBtn = $('#submitall'), submitSt = $('#submitstatus'), submitNote = $('#submitnote');
   let docRef = null, timer = null;
 
@@ -1379,7 +1540,9 @@ function bindFeedback(){
   function collect(){
     askEls.forEach((ask,qi)=>{ const picked=ask.querySelector('.opt.on'); const box=ask.querySelector('.qc'); const s=slot(qi);
       s.answer=picked?picked.textContent.trim():''; s.comment=box?(box.value||'').trim():''; });
-    state.name=(nameInput.value||'').trim(); state.lead=(leadBox.value||'').trim();
+    state.name=(nameInput.value||'').trim();
+    const ln=(($('#leadname')||{}).value||'').trim(), lt=(leadBox.value||'').trim();
+    state.lead = lt + (ln ? (lt?'\n\n':'') + 'Follow up with: ' + ln : '');
   }
   function hasContent(){ return !!(state.name||state.lead||Object.keys(state.answers).some(k=>state.answers[k].answer||state.answers[k].comment)); }
   function hydrate(d){
@@ -1389,7 +1552,7 @@ function bindFeedback(){
       if(rec.answer&&!ask.querySelector('.opt.on')) Array.prototype.forEach.call(ask.querySelectorAll('.opt'),b=>{ if(b.textContent.trim()===rec.answer) b.classList.add('on'); });
       const box=ask.querySelector('.qc'); if(box&&!box.value.trim()&&rec.comment) box.value=rec.comment; });
     if(!nameInput.value.trim()&&state.name) nameInput.value=state.name;
-    if(!leadBox.value.trim()&&state.lead) leadBox.value=state.lead;
+    if(!leadBox.value.trim()&&state.lead) leadBox.value=state.lead.replace(/\n*Follow up with: [^\n]*$/,'');
     state.submitted=!!d.submitted; state.submittedAt=d.submittedAt||'';
     if(state.submitted) submitBtn.textContent='Update my response';
     setNote(state.submitted?NOTE_DONE:(hasContent()?NOTE_DIRTY:NOTE_IDLE), !state.submitted&&hasContent());
@@ -1447,7 +1610,7 @@ function bindFeedback(){
         Array.prototype.forEach.call(ask.querySelectorAll('.opt'), function(x){ x.classList.remove('on'); });
         const box = ask.querySelector('.qc'); if(box) box.value = '';
       });
-      nameInput.value=''; leadBox.value='';
+      nameInput.value=''; leadBox.value=''; if($('#leadname')) $('#leadname').value='';
       state.answers={}; state.name=''; state.lead='';
       setStatus('');
       setNote(named
@@ -1476,6 +1639,65 @@ function bindFeedback(){
       ? 'We couldn\u2019t send that directly, so your email app is opening. Your answer was long, please check nothing was cut off before sending.'
       : 'We couldn\u2019t send that directly, so your email app is opening with your answers ready.');
     setNote(NOTE_IDLE,false);
+  });
+}
+
+/* ============================================================ RATE SURVEY */
+/* Set SURVEY_FORM to the formResponse URL of the survey's Google Form and fill
+   SURVEY_FIELD with its entry ids. Until then Submit opens an email instead. */
+const SURVEY_FORM = '';
+const SURVEY_FIELD = {name:'',years:'',area:'',r1:'',t1:'',r2:'',t2:'',r3:'',t3:'',notes:''};
+
+function bindSurvey(){
+  const btn = $('#sv-submit'); if(!btn) return;
+  const st = $('#sv-status');
+  const say = (m,err)=>{ st.textContent=m||''; st.hidden=!m; st.classList.toggle('err',!!err); };
+  const val = id => (($('#'+id)||{}).value||'').trim();
+  btn.addEventListener('click', async ()=>{
+    const rec = { name:val('sv-name'), years:val('sv-years'), area:val('sv-area'), notes:val('sv-notes') };
+    [1,2,3].forEach(n=>{ rec['r'+n]=val('sv-r'+n); rec['t'+n]=val('sv-t'+n); });
+    const y = Number(rec.years);
+    const rates = [1,2,3].filter(n=>rec['r'+n]!=='').map(n=>Number(rec['r'+n]));
+    if(!rec.name){ say('Add your name so we can send you the results.',true); return; }
+    if(rec.years==='' || !(y>=0 && y<=60)){ say('Add your years of experience, a number from 0 to 60.',true); return; }
+    if(!rec.area){ say('Choose your area of expertise.',true); return; }
+    if(!rates.length){ say('Add the effective hourly rate for at least one engagement.',true); return; }
+    if(rates.some(r=>!(r>=10 && r<=2000))){ say('Enter each rate in dollars per hour, between $10 and $2,000.',true); return; }
+    btn.disabled = true; say('Sending…');
+    let sent = false;
+    if(SURVEY_FORM){
+      const p = new URLSearchParams();
+      Object.keys(SURVEY_FIELD).forEach(k=>{ if(SURVEY_FIELD[k]) p.append(SURVEY_FIELD[k], rec[k]||''); });
+      try{ await fetch(SURVEY_FORM,{method:'POST',mode:'no-cors',body:p}); sent = true; }catch(_){ sent = false; }
+    }
+    btn.disabled = false;
+    if(sent){
+      ['sv-name','sv-years','sv-area','sv-r1','sv-t1','sv-r2','sv-t2','sv-r3','sv-t3','sv-notes'].forEach(id=>{ const el=$('#'+id); if(el) el.value=''; });
+      say('Thanks. We’ll send the results to everyone who responds.');
+      return;
+    }
+    const lines = ['The Signal No. 6 rate survey','','Name: '+rec.name,'Years of experience: '+rec.years,'Area of expertise: '+rec.area,''];
+    [1,2,3].forEach(n=>{ if(rec['r'+n]!=='') lines.push('Engagement '+n+': $'+rec['r'+n]+' per hour'+(rec['t'+n]?' ('+rec['t'+n]+')':'')); });
+    if(rec.notes){ lines.push('','How I price my work and prove its value:',rec.notes); }
+    /* Cap the finished URL, not the text: percent-encoding expands a space
+       to %20 and a curly quote to 9 bytes, so a long note sails past 2,048.
+       The rates themselves are short and come first, so only the free-text
+       note is ever trimmed. */
+    const SVMAX=1900;
+    const SVNOTICE='\n\n[Too long to prefill in full \u2014 please paste the rest below.]';
+    const svHref=t=>'mailto:'+EMAIL+'?subject='+encodeURIComponent('The Signal No. 6 rate survey')+'&body='+encodeURIComponent(t);
+    let svBody=lines.join('\n'), svCut=false;
+    if(svHref(svBody).length>SVMAX){
+      svCut=true;
+      let lo=0, hi=svBody.length;
+      while(lo<hi){ const mid=Math.ceil((lo+hi)/2);
+        if(svHref(svBody.slice(0,mid)+SVNOTICE).length<=SVMAX) lo=mid; else hi=mid-1; }
+      svBody=svBody.slice(0,lo)+SVNOTICE;
+    }
+    window.location.href = svHref(svBody);
+    say(svCut
+      ? 'We couldn’t send that directly, so your email app is opening. Your answer was long, please check nothing was cut off before sending.'
+      : 'We couldn’t send that directly, so your email app is opening with your answers ready.');
   });
 }
 
