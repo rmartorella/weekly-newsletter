@@ -1645,8 +1645,14 @@ function bindFeedback(){
 /* ============================================================ RATE SURVEY */
 /* Set SURVEY_FORM to the formResponse URL of the survey's Google Form and fill
    SURVEY_FIELD with its entry ids. Until then Submit opens an email instead. */
-const SURVEY_FORM = '';
-const SURVEY_FIELD = {name:'',years:'',area:'',r1:'',t1:'',r2:'',t2:'',r3:'',t3:'',notes:''};
+const SURVEY_FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSdcOmkmYc2bS0ScS2tpjCskBd_2VXs_2sgjkZS_TMru9TEumA/formResponse';
+const SURVEY_FIELD = {
+  name:  'entry.951939260',  years: 'entry.385713913', area: 'entry.678033516',
+  r1:    'entry.1752932467', t1:    'entry.1975537097',
+  r2:    'entry.1725937360', t2:    'entry.790507278',
+  r3:    'entry.984281785',  t3:    'entry.107449981',
+  notes: 'entry.54446883'
+};
 
 function bindSurvey(){
   const btn = $('#sv-submit'); if(!btn) return;
